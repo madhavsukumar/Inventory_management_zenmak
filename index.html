@@ -1,0 +1,3017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zenmak Global, Coimbatore — Formulation, Batch Manufacturing & Inventory ERP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      opacity: 1;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900 antialiased selection:bg-indigo-600 selection:text-white">
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 max-w-md w-full pointer-events-none"></div>
+
+  <!-- ================= FULL-SCREEN CORPORATE LOGIN GATE ================= -->
+  <div id="loginGate" class="fixed inset-0 z-50 bg-slate-100 flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white border border-slate-200 rounded-2xl max-w-4xl w-full shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-12">
+      <!-- Left Corporate Branding Pane -->
+      <div class="md:col-span-5 bg-slate-900 text-white p-8 flex flex-col justify-between relative overflow-hidden">
+        <div class="relative z-10">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-sm">
+              ZG
+            </div>
+            <div>
+              <h1 class="font-bold tracking-tight text-base text-white">ZENMAK GLOBAL</h1>
+              <p class="text-[11px] font-mono text-indigo-300 uppercase tracking-wider">Coimbatore, Tamil Nadu</p>
+            </div>
+          </div>
+
+          <h2 class="text-xl font-bold mt-8 leading-snug text-white">
+            Formulation Master &amp; Batch Manufacturing ERP
+          </h2>
+          <p class="text-xs text-slate-300 mt-2.5 leading-relaxed">
+            Dedicated role-based portal for Master Bill of Materials (per 1 Metric Ton / 1,000 kg), real-time raw material stock tracking, bottleneck feasibility analysis, and automated oversight intimations.
+          </p>
+        </div>
+
+        <div class="relative z-10 space-y-3 pt-8 border-t border-slate-800 text-xs mt-8">
+          <div class="bg-slate-800/90 border border-slate-700 rounded-xl p-3.5">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">Technical Head Portal</span>
+            <p class="font-semibold text-white mt-1.5">Dr. P. Sukumar • Technical Head</p>
+            <p class="text-slate-400 text-[11px] mt-0.5">Full access to Formula Master (BOM), Production Logs, Critical Stock Alerts &amp; Raw Material Price Change Intimations.</p>
+          </div>
+          <div class="bg-slate-800/90 border border-slate-700 rounded-xl p-3.5">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">Operations Portal</span>
+            <p class="font-semibold text-white mt-1.5">Production Manager</p>
+            <p class="text-slate-400 text-[11px] mt-0.5">Batch feasibility planning, post-batch stock deduction, and central raw material inventory &amp; ₹/kg rate updates.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Login Credentials Form -->
+      <div class="md:col-span-7 p-8 flex flex-col justify-between bg-white">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-semibold">
+            <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+            Authorized Plant Personnel Sign-In
+          </div>
+          <h3 class="text-2xl font-bold text-slate-900 mt-3">Sign in to Zenmak Global</h3>
+          <p class="text-xs text-slate-500 mt-1">
+            Enter your assigned Username and Password to access your workspace. All plant records remain persistently saved across sessions.
+          </p>
+
+          <form id="loginForm" class="mt-6 space-y-4">
+            <div id="loginErrorAlert" class="hidden p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-medium flex items-center gap-2">
+              <span class="font-bold text-rose-600">!</span>
+              <span id="loginErrorText">Invalid username or password. Please verify your credentials.</span>
+            </div>
+
+            <div>
+              <label for="loginUsername" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                Username
+              </label>
+              <input
+                id="loginUsername"
+                type="text"
+                autocomplete="username"
+                placeholder="Enter your username"
+                class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-4 py-3 text-sm text-slate-900 outline-none transition"
+                required
+              />
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="loginPassword" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                  Password
+                </label>
+                <button type="button" id="togglePasswordBtn" class="text-xs font-semibold text-indigo-600 hover:text-indigo-800">
+                  Show Password
+                </button>
+              </div>
+              <input
+                id="loginPassword"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Enter your password"
+                class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-4 py-3 text-sm text-slate-900 outline-none transition"
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm transition shadow-md shadow-indigo-600/15 mt-2"
+            >
+              Sign In to Workspace
+            </button>
+          </form>
+        </div>
+
+        <div class="mt-8 pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500">
+          <span class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            Auto-Persistence Enabled (Browser Storage)
+          </span>
+          <span class="font-mono">Zenmak Global, Coimbatore • INR (₹)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN APPLICATION SHELL ================= -->
+  <div id="appShell" class="hidden min-h-screen flex flex-col">
+
+    <!-- TOP NAVIGATION & KPI HEADER -->
+    <header class="border-b border-slate-200 bg-white sticky top-0 z-30 shadow-xs">
+      <div class="max-w-[1600px] mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-4">
+        <!-- Brand Identity -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold text-base shadow-xs">
+            ZG
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <h1 class="text-base sm:text-lg font-bold tracking-tight text-slate-900">
+                Zenmak Global, Coimbatore
+              </h1>
+              <span id="headerRoleBadge" class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                Dr. P. Sukumar • Technical Head
+              </span>
+            </div>
+            <p class="text-xs text-slate-500">
+              Formulation &amp; Inventory Management Portal • Coimbatore Plant (1,000 kg / Metric Ton Basis)
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Header Controls: Notifications, Backup/Restore, User Info & Logout -->
+        <div class="flex flex-wrap items-center gap-2.5">
+          <!-- Doctor Intimation Bell (Visible to Dr. P. Sukumar; also clickable for PM to see status) -->
+          <button
+            id="headerNotifBellBtn"
+            type="button"
+            class="relative inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 transition"
+            title="Open Dr. P. Sukumar Oversight & Intimations Center"
+          >
+            <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+            <span class="hidden sm:inline">Intimations</span>
+            <span id="headerUnreadNotifBadge" class="px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold bg-rose-600 text-white">0</span>
+          </button>
+
+          <!-- Data Backup / Restore Button -->
+          <button
+            id="openBackupModalBtn"
+            type="button"
+            class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition"
+            title="Backup or Restore Plant Data JSON"
+          >
+            <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+            </svg>
+            <span class="hidden md:inline">Backup / Restore</span>
+          </button>
+
+          <!-- Logged-in User Display & Logout -->
+          <div class="flex items-center gap-2 pl-2 border-l border-slate-200">
+            <div class="text-right hidden sm:block">
+              <p id="headerUserName" class="text-xs font-bold text-slate-900 leading-none">Dr. P. Sukumar</p>
+              <p id="headerUserTitle" class="text-[10px] text-slate-500 mt-0.5">Technical Head</p>
+            </div>
+            <button
+              id="logoutBtn"
+              type="button"
+              class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 transition"
+              title="Sign out (All entered data remains saved)"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+              </svg>
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI STRIP & MODULE NAVIGATION TABS -->
+      <div class="max-w-[1600px] mx-auto px-4 sm:px-6 pt-1 pb-3 space-y-3">
+        <!-- 5 KPI Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-5 gap-3">
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center justify-between">
+            <div>
+              <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Master Formulations</p>
+              <p id="kpiFormulaCount" class="text-xl font-bold text-slate-900 font-mono mt-0.5">0</p>
+              <p class="text-[11px] text-slate-500">1,000 kg BOMs saved</p>
+            </div>
+            <div class="w-9 h-9 rounded-xl bg-indigo-100/80 border border-indigo-200 flex items-center justify-center text-indigo-700 font-bold text-xs">
+              BOM
+            </div>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center justify-between">
+            <div>
+              <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Raw Materials Tracked</p>
+              <p id="kpiMaterialCount" class="text-xl font-bold text-slate-900 font-mono mt-0.5">0</p>
+              <p id="kpiCategoriesCountSub" class="text-[11px] text-slate-500">7 categories active</p>
+            </div>
+            <div class="w-9 h-9 rounded-xl bg-cyan-100/80 border border-cyan-200 flex items-center justify-center text-cyan-800 font-bold text-xs">
+              RM
+            </div>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center justify-between">
+            <div>
+              <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Today's Production</p>
+              <p id="kpiTodayTons" class="text-xl font-bold text-emerald-700 font-mono mt-0.5">0.000 T</p>
+              <p id="kpiTodayBatches" class="text-[11px] text-slate-500">0 batches run today</p>
+            </div>
+            <div class="w-9 h-9 rounded-xl bg-emerald-100/80 border border-emerald-200 flex items-center justify-center text-emerald-800 font-bold text-xs">
+              TON
+            </div>
+          </div>
+
+          <div id="kpiCriticalCard" class="cursor-pointer bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center justify-between transition">
+            <div>
+              <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Critical Stock Alerts</p>
+              <div class="flex items-baseline gap-1.5 mt-0.5">
+                <p id="kpiCriticalCount" class="text-xl font-bold font-mono text-emerald-600">0</p>
+                <span class="text-[11px] text-slate-500">below safe threshold</span>
+              </div>
+              <p class="text-[11px] text-rose-600 font-medium">Auto-intimates Technical Head</p>
+            </div>
+            <div id="kpiCriticalBadgeBox" class="w-9 h-9 rounded-xl flex items-center justify-center border bg-emerald-100 border-emerald-200 text-emerald-700 font-bold text-xs">
+              OK
+            </div>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center justify-between col-span-2 lg:col-span-1">
+            <div>
+              <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Total Inventory Value</p>
+              <p id="kpiInventoryValuation" class="text-xl font-bold text-slate-900 font-mono mt-0.5">₹0.00</p>
+              <p id="kpiPriceChangeSub" class="text-[11px] text-slate-500">0 price change alerts</p>
+            </div>
+            <div class="w-9 h-9 rounded-xl bg-amber-100/80 border border-amber-200 flex items-center justify-center text-amber-800 font-bold text-sm">
+              ₹
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Tabs Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-200/80">
+          <div class="flex flex-wrap items-center gap-1.5">
+            <button
+              type="button"
+              id="navBtnFormula"
+              data-tab="FORMULA_MASTER"
+              class="module-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2"
+            >
+              <span>1. Formula Master (BOM Studio)</span>
+              <span class="px-1.5 py-0.2 rounded text-[10px] bg-indigo-100 text-indigo-800 font-mono">Dr. P. Sukumar</span>
+            </button>
+
+            <button
+              type="button"
+              id="navBtnOversight"
+              data-tab="DOCTOR_OVERSIGHT"
+              class="module-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2"
+            >
+              <span>2. Technical Head Oversight &amp; Intimations</span>
+              <span id="navOversightCountBadge" class="px-1.5 py-0.2 rounded-full text-[10px] bg-rose-600 text-white font-mono">0</span>
+            </button>
+
+            <button
+              type="button"
+              id="navBtnOperations"
+              data-tab="PRODUCTION_AND_INVENTORY"
+              class="module-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2"
+            >
+              <span>3. Batch Production Planner &amp; Master Inventory</span>
+            </button>
+          </div>
+
+          <div id="activeRoleAccessNote" class="text-xs text-slate-600 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200 font-medium"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================= MAIN WORKSPACE AREA ================= -->
+    <main class="max-w-[1600px] w-full mx-auto px-4 sm:px-6 py-6 flex-1 space-y-6">
+
+      <!-- =================================================================== -->
+      <!-- MODULE 1: FORMULA MASTER (BOM STUDIO - DR. P. SUKUMAR EXCLUSIVE)    -->
+      <!-- =================================================================== -->
+      <section id="sectionFormulaMaster" class="hidden space-y-6">
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase bg-indigo-50 text-indigo-700 border border-indigo-200">
+                Dr. P. Sukumar • Technical Head Studio
+              </span>
+              <h2 class="text-lg font-bold text-slate-900">
+                Formula Master — Bill of Materials (Per 1 Metric Ton / 1,000 kg)
+              </h2>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">
+              Enter and manage Zenmak Global product formulations. Every formula saved here is immediately available to the Production Manager for batch execution.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5">
+            <button
+              id="formulaPageAddRawMatBtn"
+              type="button"
+              class="px-3.5 py-2.5 rounded-xl text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 transition"
+            >
+              + Register New Raw Material
+            </button>
+            <button
+              id="createNewFormulaBtn"
+              type="button"
+              class="px-4 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition"
+            >
+              + New Product Formulation
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <!-- Left: Saved Formulations List -->
+          <div class="lg:col-span-4 bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+            <div class="p-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700">Saved Master Formulas</h3>
+              <span id="savedFormulaListBadge" class="text-xs font-mono font-semibold text-indigo-600">0 Formulas</span>
+            </div>
+            <div id="formulaMasterListContainer" class="divide-y divide-slate-200 max-h-[640px] overflow-y-auto"></div>
+          </div>
+
+          <!-- Right: Formula BOM Builder Form -->
+          <div class="lg:col-span-8 bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+            <div class="p-5 border-b border-slate-200 bg-slate-50 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <span id="bomFormModeTag" class="text-[11px] font-mono font-bold uppercase text-indigo-600">CREATE / EDIT MASTER BOM</span>
+                <h3 id="bomFormHeaderTitle" class="text-base font-bold text-slate-900 mt-0.5">New Formulation Entry</h3>
+              </div>
+
+              <div class="flex items-center gap-3 bg-white px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-mono">
+                <div>
+                  <span class="text-slate-500">Total BOM Weight:</span>
+                  <strong id="bomFormTotalKg" class="text-indigo-700 ml-1">0.000 kg / 1,000 kg</strong>
+                </div>
+                <span class="text-slate-300">|</span>
+                <div>
+                  <span class="text-slate-500">Est. Cost / Ton:</span>
+                  <strong id="bomFormCostPerTon" class="text-emerald-700 ml-1">₹0.00</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Weight Progress Bar toward 1,000 kg -->
+            <div class="px-5 pt-3 bg-white">
+              <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+                <div id="bomWeightProgressBar" class="h-full bg-indigo-600 transition-all duration-300" style="width: 0%"></div>
+              </div>
+            </div>
+
+            <form id="bomMasterForm" class="p-5 space-y-5">
+              <div class="grid grid-cols-1 sm:grid-cols-4 gap-3.5">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Product Code *</label>
+                  <input
+                    id="bomCodeInput"
+                    type="text"
+                    placeholder="e.g. ZG-101"
+                    class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-mono font-bold text-slate-900 outline-none"
+                    required
+                  />
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Finished Product Name *</label>
+                  <input
+                    id="bomNameInput"
+                    type="text"
+                    placeholder="Enter finished product / formulation name"
+                    class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-semibold text-slate-900 outline-none"
+                    required
+                  />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Version / Ref</label>
+                  <input
+                    id="bomVersionInput"
+                    type="text"
+                    value="v1.0"
+                    placeholder="e.g. v1.0"
+                    class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-mono text-slate-900 outline-none"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Product Category / Form Type</label>
+                  <input
+                    id="bomClassInput"
+                    type="text"
+                    placeholder="e.g. Granulation Blend / Tablet / Premix / Liquid"
+                    class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs text-slate-900 outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Remarks / Standard Yield Note</label>
+                  <input
+                    id="bomYieldInput"
+                    type="text"
+                    placeholder="e.g. Standard 1,000 kg batch specification"
+                    class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs text-slate-900 outline-none"
+                  />
+                </div>
+              </div>
+
+              <!-- BOM Ingredients Table -->
+              <div class="border border-slate-200 rounded-xl overflow-hidden">
+                <div class="px-4 py-3 bg-slate-100 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-800">
+                      Bill of Materials Ingredients (Required kg per 1 Metric Ton)
+                    </span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button
+                      type="button"
+                      id="bomInlineQuickAddMatBtn"
+                      class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition"
+                    >
+                      + New Raw Material
+                    </button>
+                    <button
+                      type="button"
+                      id="bomAddIngredientLineBtn"
+                      class="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition"
+                    >
+                      + Add Ingredient Row
+                    </button>
+                  </div>
+                </div>
+
+                <div id="bomIngredientRowsContainer" class="p-3.5 space-y-2.5 bg-slate-50/60"></div>
+              </div>
+
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-200">
+                <div class="flex items-center gap-2">
+                  <button
+                    type="button"
+                    id="bomScaleTo1000Btn"
+                    class="px-3 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition"
+                  >
+                    Auto-Balance Total to 1,000.000 kg
+                  </button>
+                  <button
+                    type="button"
+                    id="bomDeleteFormulaBtn"
+                    class="hidden px-3 py-2 rounded-xl text-xs font-semibold bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 transition"
+                  >
+                    Delete Formula
+                  </button>
+                </div>
+
+                <button
+                  type="submit"
+                  class="px-5 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition"
+                >
+                  Save Master Formula (BOM)
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- MODULE 2: DR. P. SUKUMAR OVERSIGHT & INTIMATIONS CENTER             -->
+      <!-- =================================================================== -->
+      <section id="sectionDoctorOversight" class="hidden space-y-6">
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase bg-amber-100 text-amber-800 border border-amber-200">
+                Technical Head Oversight
+              </span>
+              <h2 class="text-lg font-bold text-slate-900">
+                Dr. P. Sukumar — Production Audit, Critical Stock &amp; Price Intimations
+              </h2>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">
+              Real-time monitoring of all batches executed by the Production Manager, raw materials below minimum safe thresholds, and ₹/kg unit cost revisions.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <button
+              id="markAllNotificationsReadBtn"
+              type="button"
+              class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition"
+            >
+              ✓ Mark All Alerts as Read
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+          <!-- Column 1: Production Done Today & Batch Audit -->
+          <div class="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+            <div class="p-4 border-b border-slate-200 bg-emerald-50/70 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-950">
+                  1. Production Runs Executed (PM Audit)
+                </h3>
+              </div>
+              <span id="oversightProdCount" class="px-2 py-0.5 rounded-full text-[11px] font-mono font-bold bg-emerald-100 text-emerald-800">0</span>
+            </div>
+            <div id="oversightProductionList" class="p-4 space-y-3 max-h-[600px] overflow-y-auto"></div>
+          </div>
+
+          <!-- Column 2: Raw Material Price Change Intimations -->
+          <div class="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+            <div class="p-4 border-b border-slate-200 bg-amber-50/70 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-amber-950">
+                  2. Raw Material Price Changes (₹/kg)
+                </h3>
+              </div>
+              <span id="oversightPriceCount" class="px-2 py-0.5 rounded-full text-[11px] font-mono font-bold bg-amber-100 text-amber-800">0</span>
+            </div>
+            <div id="oversightPriceList" class="p-4 space-y-3 max-h-[600px] overflow-y-auto"></div>
+          </div>
+
+          <!-- Column 3: Critical Stock Alerts (< Safe Threshold) -->
+          <div class="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+            <div class="p-4 border-b border-slate-200 bg-rose-50/70 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-600"></span>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-rose-950">
+                  3. Critical &amp; Low Stock Intimations
+                </h3>
+              </div>
+              <span id="oversightCritCount" class="px-2 py-0.5 rounded-full text-[11px] font-mono font-bold bg-rose-100 text-rose-800">0</span>
+            </div>
+            <div id="oversightCriticalList" class="p-4 space-y-3 max-h-[600px] overflow-y-auto"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- MODULE 3: BATCH PRODUCTION PLANNER & CENTRAL RAW MATERIAL INVENTORY -->
+      <!-- =================================================================== -->
+      <section id="sectionProductionAndInventory" class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+
+        <!-- LEFT PANEL (7 COLS): BATCH PRODUCTION PLANNER & FEASIBILITY CALCULATOR -->
+        <div class="xl:col-span-7 bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+          <div class="p-5 border-b border-slate-200 bg-slate-50/70 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
+                <h2 class="text-base font-bold text-slate-900 uppercase tracking-wide">
+                  Batch Production Planner &amp; Feasibility Calculator
+                </h2>
+              </div>
+              <p class="text-xs text-slate-500 mt-0.5">
+                Select a Master Formula, enter target batch size in Metric Tons, review bottleneck capacity, and deduct batch inventory.
+              </p>
+            </div>
+            <span class="px-3 py-1 rounded-xl text-xs font-mono font-semibold bg-white border border-slate-200 text-slate-700">
+              1 Metric Ton = 1,000.000 kg
+            </span>
+          </div>
+
+          <!-- Empty State when no Master Formulas exist yet -->
+          <div id="plannerEmptyState" class="hidden p-10 text-center space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center mx-auto font-bold text-lg">
+              BOM
+            </div>
+            <div class="max-w-md mx-auto">
+              <h3 class="text-base font-bold text-slate-900">No Master Formulations Entered Yet</h3>
+              <p id="plannerEmptySubtext" class="text-xs text-slate-500 mt-1 leading-relaxed">
+                To plan and execute a batch run, first register your Raw Materials in the right-hand Inventory table and create a Master Formula (BOM per 1 Metric Ton).
+              </p>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+              <button
+                type="button"
+                id="emptyStateAddRawMatBtn"
+                class="px-4 py-2.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition"
+              >
+                + Add Raw Material to Inventory
+              </button>
+              <button
+                type="button"
+                id="emptyStateCreateFormulaBtn"
+                class="px-4 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition"
+              >
+                + Go to Formula Master (Dr. P. Sukumar)
+              </button>
+            </div>
+          </div>
+
+          <!-- Active Planner Body (Shown when at least 1 Formula exists) -->
+          <div id="plannerActiveBody" class="p-5 space-y-5">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+              <div class="md:col-span-7">
+                <div class="flex items-center justify-between mb-1.5">
+                  <label for="plannerFormulaSelect" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                    1. Select Finished Product Formulation
+                  </label>
+                  <span id="plannerEditFormulaLinkWrap" class="text-[11px]"></span>
+                </div>
+                <select
+                  id="plannerFormulaSelect"
+                  class="w-full bg-slate-50 border border-slate-300 hover:border-slate-400 focus:border-indigo-600 focus:bg-white rounded-xl px-3.5 py-2.5 text-sm text-slate-900 font-semibold outline-none transition"
+                ></select>
+                <div id="plannerSelectedFormulaMeta" class="flex flex-wrap items-center gap-x-3 gap-y-1 mt-2 text-xs text-slate-500"></div>
+              </div>
+
+              <div class="md:col-span-5">
+                <div class="flex items-center justify-between mb-1.5">
+                  <label for="plannerTargetTonsInput" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                    2. Target Production (Tons)
+                  </label>
+                  <span id="plannerTargetKgLabel" class="text-[11px] font-mono font-semibold text-indigo-600">= 1,000.0 kg</span>
+                </div>
+                <div class="relative flex items-center">
+                  <input
+                    id="plannerTargetTonsInput"
+                    type="number"
+                    step="0.001"
+                    min="0.001"
+                    max="500"
+                    value="1.000"
+                    class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl pl-3.5 pr-16 py-2.5 text-sm font-mono font-bold text-slate-900 outline-none transition"
+                  />
+                  <span class="absolute right-3.5 text-xs font-mono font-bold uppercase text-slate-400 pointer-events-none">TONS</span>
+                </div>
+                <div class="flex flex-wrap items-center gap-1.5 mt-2">
+                  <button type="button" data-ton-preset="0.500" class="ton-preset-btn px-2 py-1 rounded-lg text-[11px] font-mono border bg-white text-slate-700 border-slate-300 hover:bg-slate-100">0.5T</button>
+                  <button type="button" data-ton-preset="1.000" class="ton-preset-btn px-2 py-1 rounded-lg text-[11px] font-mono border bg-white text-slate-700 border-slate-300 hover:bg-slate-100">1.0T</button>
+                  <button type="button" data-ton-preset="2.000" class="ton-preset-btn px-2 py-1 rounded-lg text-[11px] font-mono border bg-white text-slate-700 border-slate-300 hover:bg-slate-100">2.0T</button>
+                  <button type="button" data-ton-preset="2.500" class="ton-preset-btn px-2 py-1 rounded-lg text-[11px] font-mono border bg-white text-slate-700 border-slate-300 hover:bg-slate-100">2.5T</button>
+                  <button type="button" data-ton-preset="5.000" class="ton-preset-btn px-2 py-1 rounded-lg text-[11px] font-mono border bg-white text-slate-700 border-slate-300 hover:bg-slate-100">5.0T</button>
+                  <button
+                    id="plannerFillMaxTonsBtn"
+                    type="button"
+                    class="ml-auto px-2.5 py-1 rounded-lg text-[11px] font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 transition"
+                  >
+                    Max: <span id="plannerMaxBtnVal" class="font-mono">0.000T</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottleneck & Cost Summary Banner -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+              <div id="plannerFeasibilityBanner" class="md:col-span-2 rounded-xl p-4 border flex flex-col justify-between bg-emerald-50/70 border-emerald-200">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                      Maximum Run Capacity (Bottleneck Analysis)
+                    </span>
+                    <p class="text-sm sm:text-base font-bold text-slate-900 mt-1">
+                      With current stock, maximum possible production is
+                      <span id="plannerMaxTonsHeadline" class="font-mono text-emerald-700 underline decoration-emerald-500/50 underline-offset-4">0.000 Tons</span>.
+                    </p>
+                  </div>
+                  <span id="plannerOverallStatusBadge" class="px-2.5 py-1 rounded-full text-xs font-bold border shrink-0">
+                    Sufficient
+                  </span>
+                </div>
+
+                <div class="mt-3 pt-3 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-2 text-xs">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded bg-amber-100 border border-amber-300 text-amber-900 font-bold text-[11px]">
+                      Limiting Reagent
+                    </span>
+                    <span id="plannerBottleneckIngredient" class="font-bold text-slate-900">-</span>
+                  </div>
+                  <span id="plannerBottleneckFormulaText" class="font-mono text-slate-600 text-[11px]"></span>
+                </div>
+              </div>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
+                <div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                    Estimated Batch Material Cost
+                  </span>
+                  <p id="plannerTotalBatchCost" class="text-2xl font-bold text-slate-900 font-mono mt-1">₹0.00</p>
+                  <p id="plannerTotalBatchMass" class="text-xs text-slate-500 font-mono mt-0.5">Required Mass: 0.000 kg</p>
+                </div>
+                <div class="mt-3 pt-3 border-t border-slate-200 flex items-center justify-between text-xs">
+                  <span class="text-slate-500">Cost / Ton:</span>
+                  <span id="plannerUnitTonCost" class="font-mono font-bold text-indigo-700">₹0.00 / T</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ingredient Feasibility Table -->
+            <div class="border border-slate-200 rounded-xl overflow-hidden bg-white">
+              <div class="px-4 py-3 bg-slate-50 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-800">
+                  Ingredient Requirements &amp; Projected Post-Production Balance
+                </h3>
+                <div class="flex items-center gap-3 text-[11px] font-medium text-slate-600">
+                  <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Sufficient</span>
+                  <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Low Buffer</span>
+                  <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-600"></span> Shortage</span>
+                </div>
+              </div>
+
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-500 bg-slate-50/60">
+                      <th class="py-3 px-3.5">Ingredient</th>
+                      <th class="py-3 px-3 text-right">BOM / Ton</th>
+                      <th class="py-3 px-3 text-right">Required for Batch</th>
+                      <th class="py-3 px-3 text-right">Available Stock</th>
+                      <th class="py-3 px-3 text-right">Balance After Run</th>
+                      <th class="py-3 px-3.5 text-right">Status Badge</th>
+                    </tr>
+                  </thead>
+                  <tbody id="plannerIngredientsTbody" class="divide-y divide-slate-200 text-xs"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Commit Production Run Bar -->
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+              <div class="flex-1 space-y-1.5">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold uppercase tracking-wider text-slate-800">
+                    Confirm Production &amp; Deduct Inventory
+                  </span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                    Intimates Dr. P. Sukumar
+                  </span>
+                </div>
+                <input
+                  id="plannerBatchNotesInput"
+                  type="text"
+                  placeholder="Enter batch / shift remarks (e.g. Batch #01 completed by Shift A, sent to packing)"
+                  class="w-full bg-white border border-slate-300 focus:border-indigo-600 rounded-lg px-3 py-2 text-xs text-slate-900 outline-none"
+                />
+              </div>
+
+              <button
+                id="commitProductionRunBtn"
+                type="button"
+                class="px-5 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition shadow-md bg-indigo-600 hover:bg-indigo-700 text-white shrink-0"
+              >
+                Confirm &amp; Deduct Batch
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT PANEL (5 COLS): CENTRAL RAW MATERIAL INVENTORY & BATCH LOGS -->
+        <div class="xl:col-span-5 bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden flex flex-col">
+          <div class="p-4 border-b border-slate-200 bg-slate-50/70 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-1 bg-slate-200/70 p-1 rounded-xl border border-slate-200">
+              <button
+                id="subTabInventoryBtn"
+                type="button"
+                class="px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition bg-white text-slate-900 shadow-2xs"
+              >
+                Raw Material Inventory (<span id="subTabInvCount">0</span>)
+              </button>
+              <button
+                id="subTabBatchLogsBtn"
+                type="button"
+                class="px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition text-slate-600 hover:text-slate-900"
+              >
+                Batch History (<span id="subTabLogsCount">0</span>)
+              </button>
+            </div>
+
+            <button
+              id="openNewMaterialModalBtn"
+              type="button"
+              class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition shadow-2xs"
+            >
+              + Add Raw Material
+            </button>
+          </div>
+
+          <!-- Inventory Subpanel -->
+          <div id="rightInventorySubpanel" class="p-4 space-y-3.5 flex-1 flex flex-col">
+            <div class="flex flex-col sm:flex-row gap-2">
+              <div class="relative flex-1">
+                <input
+                  id="invSearchInput"
+                  type="text"
+                  placeholder="Search raw material name, code, or category..."
+                  class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3.5 py-2 text-xs text-slate-900 outline-none"
+                />
+              </div>
+              <select
+                id="invCategoryFilterSelect"
+                class="bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none"
+              >
+                <option value="ALL">All Categories</option>
+              </select>
+              <button
+                id="invCriticalToggleBtn"
+                type="button"
+                class="px-3 py-2 rounded-xl text-xs font-bold border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 transition shrink-0"
+              >
+                Critical Only
+              </button>
+            </div>
+
+            <div class="bg-amber-50/80 border border-amber-200 rounded-xl px-3 py-2 text-[11px] text-amber-900 flex items-center justify-between">
+              <span>Updating any raw material's <strong>Unit Rate (₹/kg)</strong> automatically intimates <strong>Dr. P. Sukumar</strong>.</span>
+              <span class="font-mono font-bold">INR (₹)</span>
+            </div>
+
+            <div class="border border-slate-200 rounded-xl overflow-hidden bg-white">
+              <div class="overflow-x-auto max-h-[560px] overflow-y-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead class="sticky top-0 z-10 bg-slate-100 border-b border-slate-200 text-[10px] font-bold uppercase tracking-wider text-slate-600">
+                    <tr>
+                      <th class="py-2.5 px-3">Material &amp; Unit Cost (₹/kg)</th>
+                      <th class="py-2.5 px-2.5 text-right">Stock / Avail</th>
+                      <th class="py-2.5 px-2.5 text-right">Safe Threshold</th>
+                      <th class="py-2.5 px-3 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="inventoryListTbody" class="divide-y divide-slate-200 text-xs"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Batch History Subpanel -->
+          <div id="rightBatchLogsSubpanel" class="hidden p-4 space-y-3 max-h-[640px] overflow-y-auto">
+            <div class="flex items-center justify-between text-xs text-slate-500">
+              <span>Executed Production Batches (Zenmak Global)</span>
+              <span class="font-mono text-emerald-700 font-semibold">Auto-Saved</span>
+            </div>
+            <div id="rightBatchLogsList" class="space-y-3"></div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ================= MODAL 1: ADD NEW RAW MATERIAL (WITH MANUAL "OTHER" CATEGORY) ================= -->
+  <div id="addMaterialModal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div>
+          <h3 class="text-base font-bold text-slate-900">Register New Raw Material</h3>
+          <p class="text-xs text-slate-500">Add a raw material to Zenmak Global's central inventory ledger.</p>
+        </div>
+        <button type="button" id="closeAddMatModalBtn" class="text-slate-400 hover:text-slate-700 font-bold p-1">✕</button>
+      </div>
+
+      <form id="addMaterialForm" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Material Code *</label>
+            <input
+              id="addMatCode"
+              type="text"
+              placeholder="e.g. RM-101"
+              class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-mono font-bold text-slate-900 outline-none"
+              required
+            />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-bold text-slate-700 mb-1">Category *</label>
+            <select
+              id="addMatCategorySelect"
+              class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-semibold text-slate-900 outline-none"
+            ></select>
+          </div>
+        </div>
+
+        <!-- Conditional Manual Category Input when "Other (Enter Manually...)" is chosen -->
+        <div id="addMatCustomCatWrap" class="hidden bg-indigo-50/70 border border-indigo-200 rounded-xl p-3">
+          <label for="addMatCustomCatInput" class="block text-xs font-bold text-indigo-900 mb-1">
+            Enter Custom Category Name Manually *
+          </label>
+          <input
+            id="addMatCustomCatInput"
+            type="text"
+            placeholder="e.g. Nutraceutical / Herbal Extract / Packaging / Catalyst"
+            class="w-full bg-white border border-indigo-300 focus:border-indigo-600 rounded-lg px-3 py-2 text-xs font-semibold text-slate-900 outline-none"
+          />
+          <p class="text-[11px] text-indigo-700 mt-1">This category will also be saved to the dropdown list for future materials.</p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Raw Material Name *</label>
+          <input
+            id="addMatName"
+            type="text"
+            placeholder="Enter full raw material name"
+            class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-semibold text-slate-900 outline-none"
+            required
+          />
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div>
+            <label class="block text-[11px] font-bold text-slate-700 mb-1">Opening Stock (kg) *</label>
+            <input
+              id="addMatStock"
+              type="number"
+              step="0.001"
+              min="0"
+              value="0.000"
+              class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-2.5 py-2 text-xs font-mono font-bold text-slate-900 outline-none"
+              required
+            />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-700 mb-1">Reserved (kg)</label>
+            <input
+              id="addMatReserved"
+              type="number"
+              step="0.001"
+              min="0"
+              value="0.000"
+              class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-2.5 py-2 text-xs font-mono text-slate-900 outline-none"
+            />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-700 mb-1">Unit Cost (₹/kg) *</label>
+            <input
+              id="addMatCost"
+              type="number"
+              step="0.01"
+              min="0"
+              placeholder="0.00"
+              class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-2.5 py-2 text-xs font-mono font-bold text-slate-900 outline-none"
+              required
+            />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-700 mb-1">Safe Threshold (kg) *</label>
+            <input
+              id="addMatThreshold"
+              type="number"
+              step="0.001"
+              min="0"
+              value="50.000"
+              class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-2.5 py-2 text-xs font-mono text-slate-900 outline-none"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-3 border-t border-slate-200">
+          <button type="button" id="cancelAddMatModalBtn" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700">
+            Cancel
+          </button>
+          <button type="submit" class="px-5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs">
+            Save Raw Material
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 2: UPDATE STOCK / RESTOCK & UPDATE ₹/KG PRICE ================= -->
+  <div id="updateStockModal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-start justify-between border-b border-slate-200 pb-3">
+        <div>
+          <span id="updModalCodeTag" class="text-xs font-mono font-bold text-indigo-600">RM-001</span>
+          <h3 id="updModalMatName" class="text-base font-bold text-slate-900 mt-0.5">Update Stock &amp; Price</h3>
+          <p class="text-xs text-slate-500 mt-0.5">
+            If the Unit Price (₹/kg) is modified, an automatic Price Revision Intimation is logged for Dr. P. Sukumar.
+          </p>
+        </div>
+        <button type="button" id="closeUpdModalBtn" class="text-slate-400 hover:text-slate-700 font-bold p-1">✕</button>
+      </div>
+
+      <form id="updateStockForm" class="space-y-4">
+        <input type="hidden" id="updMatIdInput" />
+
+        <!-- Mode Selector: Add Stock vs Set Exact Stock -->
+        <div class="grid grid-cols-2 gap-2 bg-slate-100 p-1 rounded-xl border border-slate-200">
+          <button
+            type="button"
+            id="updModeAddBtn"
+            class="py-1.5 rounded-lg text-xs font-bold transition bg-white text-slate-900 shadow-2xs"
+          >
+            + Add Received Stock (kg)
+          </button>
+          <button
+            type="button"
+            id="updModeSetBtn"
+            class="py-1.5 rounded-lg text-xs font-semibold transition text-slate-600"
+          >
+            Set Exact Physical Stock (kg)
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label id="updStockQtyLabel" for="updStockQtyInput" class="block text-xs font-bold text-slate-700 mb-1">
+              Quantity to Add (kg) *
+            </label>
+            <input
+              id="updStockQtyInput"
+              type="number"
+              step="0.001"
+              min="0"
+              value="0.000"
+              class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-sm font-mono font-bold text-slate-900 outline-none"
+              required
+            />
+            <p id="updCurrentStockHint" class="text-[11px] font-mono text-slate-500 mt-1">Current Stock: 0.000 kg</p>
+          </div>
+
+          <div>
+            <label for="updUnitPriceInput" class="block text-xs font-bold text-slate-700 mb-1">
+              Unit Cost (₹ / kg) *
+            </label>
+            <input
+              id="updUnitPriceInput"
+              type="number"
+              step="0.01"
+              min="0"
+              class="w-full bg-amber-50/60 border border-amber-300 focus:border-amber-600 focus:bg-white rounded-xl px-3 py-2 text-sm font-mono font-bold text-slate-900 outline-none"
+              required
+            />
+            <p id="updOldPriceHint" class="text-[11px] font-mono text-amber-800 mt-1">Previous Rate: ₹0.00 / kg</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label for="updCategorySelect" class="block text-xs font-bold text-slate-700 mb-1">Category</label>
+            <select
+              id="updCategorySelect"
+              class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs font-semibold text-slate-900 outline-none"
+            ></select>
+          </div>
+          <div>
+            <label for="updReservedInput" class="block text-xs font-bold text-slate-700 mb-1">Reserved Stock (kg)</label>
+            <input
+              id="updReservedInput"
+              type="number"
+              step="0.001"
+              min="0"
+              class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs font-mono text-slate-900 outline-none"
+              required
+            />
+          </div>
+          <div>
+            <label for="updThresholdInput" class="block text-xs font-bold text-slate-700 mb-1">Safe Threshold (kg)</label>
+            <input
+              id="updThresholdInput"
+              type="number"
+              step="0.001"
+              min="0"
+              class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs font-mono text-slate-900 outline-none"
+              required
+            />
+          </div>
+        </div>
+
+        <div id="updCustomCatWrap" class="hidden bg-indigo-50/70 border border-indigo-200 rounded-xl p-3">
+          <label class="block text-xs font-bold text-indigo-900 mb-1">Enter Custom Category Name *</label>
+          <input
+            id="updCustomCatInput"
+            type="text"
+            placeholder="Enter custom category"
+            class="w-full bg-white border border-indigo-300 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-900 outline-none"
+          />
+        </div>
+
+        <div>
+          <label for="updRemarksInput" class="block text-xs font-bold text-slate-700 mb-1">
+            Supplier / Invoice / Stock Update Note (Sent to Dr. P. Sukumar)
+          </label>
+          <input
+            id="updRemarksInput"
+            type="text"
+            placeholder="e.g. Received new consignment; updated ₹/kg rate as per latest invoice"
+            class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs text-slate-900 outline-none"
+          />
+        </div>
+
+        <div class="flex items-center justify-between pt-3 border-t border-slate-200">
+          <button
+            type="button"
+            id="deleteMaterialBtn"
+            class="px-3 py-2 rounded-xl text-xs font-semibold text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-200 transition"
+          >
+            Delete Material
+          </button>
+          <div class="flex items-center gap-2">
+            <button type="button" id="cancelUpdModalBtn" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700">
+              Cancel
+            </button>
+            <button type="submit" class="px-5 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs">
+              Save Inventory Update
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 3: BACKUP & RESTORE PLANT DATA (JSON) ================= -->
+  <div id="backupModal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div>
+          <h3 class="text-base font-bold text-slate-900">Plant Database Backup &amp; Restore</h3>
+          <p class="text-xs text-slate-500">Zenmak Global, Coimbatore • Persistent Local Storage</p>
+        </div>
+        <button type="button" id="closeBackupModalBtn" class="text-slate-400 hover:text-slate-700 font-bold p-1">✕</button>
+      </div>
+
+      <div class="space-y-4 text-xs text-slate-600">
+        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+          <p class="font-bold text-slate-900">1. Export Plant Data Backup (.json)</p>
+          <p>Download all Raw Materials, Master Formulations, Batch History, and Notifications to a file on your computer.</p>
+          <button
+            type="button"
+            id="exportJsonBtn"
+            class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold transition"
+          >
+            Download Backup File (.json)
+          </button>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+          <p class="font-bold text-slate-900">2. Restore / Import Plant Data (.json)</p>
+          <p>Select a previously exported Zenmak Global `.json` backup file to restore records.</p>
+          <input
+            id="importJsonInput"
+            type="file"
+            accept=".json,application/json"
+            class="block w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-slate-200 file:text-slate-800 hover:file:bg-slate-300"
+          />
+        </div>
+      </div>
+
+      <div class="flex justify-end pt-2 border-t border-slate-200">
+        <button type="button" id="doneBackupModalBtn" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= APPLICATION JAVASCRIPT ================= -->
+  <script>
+    const DATA_STORAGE_KEY = 'zenmak_global_cbe_erp_data_v1';
+    const SESSION_STORAGE_KEY = 'zenmak_global_cbe_active_session_v1';
+
+    const DEFAULT_CATEGORIES = [
+      'API',
+      'Excipient',
+      'Binder',
+      'Disintegrant',
+      'Lubricant',
+      'Coating',
+      'Solvent'
+    ];
+
+    const CATEGORY_BADGE_STYLES = {
+      API: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+      Excipient: 'bg-slate-100 text-slate-700 border-slate-300',
+      Binder: 'bg-cyan-50 text-cyan-800 border-cyan-200',
+      Disintegrant: 'bg-purple-50 text-purple-800 border-purple-200',
+      Lubricant: 'bg-amber-50 text-amber-800 border-amber-200',
+      Coating: 'bg-teal-50 text-teal-800 border-teal-200',
+      Solvent: 'bg-emerald-50 text-emerald-800 border-emerald-200'
+    };
+
+    // Clean initial state with zero mock inventory or formulas so user can enter real data
+    function createEmptyDatabase() {
+      return {
+        materials: [],
+        formulations: [],
+        batchLogs: [],
+        notifications: [],
+        customCategories: [],
+        selectedFormulationId: null,
+        editingFormulationId: null
+      };
+    }
+
+    let db = loadDatabase();
+    let session = loadSession(); // { role: 'DOCTOR' | 'PM', username: 'Sukumar' | 'pm', displayName: '...', designation: '...' }
+    let activeTab = 'PRODUCTION_AND_INVENTORY';
+    let targetTons = 1.000;
+    let invSearchQuery = '';
+    let invCategoryFilter = 'ALL';
+    let invCriticalOnly = false;
+    let updStockMode = 'ADD'; // 'ADD' | 'SET'
+    let bomDraft = null;
+
+    function loadDatabase() {
+      try {
+        const raw = localStorage.getItem(DATA_STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          return {
+            materials: Array.isArray(parsed.materials) ? parsed.materials : [],
+            formulations: Array.isArray(parsed.formulations) ? parsed.formulations : [],
+            batchLogs: Array.isArray(parsed.batchLogs) ? parsed.batchLogs : [],
+            notifications: Array.isArray(parsed.notifications) ? parsed.notifications : [],
+            customCategories: Array.isArray(parsed.customCategories) ? parsed.customCategories : [],
+            selectedFormulationId: parsed.selectedFormulationId || null,
+            editingFormulationId: parsed.editingFormulationId || null
+          };
+        }
+      } catch (err) {
+        console.error('Failed to read database from localStorage:', err);
+      }
+      return createEmptyDatabase();
+    }
+
+    function saveDatabase() {
+      try {
+        localStorage.setItem(DATA_STORAGE_KEY, JSON.stringify(db));
+      } catch (err) {
+        console.error('Failed to save database to localStorage:', err);
+      }
+    }
+
+    function loadSession() {
+      try {
+        const raw = localStorage.getItem(SESSION_STORAGE_KEY);
+        if (raw) return JSON.parse(raw);
+      } catch (err) {
+        console.error('Failed to read session:', err);
+      }
+      return null;
+    }
+
+    function saveSession(sessObj) {
+      session = sessObj;
+      try {
+        if (sessObj) {
+          localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(sessObj));
+        } else {
+          localStorage.removeItem(SESSION_STORAGE_KEY);
+        }
+      } catch (err) {
+        console.error('Failed to save session:', err);
+      }
+    }
+
+    function getAllCategories() {
+      const combined = [...DEFAULT_CATEGORIES];
+      db.customCategories.forEach(c => {
+        if (c && !combined.some(existing => existing.toLowerCase() === c.toLowerCase())) {
+          combined.push(c);
+        }
+      });
+      return combined;
+    }
+
+    function registerCustomCategoryIfNeeded(catName) {
+      const trimmed = (catName || '').trim();
+      if (!trimmed) return 'Other';
+      const all = getAllCategories();
+      const existing = all.find(c => c.toLowerCase() === trimmed.toLowerCase());
+      if (existing) return existing;
+      db.customCategories.push(trimmed);
+      saveDatabase();
+      return trimmed;
+    }
+
+    function getCategoryBadgeClass(cat) {
+      return CATEGORY_BADGE_STYLES[cat] || 'bg-violet-50 text-violet-800 border-violet-200';
+    }
+
+    function fmtNum(val, dec = 3) {
+      const n = Number(val);
+      if (Number.isNaN(n)) return '0.000';
+      return n.toLocaleString('en-IN', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+    }
+
+    function fmtINR(val) {
+      const n = Number(val);
+      if (Number.isNaN(n)) return '₹0.00';
+      return '₹' + n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function getTodayDateString() {
+      const d = new Date();
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    function getFormattedTimestamp() {
+      const d = new Date();
+      return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) + ', ' +
+        d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function showToast(type, title, message) {
+      const container = document.getElementById('toastContainer');
+      const el = document.createElement('div');
+      const styleMap = {
+        success: 'border-emerald-300 bg-white text-slate-900',
+        warning: 'border-amber-300 bg-amber-50 text-amber-950',
+        error: 'border-rose-300 bg-rose-50 text-rose-950'
+      };
+      const badgeMap = {
+        success: 'bg-emerald-600 text-white',
+        warning: 'bg-amber-500 text-white',
+        error: 'bg-rose-600 text-white'
+      };
+      el.className = `pointer-events-auto border ${styleMap[type] || styleMap.success} shadow-xl rounded-xl p-4 flex items-start gap-3 transition`;
+      el.innerHTML = `
+        <div class="w-5 h-5 rounded-full ${badgeMap[type] || badgeMap.success} flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+          ${type === 'error' ? '!' : '✓'}
+        </div>
+        <div class="flex-1 text-xs">
+          <p class="font-bold text-sm">${title}</p>
+          <p class="text-slate-600 mt-0.5 leading-relaxed">${message}</p>
+        </div>
+      `;
+      container.appendChild(el);
+      setTimeout(() => el.remove(), 4500);
+    }
+
+    function getAvailableStock(mat) {
+      if (!mat) return 0;
+      return Math.max(0, Number((Number(mat.currentStock || 0) - Number(mat.reservedStock || 0)).toFixed(3)));
+    }
+
+    // ================= AUTHENTICATION GATE =================
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const rawUser = document.getElementById('loginUsername').value.trim();
+      const rawPass = document.getElementById('loginPassword').value;
+      const errBox = document.getElementById('loginErrorAlert');
+
+      const lowerUser = rawUser.toLowerCase();
+
+      if (lowerUser === 'sukumar' && rawPass === 'sukumar1977,./') {
+        errBox.classList.add('hidden');
+        saveSession({
+          role: 'DOCTOR',
+          username: 'Sukumar',
+          displayName: 'Dr. P. Sukumar',
+          designation: 'Technical Head • Zenmak Global'
+        });
+        activeTab = db.formulations.length === 0 ? 'FORMULA_MASTER' : 'PRODUCTION_AND_INVENTORY';
+        document.getElementById('loginPassword').value = '';
+        renderAuthShell();
+        showToast('success', 'Welcome, Dr. P. Sukumar', 'Logged in as Technical Head with full access to Formula Master, Oversight & Inventory.');
+        return;
+      }
+
+      if (lowerUser === 'pm' && rawPass === 'pm1234') {
+        errBox.classList.add('hidden');
+        saveSession({
+          role: 'PM',
+          username: 'pm',
+          displayName: 'Production Manager',
+          designation: 'Production Manager • Zenmak Global'
+        });
+        activeTab = 'PRODUCTION_AND_INVENTORY';
+        document.getElementById('loginPassword').value = '';
+        renderAuthShell();
+        showToast('success', 'Welcome, Production Manager', 'Logged in to Batch Production Planner & Raw Material Inventory.');
+        return;
+      }
+
+      errBox.classList.remove('hidden');
+    }
+
+    function handleLogout() {
+      saveSession(null);
+      bomDraft = null;
+      renderAuthShell();
+      showToast('success', 'Logged Out Safely', 'All Zenmak Global formulations, stock levels, and batch logs remain saved.');
+    }
+
+    function renderAuthShell() {
+      const loginGate = document.getElementById('loginGate');
+      const appShell = document.getElementById('appShell');
+
+      if (!session) {
+        loginGate.classList.remove('hidden');
+        appShell.classList.add('hidden');
+        return;
+      }
+
+      loginGate.classList.add('hidden');
+      appShell.classList.remove('hidden');
+
+      const isDoctor = session.role === 'DOCTOR';
+      document.getElementById('headerUserName').textContent = session.displayName;
+      document.getElementById('headerUserTitle').textContent = session.designation;
+
+      const roleBadge = document.getElementById('headerRoleBadge');
+      if (isDoctor) {
+        roleBadge.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200';
+        roleBadge.textContent = 'Dr. P. Sukumar • Technical Head';
+      } else {
+        roleBadge.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200';
+        roleBadge.textContent = 'Production Manager';
+      }
+
+      // Enforce tab permissions for PM
+      if (!isDoctor && activeTab === 'FORMULA_MASTER') {
+        activeTab = 'PRODUCTION_AND_INVENTORY';
+      }
+
+      refreshAllUI();
+    }
+
+    // ================= CATEGORY DROPDOWNS =================
+    function populateCategorySelect(selectEl, selectedVal = 'API') {
+      const cats = getAllCategories();
+      let html = cats.map(c => `<option value="${c}" ${c === selectedVal ? 'selected' : ''}>${c}</option>`).join('');
+      html += `<option value="__OTHER__">Other (Enter Manually...)</option>`;
+      selectEl.innerHTML = html;
+    }
+
+    function populateFilterCategorySelect() {
+      const selectEl = document.getElementById('invCategoryFilterSelect');
+      const cats = getAllCategories();
+      let html = `<option value="ALL" ${invCategoryFilter === 'ALL' ? 'selected' : ''}>All Categories (${cats.length})</option>`;
+      html += cats.map(c => `<option value="${c}" ${invCategoryFilter === c ? 'selected' : ''}>${c}</option>`).join('');
+      selectEl.innerHTML = html;
+    }
+
+    // ================= TOP KPI & NAVIGATION RENDERING =================
+    function renderHeaderKPIsAndTabs() {
+      const isDoctor = session && session.role === 'DOCTOR';
+
+      let criticalCount = 0;
+      let totalValuation = 0;
+      db.materials.forEach(m => {
+        if (getAvailableStock(m) < m.minThreshold) criticalCount++;
+        totalValuation += Number(m.currentStock || 0) * Number(m.unitCost || 0);
+      });
+
+      const todayStr = getTodayDateString();
+      const todayBatches = db.batchLogs.filter(b => b.dateKey === todayStr);
+      const todayTons = todayBatches.reduce((s, b) => s + Number(b.targetTons || 0), 0);
+
+      const priceAlertsCount = db.notifications.filter(n => n.category === 'PRICE_CHANGE').length;
+      const unreadCount = db.notifications.filter(n => n.unread).length;
+
+      document.getElementById('kpiFormulaCount').textContent = db.formulations.length;
+      document.getElementById('kpiMaterialCount').textContent = db.materials.length;
+      document.getElementById('kpiCategoriesCountSub').textContent = `${getAllCategories().length} categories available`;
+      document.getElementById('kpiTodayTons').textContent = `${fmtNum(todayTons, 3)} T`;
+      document.getElementById('kpiTodayBatches').textContent = `${todayBatches.length} batch(es) run today`;
+      document.getElementById('kpiInventoryValuation').textContent = fmtINR(totalValuation);
+      document.getElementById('kpiPriceChangeSub').textContent = `${priceAlertsCount} price revision alert(s)`;
+
+      document.getElementById('headerUnreadNotifBadge').textContent = unreadCount;
+      document.getElementById('navOversightCountBadge').textContent = unreadCount;
+
+      document.getElementById('subTabInvCount').textContent = db.materials.length;
+      document.getElementById('subTabLogsCount').textContent = db.batchLogs.length;
+
+      const critCountEl = document.getElementById('kpiCriticalCount');
+      const critCardEl = document.getElementById('kpiCriticalCard');
+      const critBoxEl = document.getElementById('kpiCriticalBadgeBox');
+
+      critCountEl.textContent = criticalCount;
+      if (criticalCount > 0) {
+        critCountEl.className = 'text-xl font-bold font-mono text-rose-600';
+        critCardEl.className = 'cursor-pointer bg-rose-50/70 border border-rose-200 hover:bg-rose-100/60 rounded-xl p-3 flex items-center justify-between transition';
+        critBoxEl.className = 'w-9 h-9 rounded-xl flex items-center justify-center border bg-rose-100 border-rose-200 text-rose-700 font-bold text-xs';
+        critBoxEl.textContent = 'LOW';
+      } else {
+        critCountEl.className = 'text-xl font-bold font-mono text-emerald-600';
+        critCardEl.className = 'cursor-pointer bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center justify-between transition';
+        critBoxEl.className = 'w-9 h-9 rounded-xl flex items-center justify-center border bg-emerald-100 border-emerald-200 text-emerald-700 font-bold text-xs';
+        critBoxEl.textContent = 'OK';
+      }
+
+      // Navigation Tabs
+      const btnFormula = document.getElementById('navBtnFormula');
+      const btnOversight = document.getElementById('navBtnOversight');
+      const btnOperations = document.getElementById('navBtnOperations');
+
+      if (isDoctor) {
+        btnFormula.classList.remove('hidden');
+      } else {
+        btnFormula.classList.add('hidden');
+      }
+
+      [
+        { el: btnFormula, tab: 'FORMULA_MASTER' },
+        { el: btnOversight, tab: 'DOCTOR_OVERSIGHT' },
+        { el: btnOperations, tab: 'PRODUCTION_AND_INVENTORY' }
+      ].forEach(item => {
+        if (activeTab === item.tab) {
+          item.el.className = 'module-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-indigo-600 text-white shadow-xs';
+        } else {
+          item.el.className = 'module-tab-btn px-4 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700';
+        }
+        if (!isDoctor && item.tab === 'FORMULA_MASTER') {
+          item.el.classList.add('hidden');
+        }
+      });
+
+      const roleNote = document.getElementById('activeRoleAccessNote');
+      if (isDoctor) {
+        roleNote.textContent = 'Logged in as Dr. P. Sukumar (Technical Head) • Full BOM, Oversight & Inventory Control';
+      } else {
+        roleNote.textContent = 'Logged in as Production Manager • Batch Execution & Raw Material Inventory';
+      }
+
+      document.getElementById('sectionFormulaMaster').classList.toggle('hidden', activeTab !== 'FORMULA_MASTER');
+      document.getElementById('sectionDoctorOversight').classList.toggle('hidden', activeTab !== 'DOCTOR_OVERSIGHT');
+      document.getElementById('sectionProductionAndInventory').classList.toggle('hidden', activeTab !== 'PRODUCTION_AND_INVENTORY');
+    }
+
+    // ================= MODULE 1: FORMULA MASTER (BOM STUDIO) =================
+    function createBlankBomDraft() {
+      const nextIndex = db.formulations.length + 1;
+      return {
+        id: 'FORM-' + Date.now(),
+        code: `ZG-${String(100 + nextIndex)}`,
+        name: '',
+        version: 'v1.0',
+        therapeuticClass: '',
+        standardYield: '1,000 kg Standard Batch',
+        isNew: true,
+        ingredients: db.materials.length > 0
+          ? [{ materialId: db.materials[0].id, qtyPerTon: 1000.000 }]
+          : []
+      };
+    }
+
+    function ensureBomDraft() {
+      if (bomDraft) return;
+      if (db.editingFormulationId) {
+        const found = db.formulations.find(f => f.id === db.editingFormulationId);
+        if (found) {
+          bomDraft = JSON.parse(JSON.stringify(found));
+          bomDraft.isNew = false;
+          return;
+        }
+      }
+      if (db.formulations.length > 0) {
+        bomDraft = JSON.parse(JSON.stringify(db.formulations[0]));
+        bomDraft.isNew = false;
+        db.editingFormulationId = bomDraft.id;
+      } else {
+        bomDraft = createBlankBomDraft();
+      }
+    }
+
+    function calculateFormulaCostPerTon(formObj) {
+      if (!formObj || !Array.isArray(formObj.ingredients)) return 0;
+      return formObj.ingredients.reduce((sum, ing) => {
+        const mat = db.materials.find(m => m.id === ing.materialId);
+        const unitCost = mat ? Number(mat.unitCost || 0) : 0;
+        return sum + (Number(ing.qtyPerTon || 0) * unitCost);
+      }, 0);
+    }
+
+    function renderFormulaMasterModule() {
+      ensureBomDraft();
+
+      document.getElementById('savedFormulaListBadge').textContent = `${db.formulations.length} Formula(s)`;
+      const listContainer = document.getElementById('formulaMasterListContainer');
+
+      if (db.formulations.length === 0) {
+        listContainer.innerHTML = `
+          <div class="p-8 text-center space-y-2">
+            <p class="text-xs font-bold text-slate-700">No Master Formulas Saved Yet</p>
+            <p class="text-[11px] text-slate-500">Use the form on the right to create your first 1,000 kg Master Formula.</p>
+          </div>
+        `;
+      } else {
+        listContainer.innerHTML = db.formulations.map(f => {
+          const isSelected = !bomDraft.isNew && bomDraft.id === f.id;
+          const totalKg = f.ingredients.reduce((s, i) => s + Number(i.qtyPerTon || 0), 0);
+          const costPerTon = calculateFormulaCostPerTon(f);
+          return `
+            <div data-select-formula="${f.id}" class="p-4 cursor-pointer transition ${isSelected ? 'bg-indigo-50/80 border-l-4 border-l-indigo-600' : 'hover:bg-slate-50'}">
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-xs font-bold text-indigo-600">${f.code}</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 text-slate-600 border border-slate-200">${f.version || 'v1.0'}</span>
+              </div>
+              <p class="font-bold text-slate-900 text-sm mt-1">${f.name}</p>
+              <p class="text-xs text-slate-500 mt-0.5">${f.therapeuticClass || 'Standard Formulation'}</p>
+              <div class="flex items-center justify-between mt-2.5 pt-2 border-t border-slate-200/70 text-[11px] font-mono text-slate-600">
+                <span>${f.ingredients.length} ingredient(s) • ${fmtNum(totalKg, 1)} kg</span>
+                <span class="font-bold text-emerald-700">${fmtINR(costPerTon)}/T</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      document.getElementById('bomFormModeTag').textContent = bomDraft.isNew
+        ? 'NEW FORMULATION ENTRY (1 METRIC TON BASE)'
+        : `EDITING SAVED FORMULA • ${bomDraft.code}`;
+      document.getElementById('bomFormHeaderTitle').textContent = bomDraft.name
+        ? bomDraft.name
+        : 'Enter Finished Product & BOM Details';
+
+      document.getElementById('bomCodeInput').value = bomDraft.code || '';
+      document.getElementById('bomNameInput').value = bomDraft.name || '';
+      document.getElementById('bomVersionInput').value = bomDraft.version || 'v1.0';
+      document.getElementById('bomClassInput').value = bomDraft.therapeuticClass || '';
+      document.getElementById('bomYieldInput').value = bomDraft.standardYield || '';
+
+      const delBtn = document.getElementById('bomDeleteFormulaBtn');
+      if (bomDraft.isNew) {
+        delBtn.classList.add('hidden');
+      } else {
+        delBtn.classList.remove('hidden');
+      }
+
+      renderBomIngredientRows();
+    }
+
+    function renderBomIngredientRows() {
+      const container = document.getElementById('bomIngredientRowsContainer');
+
+      if (db.materials.length === 0) {
+        container.innerHTML = `
+          <div class="p-6 text-center bg-white rounded-xl border border-dashed border-slate-300 space-y-2.5">
+            <p class="text-xs font-bold text-slate-800">No Raw Materials Registered in Inventory Yet</p>
+            <p class="text-[11px] text-slate-500">Click <strong>"+ New Raw Material"</strong> above to add your first raw material so you can include it in this formula.</p>
+          </div>
+        `;
+        updateBomDraftSummary();
+        return;
+      }
+
+      if (bomDraft.ingredients.length === 0) {
+        bomDraft.ingredients.push({ materialId: db.materials[0].id, qtyPerTon: 100.000 });
+      }
+
+      container.innerHTML = bomDraft.ingredients.map((ing, idx) => {
+        const mat = db.materials.find(m => m.id === ing.materialId) || db.materials[0];
+        if (mat && ing.materialId !== mat.id) {
+          ing.materialId = mat.id;
+        }
+        const lineCost = (Number(ing.qtyPerTon) || 0) * (mat ? Number(mat.unitCost || 0) : 0);
+
+        return `
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-center bg-white p-2.5 rounded-xl border border-slate-200 shadow-2xs">
+            <div class="sm:col-span-6">
+              <select data-bom-mat-idx="${idx}" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-2 text-xs font-semibold text-slate-900 outline-none">
+                ${db.materials.map(m => `
+                  <option value="${m.id}" ${m.id === ing.materialId ? 'selected' : ''}>
+                    [${m.id}] ${m.name} (${m.category} • ${fmtINR(m.unitCost)}/kg)
+                  </option>
+                `).join('')}
+              </select>
+            </div>
+            <div class="sm:col-span-3 flex items-center gap-1.5">
+              <input
+                data-bom-qty-idx="${idx}"
+                type="number"
+                step="0.001"
+                min="0.001"
+                value="${ing.qtyPerTon}"
+                class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-lg px-2.5 py-1.5 text-xs font-mono font-bold text-right text-slate-900 outline-none"
+                required
+              />
+              <span class="text-xs font-mono text-slate-500 shrink-0">kg/T</span>
+            </div>
+            <div class="sm:col-span-2 text-right font-mono text-xs font-semibold text-slate-700">
+              ${fmtINR(lineCost)}
+            </div>
+            <div class="sm:col-span-1 text-right">
+              <button
+                type="button"
+                data-bom-del-idx="${idx}"
+                class="px-2 py-1 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 font-bold text-xs"
+                title="Remove ingredient line"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      updateBomDraftSummary();
+    }
+
+    function updateBomDraftSummary() {
+      if (!bomDraft) return;
+      const totalKg = bomDraft.ingredients.reduce((s, i) => s + (parseFloat(i.qtyPerTon) || 0), 0);
+      const totalCost = calculateFormulaCostPerTon(bomDraft);
+
+      document.getElementById('bomFormTotalKg').textContent = `${fmtNum(totalKg, 3)} kg / 1,000 kg`;
+      document.getElementById('bomFormCostPerTon').textContent = fmtINR(totalCost);
+
+      const pct = Math.min(100, Math.max(0, (totalKg / 1000) * 100));
+      const bar = document.getElementById('bomWeightProgressBar');
+      bar.style.width = `${pct}%`;
+      bar.className = Math.abs(totalKg - 1000) < 0.01
+        ? 'h-full bg-emerald-600 transition-all duration-300'
+        : 'h-full bg-indigo-600 transition-all duration-300';
+    }
+
+    // ================= MODULE 2: DR. P. SUKUMAR OVERSIGHT & INTIMATIONS =================
+    function renderOversightModule() {
+      const prodNotifs = db.notifications.filter(n => n.category === 'PRODUCTION');
+      const priceNotifs = db.notifications.filter(n => n.category === 'PRICE_CHANGE');
+      const critNotifs = db.notifications.filter(n => n.category === 'CRITICAL_STOCK');
+
+      // Live critical materials right now
+      const liveCritMaterials = db.materials.filter(m => getAvailableStock(m) < m.minThreshold);
+
+      document.getElementById('oversightProdCount').textContent = db.batchLogs.length;
+      document.getElementById('oversightPriceCount').textContent = priceNotifs.length;
+      document.getElementById('oversightCritCount').textContent = liveCritMaterials.length + critNotifs.length;
+
+      // 1. Production Runs Executed
+      const prodContainer = document.getElementById('oversightProductionList');
+      if (db.batchLogs.length === 0) {
+        prodContainer.innerHTML = `
+          <div class="p-8 text-center text-xs text-slate-400">
+            No production batches have been executed yet. When the Production Manager commits a batch, full details appear here immediately.
+          </div>
+        `;
+      } else {
+        prodContainer.innerHTML = db.batchLogs.map(log => `
+          <div class="p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/40 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800">${log.batchNo}</span>
+              <span class="text-[11px] font-mono text-slate-500">${log.timestamp}</span>
+            </div>
+            <p class="text-xs font-bold text-slate-900">${log.productName}</p>
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-slate-600">Output: <strong class="text-emerald-700">${fmtNum(log.targetTons, 3)} Tons</strong></span>
+              <span class="font-bold text-slate-900">${fmtINR(log.totalCost)}</span>
+            </div>
+            ${log.remarks ? `<p class="text-[11px] text-slate-600 bg-white p-2 rounded-lg border border-slate-200">Note: "${log.remarks}"</p>` : ''}
+            <div class="pt-1 border-t border-emerald-200/60 flex items-center justify-between text-[10px] text-slate-500">
+              <span>Executed by: ${log.operator}</span>
+              <span>${log.items.length} ingredients deducted</span>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // 2. Price Change Intimations
+      const priceContainer = document.getElementById('oversightPriceList');
+      if (priceNotifs.length === 0) {
+        priceContainer.innerHTML = `
+          <div class="p-8 text-center text-xs text-slate-400">
+            No raw material price revisions recorded yet. Whenever a material's ₹/kg unit cost is modified during inventory update, Dr. P. Sukumar is intimated here.
+          </div>
+        `;
+      } else {
+        priceContainer.innerHTML = priceNotifs.map(n => {
+          const diff = Number(n.newPrice) - Number(n.oldPrice);
+          const isIncrease = diff >= 0;
+          return `
+            <div class="p-3.5 rounded-xl border ${n.unread ? 'bg-amber-50/70 border-amber-300' : 'bg-slate-50 border-slate-200'} space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">${n.materialId}</span>
+                <span class="text-[11px] font-mono text-slate-500">${n.timestamp}</span>
+              </div>
+              <p class="text-xs font-bold text-slate-900">${n.materialName}</p>
+              <div class="grid grid-cols-3 gap-2 bg-white p-2.5 rounded-lg border border-slate-200 text-center font-mono">
+                <div>
+                  <span class="block text-[10px] text-slate-400">Old Rate</span>
+                  <span class="text-xs font-semibold text-slate-600">${fmtINR(n.oldPrice)}</span>
+                </div>
+                <div>
+                  <span class="block text-[10px] text-slate-400">New Rate</span>
+                  <span class="text-xs font-bold text-slate-900">${fmtINR(n.newPrice)}</span>
+                </div>
+                <div>
+                  <span class="block text-[10px] text-slate-400">Change</span>
+                  <span class="text-xs font-bold ${isIncrease ? 'text-rose-600' : 'text-emerald-600'}">
+                    ${isIncrease ? '+' : ''}${fmtNum(n.pctChange, 2)}%
+                  </span>
+                </div>
+              </div>
+              ${n.remarks ? `<p class="text-[11px] text-slate-600">Note: "${n.remarks}"</p>` : ''}
+              <p class="text-[10px] text-slate-400">Updated by: ${n.actor}</p>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // 3. Critical Stock Alerts (Live Deficits + Logged Alerts)
+      const critContainer = document.getElementById('oversightCriticalList');
+      let critHtml = '';
+
+      if (liveCritMaterials.length > 0) {
+        critHtml += liveCritMaterials.map(m => {
+          const avail = getAvailableStock(m);
+          return `
+            <div class="p-3.5 rounded-xl border border-rose-300 bg-rose-50/70 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-600 text-white">LIVE CRITICAL STOCK</span>
+                <span class="font-mono text-[11px] text-rose-800 font-bold">${m.id}</span>
+              </div>
+              <p class="text-xs font-bold text-slate-900">${m.name}</p>
+              <div class="flex items-center justify-between text-xs font-mono bg-white p-2 rounded-lg border border-rose-200">
+                <span class="text-rose-700 font-bold">Avail: ${fmtNum(avail, 3)} kg</span>
+                <span class="text-slate-600">Safe Min: ${fmtNum(m.minThreshold, 3)} kg</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      if (critNotifs.length > 0) {
+        critHtml += critNotifs.map(n => `
+          <div class="p-3.5 rounded-xl border ${n.unread ? 'border-rose-200 bg-rose-50/30' : 'border-slate-200 bg-slate-50'} space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono font-bold text-rose-700">${n.materialId} • STOCK ALERT LOG</span>
+              <span class="text-[11px] font-mono text-slate-500">${n.timestamp}</span>
+            </div>
+            <p class="text-xs font-bold text-slate-900">${n.materialName}</p>
+            <p class="text-[11px] text-slate-600">${n.remarks}</p>
+          </div>
+        `).join('');
+      }
+
+      if (!critHtml) {
+        critContainer.innerHTML = `
+          <div class="p-8 text-center text-xs text-slate-400">
+            Zero critical stock alerts. All registered raw materials are above their minimum safety thresholds.
+          </div>
+        `;
+      } else {
+        critContainer.innerHTML = critHtml;
+      }
+    }
+
+    // ================= MODULE 3: BATCH PLANNER & MASTER INVENTORY =================
+    function computeBatchFeasibility(formula, tons) {
+      if (!formula || !Array.isArray(formula.ingredients) || formula.ingredients.length === 0) {
+        return {
+          rows: [],
+          maxPossibleTons: 0,
+          bottleneck: null,
+          totalCost: 0,
+          totalMassKg: 0,
+          hasShortage: false,
+          hasLowBuffer: false,
+          shortageCount: 0
+        };
+      }
+
+      let minRatio = Infinity;
+      let bottleneck = null;
+      let totalCost = 0;
+      let totalMassKg = 0;
+      let shortageCount = 0;
+      let lowBufferCount = 0;
+
+      const rows = formula.ingredients.map(ing => {
+        const mat = db.materials.find(m => m.id === ing.materialId);
+        const availKg = mat ? getAvailableStock(mat) : 0;
+        const safeThreshold = mat ? Number(mat.minThreshold || 0) : 0;
+        const unitCost = mat ? Number(mat.unitCost || 0) : 0;
+        const qtyPerTon = Number(ing.qtyPerTon || 0);
+
+        const requiredKg = Number((qtyPerTon * tons).toFixed(3));
+        const balanceAfterKg = Number((availKg - requiredKg).toFixed(3));
+        const possibleTons = qtyPerTon > 0 ? availKg / qtyPerTon : Infinity;
+
+        if (possibleTons < minRatio) {
+          minRatio = possibleTons;
+          bottleneck = {
+            id: ing.materialId,
+            name: mat ? mat.name : ing.materialId,
+            availKg,
+            qtyPerTon,
+            maxTons: Math.max(0, Math.floor(possibleTons * 1000) / 1000)
+          };
+        }
+
+        let status = 'SUFFICIENT';
+        let missingKg = 0;
+        if (availKg < requiredKg) {
+          status = 'SHORTAGE';
+          missingKg = Number((requiredKg - availKg).toFixed(3));
+          shortageCount++;
+        } else if (balanceAfterKg < safeThreshold) {
+          status = 'LOW_BUFFER';
+          lowBufferCount++;
+        }
+
+        const lineCost = requiredKg * unitCost;
+        totalCost += lineCost;
+        totalMassKg += requiredKg;
+
+        return {
+          materialId: ing.materialId,
+          name: mat ? mat.name : `Missing Material (${ing.materialId})`,
+          category: mat ? mat.category : 'API',
+          qtyPerTon,
+          requiredKg,
+          availKg,
+          reservedKg: mat ? Number(mat.reservedStock || 0) : 0,
+          safeThreshold,
+          balanceAfterKg,
+          unitCost,
+          lineCost,
+          status,
+          missingKg
+        };
+      });
+
+      const maxPossibleTons = minRatio === Infinity ? 0 : Math.max(0, Math.floor(minRatio * 1000) / 1000);
+
+      return {
+        rows,
+        maxPossibleTons,
+        bottleneck,
+        totalCost,
+        totalMassKg,
+        hasShortage: shortageCount > 0,
+        hasLowBuffer: lowBufferCount > 0,
+        shortageCount
+      };
+    }
+
+    function renderBatchPlannerPanel() {
+      const emptyState = document.getElementById('plannerEmptyState');
+      const activeBody = document.getElementById('plannerActiveBody');
+      const isDoctor = session && session.role === 'DOCTOR';
+
+      if (db.formulations.length === 0) {
+        emptyState.classList.remove('hidden');
+        activeBody.classList.add('hidden');
+        const createBtn = document.getElementById('emptyStateCreateFormulaBtn');
+        if (isDoctor) {
+          createBtn.classList.remove('hidden');
+        } else {
+          createBtn.classList.add('hidden');
+          document.getElementById('plannerEmptySubtext').textContent =
+            'No Master Formulations have been published by Dr. P. Sukumar yet. You can add Raw Materials and stock in the Inventory table on the right.';
+        }
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      activeBody.classList.remove('hidden');
+
+      if (!db.selectedFormulationId || !db.formulations.some(f => f.id === db.selectedFormulationId)) {
+        db.selectedFormulationId = db.formulations[0].id;
+      }
+
+      const selectEl = document.getElementById('plannerFormulaSelect');
+      selectEl.innerHTML = db.formulations.map(f =>
+        `<option value="${f.id}" ${f.id === db.selectedFormulationId ? 'selected' : ''}>[${f.code}] ${f.name} (${f.version || 'v1.0'})</option>`
+      ).join('');
+
+      const selectedFormula = db.formulations.find(f => f.id === db.selectedFormulationId) || db.formulations[0];
+      const totalBomKg = selectedFormula.ingredients.reduce((s, i) => s + Number(i.qtyPerTon || 0), 0);
+
+      document.getElementById('plannerSelectedFormulaMeta').innerHTML = `
+        <span>Type: <strong class="text-slate-800">${selectedFormula.therapeuticClass || 'Standard'}</strong></span>
+        <span>•</span>
+        <span>BOM Weight: <strong class="text-slate-800 font-mono">${fmtNum(totalBomKg, 3)} kg/Ton</strong></span>
+        <span>•</span>
+        <span>Ingredients: <strong class="text-slate-800">${selectedFormula.ingredients.length}</strong></span>
+      `;
+
+      const editWrap = document.getElementById('plannerEditFormulaLinkWrap');
+      if (isDoctor) {
+        editWrap.innerHTML = `<button type="button" id="plannerJumpEditBomBtn" class="text-indigo-600 hover:text-indigo-800 font-bold underline">Edit in Formula Master →</button>`;
+        document.getElementById('plannerJumpEditBomBtn').onclick = () => {
+          db.editingFormulationId = selectedFormula.id;
+          bomDraft = null;
+          activeTab = 'FORMULA_MASTER';
+          refreshAllUI();
+        };
+      } else {
+        editWrap.innerHTML = `<span class="text-slate-400 font-medium">Approved by Dr. P. Sukumar</span>`;
+      }
+
+      document.getElementById('plannerTargetKgLabel').textContent = `= ${fmtNum(targetTons * 1000, 1)} kg`;
+
+      const analysis = computeBatchFeasibility(selectedFormula, targetTons);
+
+      document.getElementById('plannerMaxBtnVal').textContent = `${fmtNum(analysis.maxPossibleTons, 3)}T`;
+      document.getElementById('plannerMaxTonsHeadline').textContent = `${fmtNum(analysis.maxPossibleTons, 3)} Tons`;
+
+      const banner = document.getElementById('plannerFeasibilityBanner');
+      const badge = document.getElementById('plannerOverallStatusBadge');
+
+      if (analysis.hasShortage) {
+        banner.className = 'md:col-span-2 rounded-xl p-4 border flex flex-col justify-between bg-rose-50/70 border-rose-200';
+        badge.className = 'px-2.5 py-1 rounded-full text-xs font-bold border shrink-0 bg-rose-100 text-rose-800 border-rose-300';
+        badge.textContent = `${analysis.shortageCount} Shortage(s)`;
+      } else if (analysis.hasLowBuffer) {
+        banner.className = 'md:col-span-2 rounded-xl p-4 border flex flex-col justify-between bg-amber-50/70 border-amber-200';
+        badge.className = 'px-2.5 py-1 rounded-full text-xs font-bold border shrink-0 bg-amber-100 text-amber-900 border-amber-300';
+        badge.textContent = 'Low Buffer Warning';
+      } else {
+        banner.className = 'md:col-span-2 rounded-xl p-4 border flex flex-col justify-between bg-emerald-50/70 border-emerald-200';
+        badge.className = 'px-2.5 py-1 rounded-full text-xs font-bold border shrink-0 bg-emerald-100 text-emerald-800 border-emerald-300';
+        badge.textContent = 'Sufficient Stock';
+      }
+
+      if (analysis.bottleneck) {
+        document.getElementById('plannerBottleneckIngredient').textContent = `${analysis.bottleneck.name} (${analysis.bottleneck.id})`;
+        document.getElementById('plannerBottleneckFormulaText').textContent =
+          `Avail: ${fmtNum(analysis.bottleneck.availKg, 2)} kg ÷ ${fmtNum(analysis.bottleneck.qtyPerTon, 2)} kg/Ton`;
+      } else {
+        document.getElementById('plannerBottleneckIngredient').textContent = '-';
+        document.getElementById('plannerBottleneckFormulaText').textContent = '';
+      }
+
+      document.getElementById('plannerTotalBatchCost').textContent = fmtINR(analysis.totalCost);
+      document.getElementById('plannerTotalBatchMass').textContent = `Required Mass: ${fmtNum(analysis.totalMassKg, 3)} kg`;
+      document.getElementById('plannerUnitTonCost').textContent = targetTons > 0
+        ? `${fmtINR(analysis.totalCost / targetTons)} / T`
+        : '₹0.00 / T';
+
+      const tbody = document.getElementById('plannerIngredientsTbody');
+      tbody.innerHTML = analysis.rows.map(r => {
+        const isBottleneck = analysis.bottleneck && analysis.bottleneck.id === r.materialId;
+        const rowBg = r.status === 'SHORTAGE'
+          ? 'bg-rose-50/60 hover:bg-rose-50'
+          : r.status === 'LOW_BUFFER'
+          ? 'bg-amber-50/50 hover:bg-amber-50'
+          : 'hover:bg-slate-50';
+
+        let statusHtml = '';
+        if (r.status === 'SUFFICIENT') {
+          statusHtml = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300"><span class="w-2 h-2 rounded-full bg-emerald-600"></span>Sufficient</span>`;
+        } else if (r.status === 'LOW_BUFFER') {
+          statusHtml = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300"><span class="w-2 h-2 rounded-full bg-amber-500"></span>Low Buffer</span>`;
+        } else {
+          statusHtml = `
+            <div class="inline-flex flex-col items-end gap-1">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-300">
+                <span class="w-2 h-2 rounded-full bg-rose-600 animate-ping"></span>Shortage
+              </span>
+              <button type="button" data-quick-restock="${r.materialId}" data-Quick-deficit="${Math.ceil(r.missingKg + r.safeThreshold)}" class="text-[11px] font-mono font-bold text-indigo-600 hover:text-indigo-800 underline">
+                + Restock (${fmtNum(r.missingKg, 2)} kg short)
+              </button>
+            </div>
+          `;
+        }
+
+        const balClass = r.status === 'SHORTAGE'
+          ? 'text-rose-600'
+          : r.status === 'LOW_BUFFER'
+          ? 'text-amber-700'
+          : 'text-emerald-700';
+
+        return `
+          <tr class="transition ${rowBg}">
+            <td class="py-3 px-3.5">
+              <div class="flex items-center gap-1.5">
+                <span class="font-mono text-[11px] font-bold text-slate-500">${r.materialId}</span>
+                <span class="px-1.5 py-0.2 text-[10px] font-semibold rounded border ${getCategoryBadgeClass(r.category)}">${r.category}</span>
+                ${isBottleneck ? `<span class="px-1.5 py-0.2 text-[10px] font-bold rounded bg-amber-100 text-amber-900 border border-amber-300">BOTTLENECK</span>` : ''}
+              </div>
+              <p class="font-bold text-slate-900 mt-1">${r.name}</p>
+              <p class="text-[11px] text-slate-500 font-mono">Rate: ${fmtINR(r.unitCost)}/kg • Safe Limit: ${fmtNum(r.safeThreshold, 2)} kg</p>
+            </td>
+            <td class="py-3 px-3 text-right font-mono text-slate-700 font-medium">${fmtNum(r.qtyPerTon, 3)} kg</td>
+            <td class="py-3 px-3 text-right font-mono font-bold text-slate-900">
+              ${fmtNum(r.requiredKg, 3)} kg
+              <div class="text-[10px] text-slate-500 font-normal">${fmtINR(r.lineCost)}</div>
+            </td>
+            <td class="py-3 px-3 text-right font-mono text-slate-800 font-medium">
+              ${fmtNum(r.availKg, 3)} kg
+              ${r.reservedKg > 0 ? `<div class="text-[10px] text-amber-700">(Rsvd: ${fmtNum(r.reservedKg, 2)} kg)</div>` : ''}
+            </td>
+            <td class="py-3 px-3 text-right font-mono">
+              <span class="font-bold ${balClass}">${fmtNum(r.balanceAfterKg, 3)} kg</span>
+              ${r.status === 'SHORTAGE' ? `<div class="text-[10px] text-rose-600 font-bold">Deficit: ${fmtNum(r.missingKg, 3)} kg</div>` : ''}
+              ${r.status === 'LOW_BUFFER' ? `<div class="text-[10px] text-amber-700">Below ${fmtNum(r.safeThreshold, 1)} kg limit</div>` : ''}
+            </td>
+            <td class="py-3 px-3.5 text-right">${statusHtml}</td>
+          </tr>
+        `;
+      }).join('');
+
+      const commitBtn = document.getElementById('commitProductionRunBtn');
+      if (analysis.hasShortage || targetTons <= 0) {
+        commitBtn.disabled = true;
+        commitBtn.className = 'px-5 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition bg-slate-200 text-slate-500 border border-slate-300 cursor-not-allowed shrink-0';
+        commitBtn.textContent = analysis.hasShortage ? 'Shortage — Cannot Commit Batch' : 'Enter Valid Tonnage';
+      } else {
+        commitBtn.disabled = false;
+        commitBtn.className = 'px-5 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition shadow-md bg-indigo-600 hover:bg-indigo-700 text-white shrink-0';
+        commitBtn.textContent = 'Confirm & Deduct Batch';
+      }
+    }
+
+    function renderInventoryPanel() {
+      populateFilterCategorySelect();
+
+      const critBtn = document.getElementById('invCriticalToggleBtn');
+      if (invCriticalOnly) {
+        critBtn.className = 'px-3 py-2 rounded-xl text-xs font-bold border border-rose-300 bg-rose-600 text-white transition shrink-0';
+      } else {
+        critBtn.className = 'px-3 py-2 rounded-xl text-xs font-bold border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 transition shrink-0';
+      }
+
+      const tbody = document.getElementById('inventoryListTbody');
+
+      if (db.materials.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="4" class="py-12 px-4 text-center space-y-3">
+              <p class="text-sm font-bold text-slate-800">Central Raw Material Inventory is Empty</p>
+              <p class="text-xs text-slate-500 max-w-xs mx-auto">Click <strong>"+ Add Raw Material"</strong> in the top-right corner of this panel to enter your raw materials, opening stock (kg), and unit rates (₹/kg).</p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      const filtered = db.materials.filter(m => {
+        const q = invSearchQuery.toLowerCase();
+        const matchQ = m.name.toLowerCase().includes(q) || m.id.toLowerCase().includes(q) || m.category.toLowerCase().includes(q);
+        if (!matchQ) return false;
+        if (invCategoryFilter !== 'ALL' && m.category !== invCategoryFilter) return false;
+        if (invCriticalOnly && getAvailableStock(m) >= m.minThreshold) return false;
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="4" class="py-8 text-center text-xs text-slate-400">No raw materials match your current search or filter.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(mat => {
+        const avail = getAvailableStock(mat);
+        const isCritical = avail < mat.minThreshold;
+        return `
+          <tr class="transition ${isCritical ? 'bg-rose-50/60 hover:bg-rose-50' : 'hover:bg-slate-50'}">
+            <td class="py-3 px-3">
+              <div class="flex items-center gap-1.5">
+                <span class="font-mono text-[10px] font-bold text-slate-500">${mat.id}</span>
+                <span class="px-1.5 py-0.2 text-[9px] font-semibold rounded border ${getCategoryBadgeClass(mat.category)}">${mat.category}</span>
+                ${isCritical ? `<span class="px-1.5 py-0.2 text-[9px] font-bold uppercase rounded bg-rose-100 text-rose-800 border border-rose-300">Critical</span>` : ''}
+              </div>
+              <p class="font-bold text-slate-900 mt-0.5">${mat.name}</p>
+              <p class="text-[11px] font-mono font-semibold text-indigo-700">Rate: ${fmtINR(mat.unitCost)} / kg</p>
+            </td>
+            <td class="py-3 px-2.5 text-right font-mono">
+              <span class="font-bold ${isCritical ? 'text-rose-600' : 'text-emerald-700'}">${fmtNum(mat.currentStock, 3)} kg</span>
+              <div class="text-[10px] text-slate-500">Avail: ${fmtNum(avail, 3)} kg</div>
+            </td>
+            <td class="py-3 px-2.5 text-right font-mono text-slate-600">
+              ${fmtNum(mat.minThreshold, 2)} kg
+            </td>
+            <td class="py-3 px-3 text-right">
+              <button
+                type="button"
+                data-open-update="${mat.id}"
+                class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-indigo-600 text-slate-800 hover:text-white border border-slate-300 hover:border-indigo-600 transition"
+              >
+                Update Stock / ₹
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderRightBatchHistory() {
+      const container = document.getElementById('rightBatchLogsList');
+      if (db.batchLogs.length === 0) {
+        container.innerHTML = `
+          <div class="p-8 text-center text-xs text-slate-400">
+            No batches committed yet. Completed batch runs will be logged here with full ingredient deductions.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = db.batchLogs.map(log => `
+        <div class="border border-slate-200 rounded-xl bg-slate-50 p-3.5 space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="font-mono text-xs font-bold text-indigo-700">${log.batchNo}</span>
+                <span class="text-[11px] font-mono text-slate-500">${log.timestamp}</span>
+              </div>
+              <p class="text-xs font-bold text-slate-900 mt-0.5">${log.productName}</p>
+              ${log.remarks ? `<p class="text-[11px] text-slate-600 mt-0.5">Note: "${log.remarks}"</p>` : ''}
+            </div>
+            <div class="text-right font-mono">
+              <p class="text-xs font-bold text-emerald-700">${fmtNum(log.targetTons, 3)} Tons</p>
+              <p class="text-[11px] font-bold text-slate-800">${fmtINR(log.totalCost)}</p>
+            </div>
+          </div>
+          <div class="border border-slate-200 rounded-lg overflow-hidden bg-white">
+            <table class="w-full text-left text-[11px]">
+              <thead class="bg-slate-100 text-slate-600 border-b border-slate-200">
+                <tr>
+                  <th class="py-1 px-2.5">Code</th>
+                  <th class="py-1 px-2.5">Ingredient</th>
+                  <th class="py-1 px-2.5 text-right">Deducted</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 font-mono">
+                ${log.items.map(i => `
+                  <tr>
+                    <td class="py-1 px-2.5 text-slate-500">${i.materialId}</td>
+                    <td class="py-1 px-2.5 font-sans text-slate-800">${i.name}</td>
+                    <td class="py-1 px-2.5 text-right text-rose-600 font-semibold">-${fmtNum(i.deductedKg, 3)} kg</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openAddRawMaterialModal() {
+      const nextNum = 101 + db.materials.length;
+      document.getElementById('addMatCode').value = `RM-${nextNum}`;
+      document.getElementById('addMatName').value = '';
+      document.getElementById('addMatStock').value = '0.000';
+      document.getElementById('addMatReserved').value = '0.000';
+      document.getElementById('addMatCost').value = '';
+      document.getElementById('addMatThreshold').value = '50.000';
+
+      const catSelect = document.getElementById('addMatCategorySelect');
+      populateCategorySelect(catSelect, 'API');
+      document.getElementById('addMatCustomCatWrap').classList.add('hidden');
+      document.getElementById('addMatCustomCatInput').value = '';
+
+      document.getElementById('addMaterialModal').classList.remove('hidden');
+    }
+
+    function openUpdateStockModal(materialId, suggestedAddKg = 0) {
+      const mat = db.materials.find(m => m.id === materialId);
+      if (!mat) return;
+
+      document.getElementById('updMatIdInput').value = mat.id;
+      document.getElementById('updModalCodeTag').textContent = `${mat.id} • ${mat.category}`;
+      document.getElementById('updModalMatName').textContent = mat.name;
+      document.getElementById('updCurrentStockHint').textContent = `Current Physical Stock: ${fmtNum(mat.currentStock, 3)} kg`;
+      document.getElementById('updUnitPriceInput').value = Number(mat.unitCost).toFixed(2);
+      document.getElementById('updOldPriceHint').textContent = `Current Rate: ${fmtINR(mat.unitCost)} / kg`;
+      document.getElementById('updReservedInput').value = Number(mat.reservedStock || 0).toFixed(3);
+      document.getElementById('updThresholdInput').value = Number(mat.minThreshold || 0).toFixed(3);
+      document.getElementById('updRemarksInput').value = '';
+
+      const catSelect = document.getElementById('updCategorySelect');
+      populateCategorySelect(catSelect, mat.category);
+      document.getElementById('updCustomCatWrap').classList.add('hidden');
+      document.getElementById('updCustomCatInput').value = '';
+
+      updStockMode = 'ADD';
+      syncUpdateModalModeUI(mat, suggestedAddKg);
+
+      document.getElementById('updateStockModal').classList.remove('hidden');
+    }
+
+    function syncUpdateModalModeUI(mat, suggestedAddKg = 0) {
+      const addBtn = document.getElementById('updModeAddBtn');
+      const setBtn = document.getElementById('updModeSetBtn');
+      const label = document.getElementById('updStockQtyLabel');
+      const input = document.getElementById('updStockQtyInput');
+
+      if (updStockMode === 'ADD') {
+        addBtn.className = 'py-1.5 rounded-lg text-xs font-bold transition bg-white text-slate-900 shadow-2xs';
+        setBtn.className = 'py-1.5 rounded-lg text-xs font-semibold transition text-slate-600';
+        label.textContent = 'Received Stock Quantity to Add (kg) *';
+        input.value = Number(suggestedAddKg || 0).toFixed(3);
+      } else {
+        setBtn.className = 'py-1.5 rounded-lg text-xs font-bold transition bg-white text-slate-900 shadow-2xs';
+        addBtn.className = 'py-1.5 rounded-lg text-xs font-semibold transition text-slate-600';
+        label.textContent = 'New Exact Physical Stock (kg) *';
+        input.value = mat ? Number(mat.currentStock).toFixed(3) : '0.000';
+      }
+    }
+
+    function refreshAllUI() {
+      if (!session) return;
+      renderHeaderKPIsAndTabs();
+      renderFormulaMasterModule();
+      renderOversightModule();
+      renderBatchPlannerPanel();
+      renderInventoryPanel();
+      renderRightBatchHistory();
+    }
+
+    // ================= DOM INITIALIZATION & EVENT BINDINGS =================
+    document.addEventListener('DOMContentLoaded', () => {
+      renderAuthShell();
+
+      // Login Form & Show/Hide Password
+      document.getElementById('loginForm').addEventListener('submit', handleLoginSubmit);
+      document.getElementById('togglePasswordBtn').addEventListener('click', () => {
+        const pwd = document.getElementById('loginPassword');
+        const btn = document.getElementById('togglePasswordBtn');
+        if (pwd.type === 'password') {
+          pwd.type = 'text';
+          btn.textContent = 'Hide Password';
+        } else {
+          pwd.type = 'password';
+          btn.textContent = 'Show Password';
+        }
+      });
+
+      // Logout Button
+      document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+
+      // Module Navigation Tabs
+      document.querySelectorAll('.module-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const target = btn.getAttribute('data-tab');
+          if (session && session.role !== 'DOCTOR' && target === 'FORMULA_MASTER') {
+            showToast('error', 'Restricted Access', 'Only Dr. P. Sukumar (Technical Head) can access Formula Master.');
+            return;
+          }
+          activeTab = target;
+          refreshAllUI();
+        });
+      });
+
+      // Header Notification Bell -> Open Oversight Tab
+      document.getElementById('headerNotifBellBtn').addEventListener('click', () => {
+        activeTab = 'DOCTOR_OVERSIGHT';
+        refreshAllUI();
+      });
+
+      // KPI Critical Stock Card Click
+      document.getElementById('kpiCriticalCard').addEventListener('click', () => {
+        activeTab = 'DOCTOR_OVERSIGHT';
+        refreshAllUI();
+      });
+
+      // Mark All Notifications Read
+      document.getElementById('markAllNotificationsReadBtn').addEventListener('click', () => {
+        db.notifications.forEach(n => { n.unread = false; });
+        saveDatabase();
+        refreshAllUI();
+        showToast('success', 'All Intimations Marked as Read', 'Unread badge cleared.');
+      });
+
+      // ================= FORMULA MASTER (DR. P. SUKUMAR) EVENTS =================
+      document.getElementById('createNewFormulaBtn').addEventListener('click', () => {
+        bomDraft = createBlankBomDraft();
+        db.editingFormulationId = null;
+        renderFormulaMasterModule();
+      });
+
+      document.getElementById('formulaMasterListContainer').addEventListener('click', e => {
+        const item = e.target.closest('[data-select-formula]');
+        if (item) {
+          const id = item.getAttribute('data-select-formula');
+          const found = db.formulations.find(f => f.id === id);
+          if (found) {
+            db.editingFormulationId = found.id;
+            bomDraft = JSON.parse(JSON.stringify(found));
+            bomDraft.isNew = false;
+            renderFormulaMasterModule();
+          }
+        }
+      });
+
+      document.getElementById('bomAddIngredientLineBtn').addEventListener('click', () => {
+        if (db.materials.length === 0) {
+          openAddRawMaterialModal();
+          return;
+        }
+        bomDraft.ingredients.push({ materialId: db.materials[0].id, qtyPerTon: 10.000 });
+        renderBomIngredientRows();
+      });
+
+      document.getElementById('bomInlineQuickAddMatBtn').addEventListener('click', openAddRawMaterialModal);
+      document.getElementById('formulaPageAddRawMatBtn').addEventListener('click', openAddRawMaterialModal);
+
+      document.getElementById('bomIngredientRowsContainer').addEventListener('input', e => {
+        const matIdx = e.target.getAttribute('data-bom-mat-idx');
+        const qtyIdx = e.target.getAttribute('data-bom-qty-idx');
+        if (matIdx !== null) {
+          bomDraft.ingredients[Number(matIdx)].materialId = e.target.value;
+          renderBomIngredientRows();
+        }
+        if (qtyIdx !== null) {
+          bomDraft.ingredients[Number(qtyIdx)].qtyPerTon = parseFloat(e.target.value) || 0;
+          updateBomDraftSummary();
+        }
+      });
+
+      document.getElementById('bomIngredientRowsContainer').addEventListener('click', e => {
+        const delIdx = e.target.getAttribute('data-bom-del-idx');
+        if (delIdx !== null) {
+          if (bomDraft.ingredients.length <= 1) {
+            showToast('error', 'Cannot Remove Last Ingredient', 'A formulation requires at least one ingredient row.');
+            return;
+          }
+          bomDraft.ingredients.splice(Number(delIdx), 1);
+          renderBomIngredientRows();
+        }
+      });
+
+      document.getElementById('bomScaleTo1000Btn').addEventListener('click', () => {
+        if (!bomDraft || bomDraft.ingredients.length === 0) return;
+        const sum = bomDraft.ingredients.reduce((s, i) => s + (parseFloat(i.qtyPerTon) || 0), 0);
+        if (sum <= 0) return;
+        let running = 0;
+        bomDraft.ingredients.forEach((ing, idx) => {
+          if (idx === bomDraft.ingredients.length - 1) {
+            ing.qtyPerTon = Number(Math.max(0.001, 1000 - running).toFixed(3));
+          } else {
+            const scaled = Number(((ing.qtyPerTon / sum) * 1000).toFixed(3));
+            ing.qtyPerTon = scaled;
+            running += scaled;
+          }
+        });
+        renderBomIngredientRows();
+        showToast('success', 'Balanced to 1,000.000 kg', 'All ingredient quantities scaled proportionally to 1 Metric Ton.');
+      });
+
+      document.getElementById('bomDeleteFormulaBtn').addEventListener('click', () => {
+        if (!bomDraft || bomDraft.isNew) return;
+        const removedName = bomDraft.name;
+        db.formulations = db.formulations.filter(f => f.id !== bomDraft.id);
+        db.editingFormulationId = db.formulations[0]?.id || null;
+        db.selectedFormulationId = db.formulations[0]?.id || null;
+        bomDraft = null;
+        saveDatabase();
+        refreshAllUI();
+        showToast('warning', 'Formula Deleted', `Removed "${removedName}" from Master Formulations.`);
+      });
+
+      document.getElementById('bomMasterForm').addEventListener('submit', e => {
+        e.preventDefault();
+        if (db.materials.length === 0 || !bomDraft || bomDraft.ingredients.length === 0) {
+          showToast('error', 'Add Raw Materials First', 'Please register at least one raw material and add it to the formula.');
+          return;
+        }
+
+        const code = document.getElementById('bomCodeInput').value.trim();
+        const name = document.getElementById('bomNameInput').value.trim();
+        const version = document.getElementById('bomVersionInput').value.trim() || 'v1.0';
+        const therapeuticClass = document.getElementById('bomClassInput').value.trim() || 'Standard Formulation';
+        const standardYield = document.getElementById('bomYieldInput').value.trim() || '1,000 kg Standard Batch';
+
+        if (!code || !name) return;
+
+        const cleanFormula = {
+          id: bomDraft.id,
+          code,
+          name,
+          version,
+          therapeuticClass,
+          standardYield,
+          ingredients: bomDraft.ingredients.map(i => ({
+            materialId: i.materialId,
+            qtyPerTon: Number((parseFloat(i.qtyPerTon) || 0).toFixed(3))
+          })).filter(i => i.qtyPerTon > 0)
+        };
+
+        if (cleanFormula.ingredients.length === 0) {
+          showToast('error', 'Invalid Ingredient Quantities', 'Each ingredient must have a quantity greater than 0 kg/Ton.');
+          return;
+        }
+
+        const existingIdx = db.formulations.findIndex(f => f.id === cleanFormula.id);
+        if (existingIdx !== -1) {
+          db.formulations[existingIdx] = cleanFormula;
+        } else {
+          db.formulations.unshift(cleanFormula);
+        }
+
+        db.selectedFormulationId = cleanFormula.id;
+        db.editingFormulationId = cleanFormula.id;
+        bomDraft = JSON.parse(JSON.stringify(cleanFormula));
+        bomDraft.isNew = false;
+
+        saveDatabase();
+        refreshAllUI();
+        showToast('success', 'Master Formula Saved', `[${cleanFormula.code}] ${cleanFormula.name} is saved and ready for batch production.`);
+      });
+
+      // ================= BATCH PLANNER EVENTS =================
+      document.getElementById('emptyStateAddRawMatBtn').addEventListener('click', openAddRawMaterialModal);
+      document.getElementById('emptyStateCreateFormulaBtn').addEventListener('click', () => {
+        activeTab = 'FORMULA_MASTER';
+        refreshAllUI();
+      });
+
+      document.getElementById('plannerFormulaSelect').addEventListener('change', e => {
+        db.selectedFormulationId = e.target.value;
+        saveDatabase();
+        renderBatchPlannerPanel();
+      });
+
+      document.getElementById('plannerTargetTonsInput').addEventListener('input', e => {
+        const val = parseFloat(e.target.value);
+        targetTons = Number.isNaN(val) || val < 0 ? 0 : val;
+        renderBatchPlannerPanel();
+      });
+
+      document.querySelectorAll('.ton-preset-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const val = parseFloat(btn.getAttribute('data-ton-preset'));
+          targetTons = val;
+          document.getElementById('plannerTargetTonsInput').value = val.toFixed(3);
+          renderBatchPlannerPanel();
+        });
+      });
+
+      document.getElementById('plannerFillMaxTonsBtn').addEventListener('click', () => {
+        const formula = db.formulations.find(f => f.id === db.selectedFormulationId);
+        if (!formula) return;
+        const analysis = computeBatchFeasibility(formula, targetTons);
+        targetTons = analysis.maxPossibleTons;
+        document.getElementById('plannerTargetTonsInput').value = targetTons.toFixed(3);
+        renderBatchPlannerPanel();
+      });
+
+      document.getElementById('plannerIngredientsTbody').addEventListener('click', e => {
+        const btn = e.target.closest('[data-quick-restock]');
+        if (btn) {
+          openUpdateStockModal(
+            btn.getAttribute('data-quick-restock'),
+            parseFloat(btn.getAttribute('data-Quick-deficit')) || 100
+          );
+        }
+      });
+
+      // COMMIT PRODUCTION BATCH RUN
+      document.getElementById('commitProductionRunBtn').addEventListener('click', () => {
+        const formula = db.formulations.find(f => f.id === db.selectedFormulationId);
+        if (!formula || targetTons <= 0) return;
+
+        const analysis = computeBatchFeasibility(formula, targetTons);
+        if (analysis.hasShortage) {
+          showToast('error', 'Insufficient Raw Material Stock', 'Cannot commit batch while one or more ingredients have a shortage.');
+          return;
+        }
+
+        const remarks = document.getElementById('plannerBatchNotesInput').value.trim();
+        const ts = getFormattedTimestamp();
+        const dateKey = getTodayDateString();
+        const batchNo = `ZG-BCH-${String(1001 + db.batchLogs.length)}`;
+        const operatorName = session ? session.displayName : 'Production Manager';
+
+        const triggeredCriticalAlerts = [];
+
+        // Deduct from Master Inventory
+        db.materials.forEach(mat => {
+          const row = analysis.rows.find(r => r.materialId === mat.id);
+          if (row) {
+            mat.currentStock = Number(Math.max(0, mat.currentStock - row.requiredKg).toFixed(3));
+            const availNow = getAvailableStock(mat);
+            if (availNow < mat.minThreshold) {
+              triggeredCriticalAlerts.push({
+                id: mat.id,
+                name: mat.name,
+                availNow,
+                minThreshold: mat.minThreshold
+              });
+            }
+          }
+        });
+
+        // 1. Save Batch Log
+        db.batchLogs.unshift({
+          batchNo,
+          timestamp: ts,
+          dateKey,
+          operator: operatorName,
+          remarks,
+          productId: formula.id,
+          productName: `[${formula.code}] ${formula.name}`,
+          targetTons: Number(targetTons.toFixed(3)),
+          totalCost: analysis.totalCost,
+          items: analysis.rows.map(r => ({
+            materialId: r.materialId,
+            name: r.name,
+            deductedKg: r.requiredKg
+          }))
+        });
+
+        // 2. Intimate Dr. P. Sukumar of Production Run
+        db.notifications.unshift({
+          id: 'NOTIF-PROD-' + Date.now(),
+          category: 'PRODUCTION',
+          unread: true,
+          timestamp: ts,
+          batchNo,
+          productName: `[${formula.code}] ${formula.name}`,
+          tons: Number(targetTons.toFixed(3)),
+          totalCost: analysis.totalCost,
+          remarks,
+          actor: operatorName
+        });
+
+        // 3. Intimate Dr. P. Sukumar of any Critical Stock Threshold Breaches
+        triggeredCriticalAlerts.forEach((ca, idx) => {
+          db.notifications.unshift({
+            id: `NOTIF-CRIT-${Date.now()}-${idx}`,
+            category: 'CRITICAL_STOCK',
+            unread: true,
+            timestamp: ts,
+            materialId: ca.id,
+            materialName: ca.name,
+            availableKg: ca.availNow,
+            minThresholdKg: ca.minThreshold,
+            remarks: `Remaining available stock (${fmtNum(ca.availNow, 3)} kg) dropped below safe limit (${fmtNum(ca.minThreshold, 2)} kg) after Batch ${batchNo}.`,
+            actor: operatorName
+          });
+        });
+
+        document.getElementById('plannerBatchNotesInput').value = '';
+        saveDatabase();
+        refreshAllUI();
+
+        showToast(
+          'success',
+          `Batch ${batchNo} Committed & Inventory Updated`,
+          `Deducted ${fmtNum(analysis.totalMassKg, 3)} kg (${fmtINR(analysis.totalCost)}) for ${fmtNum(targetTons, 3)} Tons. Dr. P. Sukumar has been intimated.`
+        );
+      });
+
+      // ================= INVENTORY & ADD/UPDATE RAW MATERIAL EVENTS =================
+      document.getElementById('openNewMaterialModalBtn').addEventListener('click', openAddRawMaterialModal);
+      document.getElementById('closeAddMatModalBtn').addEventListener('click', () => {
+        document.getElementById('addMaterialModal').classList.add('hidden');
+      });
+      document.getElementById('cancelAddMatModalBtn').addEventListener('click', () => {
+        document.getElementById('addMaterialModal').classList.add('hidden');
+      });
+
+      // Show/Hide Manual Category Input in Add Material Modal
+      document.getElementById('addMatCategorySelect').addEventListener('change', e => {
+        const wrap = document.getElementById('addMatCustomCatWrap');
+        const input = document.getElementById('addMatCustomCatInput');
+        if (e.target.value === '__OTHER__') {
+          wrap.classList.remove('hidden');
+          input.required = true;
+          input.focus();
+        } else {
+          wrap.classList.add('hidden');
+          input.required = false;
+        }
+      });
+
+      // Submit New Raw Material
+      document.getElementById('addMaterialForm').addEventListener('submit', e => {
+        e.preventDefault();
+        const code = document.getElementById('addMatCode').value.trim().toUpperCase();
+        const name = document.getElementById('addMatName').value.trim();
+        const selectedCat = document.getElementById('addMatCategorySelect').value;
+        const customCat = document.getElementById('addMatCustomCatInput').value.trim();
+
+        if (!code || !name) return;
+        if (db.materials.some(m => m.id.toLowerCase() === code.toLowerCase())) {
+          showToast('error', 'Duplicate Material Code', `A raw material with code "${code}" already exists.`);
+          return;
+        }
+
+        let finalCategory = selectedCat;
+        if (selectedCat === '__OTHER__') {
+          if (!customCat) {
+            showToast('error', 'Category Required', 'Please enter your custom category name.');
+            return;
+          }
+          finalCategory = registerCustomCategoryIfNeeded(customCat);
+        }
+
+        const currentStock = Number((parseFloat(document.getElementById('addMatStock').value) || 0).toFixed(3));
+        const reservedStock = Number((parseFloat(document.getElementById('addMatReserved').value) || 0).toFixed(3));
+        const unitCost = Number((parseFloat(document.getElementById('addMatCost').value) || 0).toFixed(2));
+        const minThreshold = Number((parseFloat(document.getElementById('addMatThreshold').value) || 0).toFixed(3));
+
+        const newMat = {
+          id: code,
+          name,
+          category: finalCategory,
+          currentStock,
+          reservedStock,
+          unitCost,
+          minThreshold
+        };
+
+        db.materials.unshift(newMat);
+
+        // If user is currently in Formula Master and has an empty BOM draft, auto-add this material
+        if (bomDraft && bomDraft.ingredients.length === 0) {
+          bomDraft.ingredients.push({ materialId: newMat.id, qtyPerTon: 100.000 });
+        }
+
+        // Check if opening stock is already below threshold
+        const avail = getAvailableStock(newMat);
+        if (avail < newMat.minThreshold) {
+          db.notifications.unshift({
+            id: 'NOTIF-CRIT-' + Date.now(),
+            category: 'CRITICAL_STOCK',
+            unread: true,
+            timestamp: getFormattedTimestamp(),
+            materialId: newMat.id,
+            materialName: newMat.name,
+            availableKg: avail,
+            minThresholdKg: newMat.minThreshold,
+            remarks: `Registered with opening available stock (${fmtNum(avail, 3)} kg) below safe threshold (${fmtNum(newMat.minThreshold, 2)} kg).`,
+            actor: session ? session.displayName : 'Inventory'
+          });
+        }
+
+        document.getElementById('addMaterialModal').classList.add('hidden');
+        saveDatabase();
+        refreshAllUI();
+        showToast('success', 'Raw Material Added', `${newMat.name} (${newMat.id}) saved under category "${newMat.category}" at ${fmtINR(newMat.unitCost)}/kg.`);
+      });
+
+      // Inventory Filters & Subtabs
+      document.getElementById('invSearchInput').addEventListener('input', e => {
+        invSearchQuery = e.target.value;
+        renderInventoryPanel();
+      });
+
+      document.getElementById('invCategoryFilterSelect').addEventListener('change', e => {
+        invCategoryFilter = e.target.value;
+        renderInventoryPanel();
+      });
+
+      document.getElementById('invCriticalToggleBtn').addEventListener('click', () => {
+        invCriticalOnly = !invCriticalOnly;
+        renderInventoryPanel();
+      });
+
+      document.getElementById('subTabInventoryBtn').addEventListener('click', () => {
+        document.getElementById('subTabInventoryBtn').className = 'px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition bg-white text-slate-900 shadow-2xs';
+        document.getElementById('subTabBatchLogsBtn').className = 'px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition text-slate-600 hover:text-slate-900';
+        document.getElementById('rightInventorySubpanel').classList.remove('hidden');
+        document.getElementById('rightBatchLogsSubpanel').classList.add('hidden');
+      });
+
+      document.getElementById('subTabBatchLogsBtn').addEventListener('click', () => {
+        document.getElementById('subTabBatchLogsBtn').className = 'px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition bg-white text-slate-900 shadow-2xs';
+        document.getElementById('subTabInventoryBtn').className = 'px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition text-slate-600 hover:text-slate-900';
+        document.getElementById('rightBatchLogsSubpanel').classList.remove('hidden');
+        document.getElementById('rightInventorySubpanel').classList.add('hidden');
+      });
+
+      document.getElementById('inventoryListTbody').addEventListener('click', e => {
+        const btn = e.target.closest('[data-open-update]');
+        if (btn) {
+          openUpdateStockModal(btn.getAttribute('data-open-update'), 0);
+        }
+      });
+
+      // Update Stock & Price Modal Controls
+      document.getElementById('closeUpdModalBtn').addEventListener('click', () => {
+        document.getElementById('updateStockModal').classList.add('hidden');
+      });
+      document.getElementById('cancelUpdModalBtn').addEventListener('click', () => {
+        document.getElementById('updateStockModal').classList.add('hidden');
+      });
+
+      document.getElementById('updModeAddBtn').addEventListener('click', () => {
+        updStockMode = 'ADD';
+        const mat = db.materials.find(m => m.id === document.getElementById('updMatIdInput').value);
+        syncUpdateModalModeUI(mat, 0);
+      });
+
+      document.getElementById('updModeSetBtn').addEventListener('click', () => {
+        updStockMode = 'SET';
+        const mat = db.materials.find(m => m.id === document.getElementById('updMatIdInput').value);
+        syncUpdateModalModeUI(mat, 0);
+      });
+
+      document.getElementById('updCategorySelect').addEventListener('change', e => {
+        const wrap = document.getElementById('updCustomCatWrap');
+        const input = document.getElementById('updCustomCatInput');
+        if (e.target.value === '__OTHER__') {
+          wrap.classList.remove('hidden');
+          input.required = true;
+          input.focus();
+        } else {
+          wrap.classList.add('hidden');
+          input.required = false;
+        }
+      });
+
+      document.getElementById('deleteMaterialBtn').addEventListener('click', () => {
+        const id = document.getElementById('updMatIdInput').value;
+        const usedInFormula = db.formulations.some(f => f.ingredients.some(i => i.materialId === id));
+        if (usedInFormula) {
+          showToast('error', 'Material In Use', 'This raw material is part of an active Master Formula and cannot be deleted.');
+          return;
+        }
+        db.materials = db.materials.filter(m => m.id !== id);
+        document.getElementById('updateStockModal').classList.add('hidden');
+        saveDatabase();
+        refreshAllUI();
+        showToast('warning', 'Raw Material Deleted', `Removed material ${id} from inventory.`);
+      });
+
+      // Submit Stock & Price Update -> Intimate Dr. P. Sukumar if Price Changed or Stock Critical
+      document.getElementById('updateStockForm').addEventListener('submit', e => {
+        e.preventDefault();
+        const id = document.getElementById('updMatIdInput').value;
+        const mat = db.materials.find(m => m.id === id);
+        if (!mat) return;
+
+        const qtyVal = parseFloat(document.getElementById('updStockQtyInput').value) || 0;
+        const newPrice = Number((parseFloat(document.getElementById('updUnitPriceInput').value) || 0).toFixed(2));
+        const reservedVal = Number((parseFloat(document.getElementById('updReservedInput').value) || 0).toFixed(3));
+        const thresholdVal = Number((parseFloat(document.getElementById('updThresholdInput').value) || 0).toFixed(3));
+        const remarks = document.getElementById('updRemarksInput').value.trim();
+
+        const selectedCat = document.getElementById('updCategorySelect').value;
+        const customCat = document.getElementById('updCustomCatInput').value.trim();
+        let finalCategory = selectedCat;
+        if (selectedCat === '__OTHER__') {
+          if (!customCat) {
+            showToast('error', 'Custom Category Required', 'Please enter a category name.');
+            return;
+          }
+          finalCategory = registerCustomCategoryIfNeeded(customCat);
+        }
+
+        const oldPrice = Number(mat.unitCost);
+        const priceChanged = Math.abs(newPrice - oldPrice) >= 0.01;
+        const ts = getFormattedTimestamp();
+        const actorName = session ? session.displayName : 'Production Manager';
+
+        if (updStockMode === 'ADD') {
+          mat.currentStock = Number((mat.currentStock + qtyVal).toFixed(3));
+        } else {
+          mat.currentStock = Number(qtyVal.toFixed(3));
+        }
+
+        mat.unitCost = newPrice;
+        mat.reservedStock = reservedVal;
+        mat.minThreshold = thresholdVal;
+        mat.category = finalCategory;
+
+        // 1. If Price Changed -> Intimate Dr. P. Sukumar
+        if (priceChanged) {
+          const pctChange = oldPrice > 0 ? ((newPrice - oldPrice) / oldPrice) * 100 : 100;
+          db.notifications.unshift({
+            id: 'NOTIF-PRICE-' + Date.now(),
+            category: 'PRICE_CHANGE',
+            unread: true,
+            timestamp: ts,
+            materialId: mat.id,
+            materialName: mat.name,
+            oldPrice,
+            newPrice,
+            pctChange,
+            remarks: remarks || 'Unit rate updated during inventory adjustment.',
+            actor: actorName
+          });
+        }
+
+        // 2. If Available Stock < Safe Threshold -> Intimate Dr. P. Sukumar
+        const availNow = getAvailableStock(mat);
+        if (availNow < mat.minThreshold) {
+          db.notifications.unshift({
+            id: 'NOTIF-CRIT-' + Date.now(),
+            category: 'CRITICAL_STOCK',
+            unread: true,
+            timestamp: ts,
+            materialId: mat.id,
+            materialName: mat.name,
+            availableKg: availNow,
+            minThresholdKg: mat.minThreshold,
+            remarks: `Available stock (${fmtNum(availNow, 3)} kg) is below safe limit (${fmtNum(mat.minThreshold, 2)} kg).`,
+            actor: actorName
+          });
+        }
+
+        document.getElementById('updateStockModal').classList.add('hidden');
+        saveDatabase();
+        refreshAllUI();
+
+        if (priceChanged) {
+          showToast(
+            'warning',
+            'Price Revision Intimated to Dr. P. Sukumar',
+            `${mat.name} rate changed from ${fmtINR(oldPrice)}/kg to ${fmtINR(newPrice)}/kg. Stock: ${fmtNum(mat.currentStock, 3)} kg.`
+          );
+        } else {
+          showToast(
+            'success',
+            `Inventory Updated (${mat.id})`,
+            `${mat.name} stock is now ${fmtNum(mat.currentStock, 3)} kg (${fmtINR(mat.unitCost)}/kg).`
+          );
+        }
+      });
+
+      // ================= BACKUP & RESTORE MODAL EVENTS =================
+      document.getElementById('openBackupModalBtn').addEventListener('click', () => {
+        document.getElementById('backupModal').classList.remove('hidden');
+      });
+      document.getElementById('closeBackupModalBtn').addEventListener('click', () => {
+        document.getElementById('backupModal').classList.add('hidden');
+      });
+      document.getElementById('doneBackupModalBtn').addEventListener('click', () => {
+        document.getElementById('backupModal').classList.add('hidden');
+      });
+
+      document.getElementById('exportJsonBtn').addEventListener('click', () => {
+        const payload = JSON.stringify(db, null, 2);
+        const blob = new Blob([payload], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `zenmak_global_coimbatore_backup_${getTodayDateString()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        showToast('success', 'Backup File Downloaded', 'Saved Zenmak Global ERP data to your computer.');
+      });
+
+      document.getElementById('importJsonInput').addEventListener('change', e => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = evt => {
+          try {
+            const parsed = JSON.parse(evt.target.result);
+            if (!parsed || typeof parsed !== 'object') throw new Error('Invalid JSON');
+            db = {
+              materials: Array.isArray(parsed.materials) ? parsed.materials : [],
+              formulations: Array.isArray(parsed.formulations) ? parsed.formulations : [],
+              batchLogs: Array.isArray(parsed.batchLogs) ? parsed.batchLogs : [],
+              notifications: Array.isArray(parsed.notifications) ? parsed.notifications : [],
+              customCategories: Array.isArray(parsed.customCategories) ? parsed.customCategories : [],
+              selectedFormulationId: parsed.selectedFormulationId || null,
+              editingFormulationId: parsed.editingFormulationId || null
+            };
+            bomDraft = null;
+            saveDatabase();
+            refreshAllUI();
+            document.getElementById('backupModal').classList.add('hidden');
+            showToast('success', 'Database Restored', 'Successfully imported Zenmak Global backup file.');
+          } catch (err) {
+            showToast('error', 'Invalid Backup File', 'Could not parse the selected JSON file.');
+          }
+        };
+        reader.readAsText(file);
+      });
+    });
+  </script>
+</body>
+</html>
