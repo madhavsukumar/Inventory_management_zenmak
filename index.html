@@ -260,6 +260,17 @@
 
         <!-- Right Header Controls: Notifications, Backup/Restore, User Info & Logout -->
         <div class="flex flex-wrap items-center gap-2.5">
+          <!-- AI Formula Assistant Button (Doctor Only) -->
+          <button
+            id="headerAiAssistantBtn"
+            type="button"
+            class="hidden inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-700 to-teal-700 hover:from-emerald-800 hover:to-teal-800 text-white shadow-sm transition"
+            title="Open AI Vision Excel Formula Extractor & Formulation Assistant"
+          >
+            <span>✨ AI Excel Formula Extractor</span>
+            <span class="px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-white/20 text-white">Vision AI</span>
+          </button>
+
           <!-- Doctor Intimation Bell -->
           <button
             id="headerNotifBellBtn"
@@ -430,11 +441,18 @@
               </h2>
             </div>
             <p class="text-xs text-slate-500 mt-1">
-              All 56 official Zenmak Global products across 19 categories are pre-loaded below. Select any product to configure or update its raw material formulation per 1,000 kg.
+              All 56 official Zenmak Global products across 19 categories are pre-loaded below. Select any product to configure manually or extract directly from an Excel sheet image using AI.
             </p>
           </div>
 
           <div class="flex flex-wrap items-center gap-2.5">
+            <button
+              id="openAiExtractorFromBomBtn"
+              type="button"
+              class="px-4 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-700 hover:to-teal-800 text-white shadow-md shadow-emerald-700/15 transition flex items-center gap-2"
+            >
+              <span>✨ AI Extract from Excel Image / Sheet</span>
+            </button>
             <button
               id="formulaPageAddRawMatBtn"
               type="button"
@@ -590,7 +608,14 @@
                       Bill of Materials Ingredients (Required kg per 1 Metric Ton = 1,000 kg)
                     </span>
                   </div>
-                  <div class="flex items-center gap-2">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <button
+                      type="button"
+                      id="openAiExtractorInlineBtn"
+                      class="px-3 py-1 rounded-lg bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white text-xs font-bold transition shadow-2xs"
+                    >
+                      ✨ Scan Excel Sheet Image
+                    </button>
                     <button
                       type="button"
                       id="bomInlineQuickAddMatBtn"
@@ -1378,13 +1403,332 @@
     </div>
   </div>
 
+  <!-- ================= FLOATING AI ASSISTANT LAUNCHER (DR. P. SUKUMAR ONLY) ================= -->
+  <button
+    id="fabAiAssistantBtn"
+    type="button"
+    class="hidden fixed bottom-5 left-5 z-40 items-center gap-2.5 px-4 py-3 rounded-2xl bg-gradient-to-r from-emerald-800 via-teal-800 to-slate-900 hover:from-emerald-700 hover:to-teal-800 text-white font-heading font-bold text-xs shadow-2xl border border-emerald-400/40 transition"
+    title="Open Zenmak AI Vision Excel Formula Assistant"
+  >
+    <span class="w-6 h-6 rounded-lg bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-sm">✨</span>
+    <div class="text-left">
+      <div class="leading-none">AI Excel Formula Extractor</div>
+      <div class="text-[10px] font-sans font-normal text-emerald-200 mt-0.5">Upload / Paste Excel Screenshot</div>
+    </div>
+  </button>
+
+  <!-- ================= MODAL 4: ZENMAK AI VISION EXCEL FORMULA EXTRACTOR & CHATBOT ================= -->
+  <div id="aiFormulaAssistantModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    <div class="bg-white border border-emerald-200 rounded-3xl max-w-6xl w-full shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+      <!-- Modal Top Header -->
+      <div class="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 text-white px-6 py-4 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-lg font-bold">
+            ✨
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="font-heading text-base sm:text-lg font-extrabold text-white">
+                Zenmak AI Vision — Excel Formula Extractor &amp; BOM Assistant
+              </h3>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-emerald-500/20 text-emerald-200 border border-emerald-400/30">
+                Dr. P. Sukumar Studio
+              </span>
+            </div>
+            <p class="text-xs text-emerald-100/80">
+              Upload or paste (`Ctrl+V`) a photo/screenshot of Dr. Sukumar's Excel formulation sheet to automatically extract raw materials &amp; kg/Ton quantities.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            id="toggleAiKeyConfigBtn"
+            class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/20 text-emerald-100 border border-white/15 transition flex items-center gap-1.5"
+            title="Configure Gemini API Key for external Vercel deployment"
+          >
+            <span>🔑 API Key Settings</span>
+            <span id="aiKeyStatusPill" class="px-1.5 py-0.2 rounded text-[10px] font-mono bg-emerald-500/30 text-emerald-100">Ready</span>
+          </button>
+          <button
+            type="button"
+            id="closeAiAssistantModalBtn"
+            class="w-8 h-8 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold flex items-center justify-center transition"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Collapsible External Vercel API Key Configuration Bar -->
+      <div id="aiApiKeyConfigDrawer" class="hidden bg-slate-900 text-slate-100 px-6 py-3.5 border-b border-slate-800 text-xs">
+        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+          <div class="space-y-0.5">
+            <p class="font-bold text-emerald-300">Google Gemini API Key (For External Vercel Hosting)</p>
+            <p class="text-[11px] text-slate-400">
+              In this preview environment, AI works automatically. When deployed on your public Vercel link, paste a free Gemini API key (<span class="font-mono text-slate-300">aistudio.google.com</span>) so it saves in Dr. Sukumar's browser.
+            </p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <input
+              id="customGeminiApiKeyInput"
+              type="password"
+              placeholder="Paste Gemini API Key (AIzaSy...)"
+              class="w-64 bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-xl px-3 py-2 text-xs font-mono text-white outline-none"
+            />
+            <button
+              type="button"
+              id="saveCustomGeminiKeyBtn"
+              class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition"
+            >
+              Save Key
+            </button>
+            <button
+              type="button"
+              id="clearCustomGeminiKeyBtn"
+              class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold transition"
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Target Finished Product Selector Strip -->
+      <div class="px-6 py-3 bg-emerald-50/70 border-b border-emerald-200/80 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex flex-wrap items-center gap-2.5 flex-1">
+          <label for="aiTargetProductSelect" class="text-xs font-bold uppercase tracking-wider text-emerald-950">
+            Target Zenmak Product (1,000 kg BOM):
+          </label>
+          <select
+            id="aiTargetProductSelect"
+            class="bg-white border border-emerald-300 focus:border-emerald-600 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-bold text-slate-900 outline-none min-w-[260px]"
+          ></select>
+          <span id="aiTargetProductCurrentStatus" class="text-xs font-mono text-slate-600"></span>
+        </div>
+
+        <button
+          type="button"
+          id="loadDemoExcelImageBtn"
+          class="px-3.5 py-2 rounded-xl text-xs font-bold bg-amber-100 hover:bg-amber-200 text-amber-950 border border-amber-300 transition flex items-center gap-1.5 shadow-2xs"
+          title="Generate a realistic sample Excel formula sheet image to test the Vision AI extractor immediately"
+        >
+          <span>🧪 Load Sample Excel Formula Image (1-Click Test)</span>
+        </button>
+      </div>
+
+      <!-- Main 2-Column Body -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 flex-1 overflow-y-auto divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
+        <!-- Left Column (5 Cols): Image Upload / Paste Zone + Chat Prompt -->
+        <div class="lg:col-span-5 p-5 space-y-4 flex flex-col justify-between bg-slate-50/60">
+          <div class="space-y-4">
+            <!-- Drag & Drop / Upload / Clipboard Paste Zone -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="text-xs font-bold uppercase tracking-wider text-slate-700">
+                  1. Attach Excel Sheet Screenshot / Photo
+                </label>
+                <span class="text-[11px] font-mono text-emerald-700 font-semibold">Supports Upload or Ctrl+V Paste</span>
+              </div>
+
+              <div
+                id="aiImageDropZone"
+                class="relative border-2 border-dashed border-emerald-300 hover:border-emerald-600 bg-white rounded-2xl p-4 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[180px]"
+              >
+                <input
+                  id="aiExcelImageInput"
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp,image/jpg"
+                  class="hidden"
+                />
+
+                <!-- Empty State -->
+                <div id="aiImageEmptyState" class="space-y-2 py-2">
+                  <div class="w-11 h-11 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center mx-auto font-bold text-lg">
+                    📊
+                  </div>
+                  <p class="text-xs font-bold text-slate-800">
+                    Click to Upload Excel Image, Drag &amp; Drop, or Press <span class="font-mono bg-slate-100 px-1.5 py-0.5 rounded border border-slate-300">Ctrl+V</span>
+                  </p>
+                  <p class="text-[11px] text-slate-500 max-w-xs mx-auto">
+                    Take a photo or screenshot of Dr. Sukumar's Excel formula sheet showing Raw Material names and kg/Ton quantities.
+                  </p>
+                </div>
+
+                <!-- Attached Image Preview State -->
+                <div id="aiImagePreviewWrap" class="hidden w-full space-y-2">
+                  <div class="relative rounded-xl overflow-hidden border border-slate-200 bg-slate-900 max-h-48 flex items-center justify-center">
+                    <img id="aiAttachedImagePreview" src="" alt="Attached Excel Formula Sheet" class="max-h-48 w-auto object-contain mx-auto" />
+                    <button
+                      type="button"
+                      id="aiRemoveImageBtn"
+                      class="absolute top-2 right-2 px-2.5 py-1 rounded-lg bg-rose-600/90 hover:bg-rose-700 text-white text-[11px] font-bold shadow"
+                    >
+                      ✕ Remove Image
+                    </button>
+                  </div>
+                  <p id="aiAttachedImageMeta" class="text-[11px] font-mono text-emerald-800 font-semibold"></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Doctor's Instructions / Pasted Excel Rows Input -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="aiDoctorPromptInput" class="text-xs font-bold uppercase tracking-wider text-slate-700">
+                  2. Instructions to AI or Paste Copied Excel Rows
+                </label>
+                <span class="text-[11px] text-slate-400">Optional with image</span>
+              </div>
+              <textarea
+                id="aiDoctorPromptInput"
+                rows="4"
+                placeholder="e.g. 'Extract all raw materials and kg/Ton quantities from this Excel image for 1 Metric Ton (1,000 kg).' Or paste copied cells directly from Excel here..."
+                class="w-full bg-white border border-slate-300 focus:border-emerald-600 rounded-xl p-3 text-xs text-slate-900 outline-none resize-none leading-relaxed"
+              ></textarea>
+
+              <!-- Quick Instruction Chips -->
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <button
+                  type="button"
+                  data-ai-chip="Extract all raw materials, categories, unit rates (₹/kg), and quantities per 1,000 kg (1 Ton) from this Excel sheet image."
+                  class="ai-prompt-chip px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white hover:bg-emerald-50 text-slate-700 border border-slate-300 transition"
+                >
+                  📸 Extract 1-Ton BOM from Image
+                </button>
+                <button
+                  type="button"
+                  data-ai-chip="Extract the formula and automatically scale/normalize all ingredient quantities so the total equals exactly 1,000.000 kg (1 Metric Ton)."
+                  class="ai-prompt-chip px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white hover:bg-emerald-50 text-slate-700 border border-slate-300 transition"
+                >
+                  ⚖️ Extract &amp; Scale to 1,000 kg
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Execute AI Extraction Button & Status -->
+          <div class="pt-3 border-t border-slate-200 space-y-2.5">
+            <button
+              type="button"
+              id="runAiExtractionBtn"
+              class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-700 to-teal-700 hover:from-emerald-800 hover:to-teal-800 text-white font-heading font-bold text-xs sm:text-sm shadow-lg shadow-emerald-700/20 transition flex items-center justify-center gap-2"
+            >
+              <span id="runAiBtnSpinner" class="hidden w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              <span id="runAiBtnLabel">✨ Extract Formula with Zenmak Vision AI</span>
+            </button>
+            <p class="text-[11px] text-slate-500 text-center">
+              AI parses the Excel sheet into an editable verification table on the right before saving.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Column (7 Cols): AI Response + Interactive Editable BOM Verification Table -->
+        <div class="lg:col-span-7 p-5 flex flex-col justify-between bg-white space-y-4">
+          <div class="space-y-4">
+            <!-- AI Assistant Status / Chat Message Banner -->
+            <div id="aiAssistantMessageBanner" class="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200 text-xs space-y-1">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-emerald-950 flex items-center gap-1.5">
+                  <span>🤖 Zenmak Formulation AI Assistant</span>
+                </span>
+                <span id="aiConfidenceBadge" class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800">
+                  Ready for Excel Sheet
+                </span>
+              </div>
+              <p id="aiSummaryText" class="text-slate-700 leading-relaxed">
+                Upload an Excel screenshot on the left (or click <strong>"🧪 Load Sample Excel Formula Image"</strong> above) and click <strong>"Extract Formula with Zenmak Vision AI"</strong>. You can review and edit every ingredient and quantity below before applying it to the product.
+              </p>
+            </div>
+
+            <!-- Interactive Editable Verification Table -->
+            <div class="border border-slate-200 rounded-2xl overflow-hidden">
+              <div class="px-4 py-3 bg-slate-100 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800">
+                    Extracted Formula Verification Table (Editable Before Saving)
+                  </h4>
+                  <p class="text-[11px] text-slate-500">
+                    New raw materials marked <span class="font-bold text-teal-700">✨ Auto-Create</span> will be automatically added to Central Inventory.
+                  </p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button
+                    type="button"
+                    id="aiNormalize1000Btn"
+                    class="px-2.5 py-1 rounded-lg bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-[11px] font-bold transition"
+                  >
+                    ⚖️ Normalize to 1,000 kg
+                  </button>
+                  <button
+                    type="button"
+                    id="aiAddBlankRowBtn"
+                    class="px-2.5 py-1 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-[11px] font-bold transition"
+                  >
+                    + Add Row
+                  </button>
+                </div>
+              </div>
+
+              <div class="overflow-x-auto max-h-[340px] overflow-y-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                  <thead class="sticky top-0 bg-slate-50 border-b border-slate-200 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                    <tr>
+                      <th class="py-2.5 px-3">Raw Material Name &amp; Inventory Status</th>
+                      <th class="py-2.5 px-2">Category</th>
+                      <th class="py-2.5 px-2 text-right">Qty / Ton (kg)</th>
+                      <th class="py-2.5 px-2 text-right">Rate (₹/kg)</th>
+                      <th class="py-2.5 px-2 text-right">Safe Min (kg)</th>
+                      <th class="py-2.5 px-2 text-center">Del</th>
+                    </tr>
+                  </thead>
+                  <tbody id="aiExtractedRowsTbody" class="divide-y divide-slate-200"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Summary & 1-Click Apply Bar -->
+          <div class="pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+            <div class="flex flex-wrap items-center gap-3 text-xs font-mono bg-slate-50 px-3.5 py-2.5 rounded-xl border border-slate-200">
+              <div>
+                <span class="text-slate-500">Extracted Rows:</span>
+                <strong id="aiVerifyRowCount" class="text-slate-900 ml-1">0</strong>
+              </div>
+              <span class="text-slate-300">|</span>
+              <div>
+                <span class="text-slate-500">Total Mass:</span>
+                <strong id="aiVerifyTotalKg" class="text-emerald-700 ml-1">0.000 kg / 1,000 kg</strong>
+              </div>
+              <span class="text-slate-300">|</span>
+              <div>
+                <span class="text-slate-500">Est. Cost/T:</span>
+                <strong id="aiVerifyTotalCost" class="text-slate-900 ml-1">₹0.00</strong>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              id="applyAiExtractedBomBtn"
+              disabled
+              class="px-5 py-3 rounded-xl text-xs sm:text-sm font-heading font-bold bg-slate-200 text-slate-500 cursor-not-allowed transition shadow-sm"
+            >
+              ✅ Apply Extracted Formula to Product
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ================= APPLICATION JAVASCRIPT ================= -->
   <script>
     const DATA_STORAGE_KEY = 'zenmak_global_erp_v3_catalog';
     const LEGACY_STORAGE_KEY = 'zenmak_global_cbe_erp_data_v1';
     const SESSION_STORAGE_KEY = 'zenmak_global_cbe_active_session_v1';
+    const CUSTOM_GEMINI_KEY_STORAGE = 'zenmak_gemini_api_key_v1';
 
-    // Standard Raw Material Categories + Manual "Other" option
     const DEFAULT_RAW_MATERIAL_CATEGORIES = [
       'API',
       'Excipient',
@@ -1401,94 +1745,78 @@
       'Herbal Extract'
     ];
 
-    const CATEGORY_BADGE_STYLES = {
-      API: 'bg-indigo-50 text-indigo-700 border-indigo-200',
-      Excipient: 'bg-slate-100 text-slate-700 border-slate-300',
-      Binder: 'bg-cyan-50 text-cyan-800 border-cyan-200',
-      Disintegrant: 'bg-purple-50 text-purple-800 border-purple-200',
-      Lubricant: 'bg-amber-50 text-amber-800 border-amber-200',
-      Coating: 'bg-teal-50 text-teal-800 border-teal-200',
-      Solvent: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-      Carrier: 'bg-stone-100 text-stone-700 border-stone-300',
-      Mineral: 'bg-sky-50 text-sky-800 border-sky-200',
-      Vitamin: 'bg-orange-50 text-orange-800 border-orange-200',
-      Enzyme: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-      Acidifier: 'bg-rose-50 text-rose-800 border-rose-200',
-      'Herbal Extract': 'bg-lime-50 text-lime-800 border-lime-200'
-    };
-
-    // Complete Official 56 Finished Products Catalog across 19 Categories from https://zenmakglobal.com/
-    const OFFICIAL_ZENMAK_CATALOG = [
-      // 1. Enzymes (2)
+    // All 56 official Zenmak Global products across 19 categories from zenmakglobal.com
+    const OFFICIAL_ZENMAK_PRODUCTS = [
+      // 1. Enzymes
       { code: 'ZG-ENZ-01', name: 'MakZyme-C', category: 'Enzymes' },
       { code: 'ZG-ENZ-02', name: 'MakZyme-XPL Premium', category: 'Enzymes' },
-      // 2. Acidifiers (3)
+      // 2. Acidifiers
       { code: 'ZG-ACD-01', name: 'SAL-O-MAK', category: 'Acidifiers' },
       { code: 'ZG-ACD-02', name: 'SAL-O-MAK Plus', category: 'Acidifiers' },
       { code: 'ZG-ACD-03', name: 'SAL-O-ZEN', category: 'Acidifiers' },
-      // 3. Emulsifiers (3)
+      // 3. Emulsifiers
       { code: 'ZG-EMU-01', name: 'Lipolyse-C', category: 'Emulsifiers' },
       { code: 'ZG-EMU-02', name: 'Lipolyse-L', category: 'Emulsifiers' },
       { code: 'ZG-EMU-03', name: 'Lipolyse-C-DS', category: 'Emulsifiers' },
-      // 4. Toxin Binder (3)
+      // 4. Toxin Binder
       { code: 'ZG-TOX-01', name: 'Ditox-Regular', category: 'Toxin Binder' },
       { code: 'ZG-TOX-02', name: 'Ditox-3 Plus', category: 'Toxin Binder' },
       { code: 'ZG-TOX-03', name: 'Ditox-3 Premium', category: 'Toxin Binder' },
-      // 5. Probiotics (2)
+      // 5. Probiotics
       { code: 'ZG-PRO-01', name: 'ProZenBio-BSB', category: 'Probiotics' },
       { code: 'ZG-PRO-02', name: 'ProZenBio-WS Plus', category: 'Probiotics' },
-      // 6. Trace Minerals (3)
+      // 6. Trace Minerals
       { code: 'ZG-MIN-01', name: 'Mak Min-Org', category: 'Trace Minerals' },
       { code: 'ZG-MIN-02', name: 'Mak Min Premium', category: 'Trace Minerals' },
       { code: 'ZG-MIN-03', name: 'MAK MIN – ORG LAYER PACK', category: 'Trace Minerals' },
-      // 7. Vitamins (3)
-      { code: 'ZG-VIT-01', name: 'ZenVit-E plus', category: 'Vitamins' },
+      // 7. Vitamins
+      { code: 'ZG-VIT-01', name: 'ZenVit-E Plus', category: 'Vitamins' },
       { code: 'ZG-VIT-02', name: 'ZenMix-AD3EC', category: 'Vitamins' },
-      { code: 'ZG-VIT-03', name: 'ZenMixVit – Layer pack', category: 'Vitamins' },
-      // 8. Anti-Stress Agent (3)
-      { code: 'ZG-ASA-01', name: 'Electrol Plus', category: 'Anti-Stress Agent' },
-      { code: 'ZG-ASA-02', name: 'PROBETA-NS', category: 'Anti-Stress Agent' },
-      { code: 'ZG-ASA-03', name: 'PROBETA-WS', category: 'Anti-Stress Agent' },
-      // 9. Growth Promoter (2)
+      { code: 'ZG-VIT-03', name: 'ZenMixVit – Layer Pack', category: 'Vitamins' },
+      // 8. Anti-Stress Agent
+      { code: 'ZG-STR-01', name: 'Electrol Plus', category: 'Anti-Stress Agent' },
+      { code: 'ZG-STR-02', name: 'PROBETA-NS', category: 'Anti-Stress Agent' },
+      { code: 'ZG-STR-03', name: 'PROBETA-WS', category: 'Anti-Stress Agent' },
+      // 9. Growth Promoter
       { code: 'ZG-GRP-01', name: 'GRO Mak Liquid', category: 'Growth Promoter' },
       { code: 'ZG-GRP-02', name: 'GroMak Gold Liquid', category: 'Growth Promoter' },
-      // 10. Liver Tonic (1)
+      // 10. Liver Tonic
       { code: 'ZG-LIV-01', name: 'LivoMak (Liquid/Powder)', category: 'Liver Tonic' },
-      // 11. Herbal (4)
+      // 11. Herbal
       { code: 'ZG-HRB-01', name: 'Allivisat', category: 'Herbal' },
       { code: 'ZG-HRB-02', name: 'NATUMERIC Plus', category: 'Herbal' },
       { code: 'ZG-HRB-03', name: 'OviTone-100', category: 'Herbal' },
       { code: 'ZG-HRB-04', name: 'Respogreen-100', category: 'Herbal' },
-      // 12. Antibiotic Growth Promoter (2)
+      // 12. Antibiotic Growth Promoter
       { code: 'ZG-AGP-01', name: 'AviloMak-10', category: 'Antibiotic Growth Promoter' },
       { code: 'ZG-AGP-02', name: 'Zee MD Plus', category: 'Antibiotic Growth Promoter' },
-      // 13. Performance Enhancer (3)
+      // 13. Performance Enhancer
       { code: 'ZG-PRF-01', name: 'XSHELL-DS', category: 'Performance Enhancer' },
       { code: 'ZG-PRF-02', name: 'ZenAct-Pro', category: 'Performance Enhancer' },
       { code: 'ZG-PRF-03', name: 'Perfom-X', category: 'Performance Enhancer' },
-      // 14. Anti-Mycoplasma Antibiotic (2)
-      { code: 'ZG-AMA-01', name: 'TIAMUMAK- 10% & 80%', category: 'Anti-Mycoplasma Antibiotic' },
-      { code: 'ZG-AMA-02', name: 'TYLOMAK-H', category: 'Anti-Mycoplasma Antibiotic' },
-      // 15. Systemic Antibiotic (6)
+      // 14. Anti-Mycoplasma Antibiotic
+      { code: 'ZG-MYC-01', name: 'TIAMUMAK- 10% & 80%', category: 'Anti-Mycoplasma Antibiotic' },
+      { code: 'ZG-MYC-02', name: 'TYLOMAK-H', category: 'Anti-Mycoplasma Antibiotic' },
+      // 15. Systemic Antibiotic
       { code: 'ZG-SYS-01', name: 'CIPRO ZEN-10%', category: 'Systemic Antibiotic' },
       { code: 'ZG-SYS-02', name: 'DOXICON-N', category: 'Systemic Antibiotic' },
       { code: 'ZG-SYS-03', name: 'Tetra Mak – OTC (Water Soluble)', category: 'Systemic Antibiotic' },
       { code: 'ZG-SYS-04', name: 'Tetra Mak-OTC (Feed Supplement)', category: 'Systemic Antibiotic' },
       { code: 'ZG-SYS-05', name: 'Primosol-S', category: 'Systemic Antibiotic' },
       { code: 'ZG-SYS-06', name: 'Zenchlor-TC', category: 'Systemic Antibiotic' },
-      // 16. Antibiotic Solution (1)
-      { code: 'ZG-ABS-01', name: 'Respiflox-BH', category: 'Antibiotic Solution' },
-      // 17. Immunomodulators (2)
+      // 16. Antibiotic Solution
+      { code: 'ZG-SOL-01', name: 'Respiflox-BH', category: 'Antibiotic Solution' },
+      // 17. Immunomodulators
       { code: 'ZG-IMM-01', name: 'Natuphyto - WP', category: 'Immunomodulators' },
       { code: 'ZG-IMM-02', name: 'Elvital - T', category: 'Immunomodulators' },
-      // 18. Injectables (6)
+      // 18. Injectables
       { code: 'ZG-INJ-01', name: 'AMIKAZEN', category: 'Injectables' },
       { code: 'ZG-INJ-02', name: 'CEFTON-TAZO', category: 'Injectables' },
       { code: 'ZG-INJ-03', name: 'GENTAZEN', category: 'Injectables' },
       { code: 'ZG-INJ-04', name: 'TYLOZEN', category: 'Injectables' },
       { code: 'ZG-INJ-05', name: 'ZENOXY-LA', category: 'Injectables' },
       { code: 'ZG-INJ-06', name: 'ZENVITA', category: 'Injectables' },
-      // 19. Bio Security Products (5)
+      // 19. Bio Security Products
       { code: 'ZG-BIO-01', name: 'BIO TRIPLE CARE', category: 'Bio Security Products' },
       { code: 'ZG-BIO-02', name: 'BIO TRIPLE CARE – 20', category: 'Bio Security Products' },
       { code: 'ZG-BIO-03', name: 'SANIQUAT-20', category: 'Bio Security Products' },
@@ -1497,32 +1825,65 @@
     ];
 
     function buildSeededFormulations(existingFormulations = []) {
-      const merged = [...existingFormulations];
-      OFFICIAL_ZENMAK_CATALOG.forEach((item, index) => {
-        const exists = merged.some(
-          f =>
-            (f.name && f.name.trim().toLowerCase() === item.name.toLowerCase()) ||
-            (f.code && f.code.trim().toLowerCase() === item.code.toLowerCase())
+      const byCode = {};
+      const byName = {};
+      existingFormulations.forEach(f => {
+        if (f && f.code) byCode[f.code.toUpperCase()] = f;
+        if (f && f.name) byName[f.name.trim().toLowerCase()] = f;
+      });
+
+      const merged = OFFICIAL_ZENMAK_PRODUCTS.map((p, idx) => {
+        const match = byCode[p.code.toUpperCase()] || byName[p.name.trim().toLowerCase()];
+        return {
+          id: match?.id || `FORM-ZG-${String(idx + 1).padStart(2, '0')}`,
+          code: p.code,
+          name: p.name,
+          version: match?.version || 'v1.0',
+          therapeuticClass: match?.therapeuticClass || p.category,
+          standardYield: match?.standardYield || 'Standard 1,000 kg (1 Metric Ton) Master Batch',
+          ingredients: Array.isArray(match?.ingredients) ? match.ingredients : []
+        };
+      });
+
+      // Preserve any custom products added by Dr. P. Sukumar
+      existingFormulations.forEach(f => {
+        const alreadyIncluded = merged.some(
+          m => m.code.toUpperCase() === (f.code || '').toUpperCase() ||
+               m.name.trim().toLowerCase() === (f.name || '').trim().toLowerCase()
         );
-        if (!exists) {
-          merged.push({
-            id: `FORM-ZG-${String(index + 1).padStart(2, '0')}`,
-            code: item.code,
-            name: item.name,
-            version: 'v1.0',
-            therapeuticClass: item.category,
-            standardYield: 'Standard 1,000 kg (1 Metric Ton) Batch',
-            ingredients: [] // Empty BOM ready for Dr. P. Sukumar to configure
-          });
+        if (!alreadyIncluded && f && f.name) {
+          merged.unshift(f);
         }
       });
+
       return merged;
     }
 
-    function createInitialDatabase() {
+    function loadDatabase() {
+      try {
+        const raw = localStorage.getItem(DATA_STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          const mergedFormulations = buildSeededFormulations(
+            Array.isArray(parsed.formulations) ? parsed.formulations : []
+          );
+          return {
+            materials: Array.isArray(parsed.materials) ? parsed.materials : [],
+            formulations: mergedFormulations,
+            batchLogs: Array.isArray(parsed.batchLogs) ? parsed.batchLogs : [],
+            notifications: Array.isArray(parsed.notifications) ? parsed.notifications : [],
+            customCategories: Array.isArray(parsed.customCategories) ? parsed.customCategories : [],
+            selectedFormulationId: parsed.selectedFormulationId || (mergedFormulations[0]?.id || null),
+            editingFormulationId: parsed.editingFormulationId || (mergedFormulations[0]?.id || null)
+          };
+        }
+      } catch (e) {
+        console.warn('Initializing fresh Zenmak Global database:', e);
+      }
+
       const seededFormulations = buildSeededFormulations([]);
       return {
-        materials: [], // Strictly ZERO pre-loaded raw materials
+        materials: [],
         formulations: seededFormulations,
         batchLogs: [],
         notifications: [],
@@ -1533,131 +1894,72 @@
     }
 
     let db = loadDatabase();
-    let session = loadSession();
-    let activeTab = 'PRODUCTION_AND_INVENTORY';
-    let targetTons = 1.000;
-    let invSearchQuery = '';
-    let invCategoryFilter = 'ALL';
-    let invCriticalOnly = false;
-    let updStockMode = 'ADD';
-    let bomDraft = null;
-
-    // Catalog filters in Formula Master & Planner
-    let catalogSearchQuery = '';
-    let catalogCategorySelected = 'ALL';
-    let catalogBomStatusFilter = 'ALL'; // 'ALL' | 'CONFIGURED' | 'PENDING'
-    let plannerCategorySelected = 'ALL';
-
-    function loadDatabase() {
-      try {
-        const rawV3 = localStorage.getItem(DATA_STORAGE_KEY);
-        const rawLegacy = localStorage.getItem(LEGACY_STORAGE_KEY);
-        const rawToParse = rawV3 || rawLegacy;
-
-        if (rawToParse) {
-          const parsed = JSON.parse(rawToParse);
-          const mergedFormulations = buildSeededFormulations(
-            Array.isArray(parsed.formulations) ? parsed.formulations : []
-          );
-          const loadedDb = {
-            materials: Array.isArray(parsed.materials) ? parsed.materials : [],
-            formulations: mergedFormulations,
-            batchLogs: Array.isArray(parsed.batchLogs) ? parsed.batchLogs : [],
-            notifications: Array.isArray(parsed.notifications) ? parsed.notifications : [],
-            customCategories: Array.isArray(parsed.customCategories) ? parsed.customCategories : [],
-            selectedFormulationId: parsed.selectedFormulationId || (mergedFormulations[0]?.id || null),
-            editingFormulationId: parsed.editingFormulationId || (mergedFormulations[0]?.id || null)
-          };
-          localStorage.setItem(DATA_STORAGE_KEY, JSON.stringify(loadedDb));
-          return loadedDb;
-        }
-      } catch (err) {
-        console.error('Failed to read database from localStorage:', err);
-      }
-      const fresh = createInitialDatabase();
-      try {
-        localStorage.setItem(DATA_STORAGE_KEY, JSON.stringify(fresh));
-      } catch (e) {}
-      return fresh;
-    }
 
     function saveDatabase() {
       try {
         localStorage.setItem(DATA_STORAGE_KEY, JSON.stringify(db));
-      } catch (err) {
-        console.error('Failed to save database to localStorage:', err);
+      } catch (e) {
+        console.error('Error saving database:', e);
       }
     }
 
     function loadSession() {
       try {
         const raw = localStorage.getItem(SESSION_STORAGE_KEY);
-        if (raw) return JSON.parse(raw);
-      } catch (err) {
-        console.error('Failed to read session:', err);
+        return raw ? JSON.parse(raw) : null;
+      } catch (e) {
+        return null;
       }
-      return null;
     }
 
-    function saveSession(sessObj) {
-      session = sessObj;
+    let session = loadSession();
+
+    function saveSession(newSession) {
+      session = newSession;
       try {
-        if (sessObj) {
-          localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(sessObj));
+        if (newSession) {
+          localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(newSession));
         } else {
           localStorage.removeItem(SESSION_STORAGE_KEY);
         }
-      } catch (err) {
-        console.error('Failed to save session:', err);
-      }
+      } catch (e) {}
     }
 
-    function getAllRawMaterialCategories() {
-      const combined = [...DEFAULT_RAW_MATERIAL_CATEGORIES];
-      db.customCategories.forEach(c => {
-        if (c && !combined.some(existing => existing.toLowerCase() === c.toLowerCase())) {
-          combined.push(c);
-        }
-      });
-      return combined;
-    }
+    // Active UI State
+    let activeTab = 'FORMULA_MASTER';
+    let targetTons = 1.000;
+    let bomDraft = null;
+    let catalogSearchQuery = '';
+    let catalogCategorySelected = 'ALL';
+    let catalogBomStatusFilter = 'ALL';
+    let plannerCategorySelected = 'ALL';
+    let invSearchQuery = '';
+    let invCategoryFilter = 'ALL';
+    let invCriticalOnly = false;
+    let updStockMode = 'ADD';
 
-    function getAllProductCategories() {
-      const set = new Set();
-      OFFICIAL_ZENMAK_CATALOG.forEach(p => set.add(p.category));
-      db.formulations.forEach(f => {
-        if (f.therapeuticClass && f.therapeuticClass.trim()) {
-          set.add(f.therapeuticClass.trim());
-        }
-      });
-      return Array.from(set);
-    }
-
-    function registerCustomCategoryIfNeeded(catName) {
-      const trimmed = (catName || '').trim();
-      if (!trimmed) return 'Other';
-      const all = getAllRawMaterialCategories();
-      const existing = all.find(c => c.toLowerCase() === trimmed.toLowerCase());
-      if (existing) return existing;
-      db.customCategories.push(trimmed);
-      saveDatabase();
-      return trimmed;
-    }
-
-    function getCategoryBadgeClass(cat) {
-      return CATEGORY_BADGE_STYLES[cat] || 'bg-emerald-50 text-emerald-800 border-emerald-200';
-    }
-
-    function fmtNum(val, dec = 3) {
+    // Formatting & Helper Utilities
+    function fmtNum(val, decimals = 3) {
       const n = Number(val);
-      if (Number.isNaN(n)) return '0.000';
-      return n.toLocaleString('en-IN', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+      if (Number.isNaN(n)) return (0).toFixed(decimals);
+      return n.toLocaleString('en-IN', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      });
     }
 
     function fmtINR(val) {
       const n = Number(val);
       if (Number.isNaN(n)) return '₹0.00';
-      return '₹' + n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return '₹' + n.toLocaleString('en-IN', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function getAvailableStock(mat) {
+      if (!mat) return 0;
+      return Math.max(0, Number((Number(mat.currentStock || 0) - Number(mat.reservedStock || 0)).toFixed(3)));
     }
 
     function getTodayDateString() {
@@ -1667,40 +1969,68 @@
 
     function getFormattedTimestamp() {
       const d = new Date();
-      return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) + ', ' +
-        d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+      return `${getTodayDateString()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}:${String(d.getSeconds()).padStart(2, '0')}`;
+    }
+
+    function getAllRawMaterialCategories() {
+      const combined = [...DEFAULT_RAW_MATERIAL_CATEGORIES, ...(db.customCategories || [])];
+      return Array.from(new Set(combined));
+    }
+
+    function getAllProductCategories() {
+      const fromCatalog = OFFICIAL_ZENMAK_PRODUCTS.map(p => p.category);
+      const fromFormulations = db.formulations.map(f => f.therapeuticClass).filter(Boolean);
+      return Array.from(new Set([...fromCatalog, ...fromFormulations]));
+    }
+
+    function registerCustomCategoryIfNeeded(catName) {
+      const clean = (catName || '').trim();
+      if (!clean) return 'Excipient';
+      const existing = getAllRawMaterialCategories().find(c => c.toLowerCase() === clean.toLowerCase());
+      if (existing) return existing;
+      if (!Array.isArray(db.customCategories)) db.customCategories = [];
+      db.customCategories.push(clean);
+      saveDatabase();
+      return clean;
+    }
+
+    function getCategoryBadgeClass(cat) {
+      const map = {
+        API: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+        Enzyme: 'bg-teal-50 text-teal-800 border-teal-200',
+        Acidifier: 'bg-amber-50 text-amber-800 border-amber-200',
+        Mineral: 'bg-cyan-50 text-cyan-800 border-cyan-200',
+        Vitamin: 'bg-lime-50 text-lime-800 border-lime-200',
+        Carrier: 'bg-slate-100 text-slate-700 border-slate-200',
+        'Herbal Extract': 'bg-green-50 text-green-800 border-green-200'
+      };
+      return map[cat] || 'bg-slate-100 text-slate-700 border-slate-300';
     }
 
     function showToast(type, title, message) {
       const container = document.getElementById('toastContainer');
-      const el = document.createElement('div');
-      const styleMap = {
-        success: 'border-emerald-300 bg-white text-slate-900',
-        warning: 'border-amber-300 bg-amber-50 text-amber-950',
-        error: 'border-rose-300 bg-rose-50 text-rose-950'
-      };
-      const badgeMap = {
-        success: 'bg-emerald-600 text-white',
-        warning: 'bg-amber-500 text-white',
-        error: 'bg-rose-600 text-white'
-      };
-      el.className = `pointer-events-auto border ${styleMap[type] || styleMap.success} shadow-xl rounded-xl p-4 flex items-start gap-3 transition`;
-      el.innerHTML = `
-        <div class="w-5 h-5 rounded-full ${badgeMap[type] || badgeMap.success} flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
-          ${type === 'error' ? '!' : '✓'}
-        </div>
-        <div class="flex-1 text-xs">
-          <p class="font-bold text-sm">${title}</p>
-          <p class="text-slate-600 mt-0.5 leading-relaxed">${message}</p>
-        </div>
-      `;
-      container.appendChild(el);
-      setTimeout(() => el.remove(), 4500);
-    }
+      if (!container) return;
+      const toast = document.createElement('div');
+      const borderClass =
+        type === 'error'
+          ? 'border-rose-300 bg-rose-50 text-rose-950'
+          : type === 'warning'
+          ? 'border-amber-300 bg-amber-50 text-amber-950'
+          : 'border-emerald-300 bg-emerald-50 text-emerald-950';
 
-    function getAvailableStock(mat) {
-      if (!mat) return 0;
-      return Math.max(0, Number((Number(mat.currentStock || 0) - Number(mat.reservedStock || 0)).toFixed(3)));
+      toast.className = `pointer-events-auto border ${borderClass} shadow-xl rounded-2xl p-4 flex items-start justify-between gap-3 transition-all duration-300`;
+      toast.innerHTML = `
+        <div class="text-xs space-y-0.5">
+          <p class="font-heading font-bold">${title}</p>
+          <p class="opacity-90 leading-relaxed">${message}</p>
+        </div>
+        <button type="button" class="text-xs font-bold opacity-60 hover:opacity-100 px-1">✕</button>
+      `;
+      toast.querySelector('button').onclick = () => toast.remove();
+      container.appendChild(toast);
+      setTimeout(() => {
+        if (toast.parentNode) toast.remove();
+      }, 5000);
     }
 
     function isBomConfigured(formula) {
@@ -1774,12 +2104,21 @@
       document.getElementById('headerUserTitle').textContent = session.designation;
 
       const roleBadge = document.getElementById('headerRoleBadge');
+      const headerAiBtn = document.getElementById('headerAiAssistantBtn');
+      const fabAiBtn = document.getElementById('fabAiAssistantBtn');
+
       if (isDoctor) {
         roleBadge.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200';
         roleBadge.textContent = 'Dr. P. Sukumar • Technical Head';
+        headerAiBtn.classList.remove('hidden');
+        fabAiBtn.classList.remove('hidden');
+        fabAiBtn.classList.add('flex');
       } else {
         roleBadge.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-teal-50 text-teal-800 border border-teal-200';
         roleBadge.textContent = 'Production Manager';
+        headerAiBtn.classList.add('hidden');
+        fabAiBtn.classList.add('hidden');
+        fabAiBtn.classList.remove('flex');
       }
 
       if (!isDoctor && activeTab === 'FORMULA_MASTER') {
@@ -1787,6 +2126,456 @@
       }
 
       refreshAllUI();
+    }
+
+    // ================= ZENMAK AI VISION EXCEL FORMULA EXTRACTOR ENGINE =================
+    let aiAttachedImageBase64 = null;
+    let aiAttachedImageMimeType = null;
+    let aiAttachedImageName = '';
+    let aiExtractedIngredientsDraft = [];
+    let aiTargetFormulaId = null;
+
+    function getSavedCustomGeminiKey() {
+      try {
+        return (localStorage.getItem(CUSTOM_GEMINI_KEY_STORAGE) || '').trim();
+      } catch (e) {
+        return '';
+      }
+    }
+
+    function updateAiKeyStatusUI() {
+      const saved = getSavedCustomGeminiKey();
+      const pill = document.getElementById('aiKeyStatusPill');
+      const input = document.getElementById('customGeminiApiKeyInput');
+      if (!pill || !input) return;
+      if (saved) {
+        pill.textContent = 'Custom Key Active';
+        pill.className = 'px-1.5 py-0.2 rounded text-[10px] font-mono bg-emerald-400 text-slate-950 font-bold';
+        input.value = saved;
+      } else {
+        pill.textContent = 'Auto / Built-in';
+        pill.className = 'px-1.5 py-0.2 rounded text-[10px] font-mono bg-emerald-500/30 text-emerald-100';
+        input.value = '';
+      }
+    }
+
+    function openAiFormulaAssistantModal(preferredFormulaId = null) {
+      if (!session || session.role !== 'DOCTOR') {
+        showToast('error', 'Restricted to Dr. P. Sukumar', 'Only the Technical Head can access the AI Formula Extractor.');
+        return;
+      }
+
+      aiTargetFormulaId = preferredFormulaId || (bomDraft && !bomDraft.isNew ? bomDraft.id : db.editingFormulationId) || (db.formulations[0]?.id || null);
+      populateAiTargetProductDropdown();
+      updateAiKeyStatusUI();
+      renderAiExtractedVerificationTable();
+      document.getElementById('aiFormulaAssistantModal').classList.remove('hidden');
+    }
+
+    function populateAiTargetProductDropdown() {
+      const selectEl = document.getElementById('aiTargetProductSelect');
+      if (!selectEl) return;
+
+      const grouped = {};
+      db.formulations.forEach(f => {
+        const cat = f.therapeuticClass || 'General';
+        if (!grouped[cat]) grouped[cat] = [];
+        grouped[cat].push(f);
+      });
+
+      selectEl.innerHTML = Object.keys(grouped).map(cat => {
+        const opts = grouped[cat].map(f => {
+          const statusText = isBomConfigured(f) ? `✓ ${f.ingredients.length} items` : 'Pending BOM';
+          return `<option value="${f.id}" ${f.id === aiTargetFormulaId ? 'selected' : ''}>${f.name} [${f.code}] — ${statusText}</option>`;
+        }).join('');
+        return `<optgroup label="${cat}">${opts}</optgroup>`;
+      }).join('');
+
+      updateAiTargetProductStatusText();
+    }
+
+    function updateAiTargetProductStatusText() {
+      const formula = db.formulations.find(f => f.id === aiTargetFormulaId);
+      const statusEl = document.getElementById('aiTargetProductCurrentStatus');
+      if (!formula || !statusEl) return;
+      const configured = isBomConfigured(formula);
+      statusEl.innerHTML = configured
+        ? `<span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">Currently has ${formula.ingredients.length} BOM ingredients</span>`
+        : `<span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 font-semibold">Currently Pending BOM (0 ingredients)</span>`;
+    }
+
+    function setAiAttachedImage(dataUrl, mimeType, fileName = 'excel_formula_sheet.png') {
+      const base64Part = dataUrl.includes(',') ? dataUrl.split(',')[1] : dataUrl;
+      aiAttachedImageBase64 = base64Part;
+      aiAttachedImageMimeType = mimeType || 'image/png';
+      aiAttachedImageName = fileName;
+
+      document.getElementById('aiImageEmptyState').classList.add('hidden');
+      document.getElementById('aiImagePreviewWrap').classList.remove('hidden');
+      document.getElementById('aiAttachedImagePreview').src = dataUrl;
+      document.getElementById('aiAttachedImageMeta').textContent = `Attached: ${fileName} • Ready for Vision AI extraction`;
+    }
+
+    function clearAiAttachedImage() {
+      aiAttachedImageBase64 = null;
+      aiAttachedImageMimeType = null;
+      aiAttachedImageName = '';
+      document.getElementById('aiExcelImageInput').value = '';
+      document.getElementById('aiImageEmptyState').classList.remove('hidden');
+      document.getElementById('aiImagePreviewWrap').classList.add('hidden');
+      document.getElementById('aiAttachedImagePreview').src = '';
+    }
+
+    // Generates a realistic sample Excel Formulation Sheet PNG on an HTML5 Canvas for 1-click testing
+    function generateSampleExcelSheetImage() {
+      const targetFormula = db.formulations.find(f => f.id === aiTargetFormulaId) || db.formulations[0];
+      const prodName = targetFormula ? targetFormula.name : 'MakZyme-C';
+      const prodCode = targetFormula ? targetFormula.code : 'ZG-ENZ-01';
+      const prodCat = targetFormula ? targetFormula.therapeuticClass : 'Enzymes';
+
+      // Sample realistic formulation rows tailored to the product category
+      const sampleRowsByCategory = {
+        Enzymes: [
+          { sno: 1, name: 'Cellulase Concentrate (Fungal)', cat: 'Enzyme', qty: 185.000, rate: 640.00, safe: 150 },
+          { sno: 2, name: 'Xylanase High-Activity Granules', cat: 'Enzyme', qty: 240.000, rate: 520.00, safe: 200 },
+          { sno: 3, name: 'Phytase 10000 IU Thermostable', cat: 'Enzyme', qty: 125.000, rate: 780.00, safe: 100 },
+          { sno: 4, name: 'Beta-Glucanase & Pectinase Blend', cat: 'Enzyme', qty: 90.000, rate: 690.00, safe: 80 },
+          { sno: 5, name: 'De-oiled Calcite / Limestone Carrier', cat: 'Carrier', qty: 335.000, rate: 18.50, safe: 500 },
+          { sno: 6, name: 'Colloidal Silicon Dioxide (Anti-Caking)', cat: 'Lubricant', qty: 25.000, rate: 210.00, safe: 50 }
+        ],
+        Acidifiers: [
+          { sno: 1, name: 'Buffered Formic Acid (85%)', cat: 'Acidifier', qty: 320.000, rate: 145.00, safe: 300 },
+          { sno: 2, name: 'Propionic Acid Technical Grade', cat: 'Acidifier', qty: 210.000, rate: 168.00, safe: 200 },
+          { sno: 3, name: 'Lactic Acid Food Grade', cat: 'Acidifier', qty: 140.000, rate: 195.00, safe: 150 },
+          { sno: 4, name: 'Citric Acid Anhydrous', cat: 'Acidifier', qty: 110.000, rate: 112.00, safe: 120 },
+          { sno: 5, name: 'Precipitated Silica Carrier (Sipernat)', cat: 'Carrier', qty: 220.000, rate: 95.00, safe: 250 }
+        ],
+        'Toxin Binder': [
+          { sno: 1, name: 'Activated HSCAS (Aluminosilicate)', cat: 'Mineral', qty: 540.000, rate: 32.00, safe: 600 },
+          { sno: 2, name: 'MOS (Saccharomyces Cell Wall)', cat: 'Carrier', qty: 180.000, rate: 310.00, safe: 150 },
+          { sno: 3, name: 'Activated Charcoal Pharmaceutical', cat: 'Adsorbent', qty: 120.000, rate: 140.00, safe: 120 },
+          { sno: 4, name: 'Bacillus Subtilis Biotransformer', cat: 'Enzyme', qty: 65.000, rate: 580.00, safe: 60 },
+          { sno: 5, name: 'Silymarin & Andrographis Herbal Extract', cat: 'Herbal Extract', qty: 95.000, rate: 420.00, safe: 80 }
+        ]
+      };
+
+      const rows = sampleRowsByCategory[prodCat] || sampleRowsByCategory.Enzymes;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = 960;
+      canvas.height = 460;
+      const ctx = canvas.getContext('2d');
+
+      // Excel Sheet Background
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Top Excel Ribbon Header
+      ctx.fillStyle = '#107c41';
+      ctx.fillRect(0, 0, canvas.width, 46);
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 16px Inter, sans-serif';
+      ctx.fillText(`ZENMAK GLOBAL, COIMBATORE — MASTER EXCEL FORMULATION SHEET (1,000 KG / 1 METRIC TON)`, 20, 29);
+
+      // Subheader Info Row
+      ctx.fillStyle = '#ecfdf5';
+      ctx.fillRect(0, 46, canvas.width, 42);
+      ctx.fillStyle = '#064e3b';
+      ctx.font = 'bold 14px Inter, sans-serif';
+      ctx.fillText(`Product: ${prodName} [${prodCode}]   |   Category: ${prodCat}   |   Batch Basis: 1,000.000 kg (1 Ton)   |   Approved: Dr. P. Sukumar`, 20, 72);
+
+      // Table Column Headers
+      const colX = [20, 80, 430, 580, 720, 840];
+      const headers = ['S.No', 'Raw Material Name', 'Category', 'Qty / Ton (kg)', 'Rate (₹/kg)', 'Min Safe (kg)'];
+
+      ctx.fillStyle = '#f1f5f9';
+      ctx.fillRect(15, 102, 930, 36);
+      ctx.strokeStyle = '#cbd5e1';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(15, 102, 930, 36);
+
+      ctx.fillStyle = '#0f172a';
+      ctx.font = 'bold 13px Inter, sans-serif';
+      headers.forEach((h, i) => {
+        ctx.fillText(h, colX[i], 125);
+      });
+
+      // Draw Rows
+      let y = 138;
+      let totalKg = 0;
+      rows.forEach((r, idx) => {
+        totalKg += r.qty;
+        ctx.fillStyle = idx % 2 === 0 ? '#ffffff' : '#f8fafc';
+        ctx.fillRect(15, y, 930, 40);
+        ctx.strokeStyle = '#e2e8f0';
+        ctx.strokeRect(15, y, 930, 40);
+
+        ctx.fillStyle = '#1e293b';
+        ctx.font = '13px JetBrains Mono, monospace';
+        ctx.fillText(String(r.sno), colX[0] + 6, y + 25);
+
+        ctx.font = 'bold 13px Inter, sans-serif';
+        ctx.fillText(r.name, colX[1], y + 25);
+
+        ctx.font = '12px Inter, sans-serif';
+        ctx.fillStyle = '#047857';
+        ctx.fillText(r.cat, colX[2], y + 25);
+
+        ctx.font = 'bold 13px JetBrains Mono, monospace';
+        ctx.fillStyle = '#0f172a';
+        ctx.fillText(r.qty.toFixed(3), colX[3], y + 25);
+
+        ctx.font = '13px JetBrains Mono, monospace';
+        ctx.fillStyle = '#334155';
+        ctx.fillText('₹' + r.rate.toFixed(2), colX[4], y + 25);
+
+        ctx.fillText(r.safe.toFixed(1), colX[5], y + 25);
+        y += 40;
+      });
+
+      // Total Footer Row
+      ctx.fillStyle = '#d1fae5';
+      ctx.fillRect(15, y, 930, 42);
+      ctx.strokeStyle = '#10b981';
+      ctx.strokeRect(15, y, 930, 42);
+
+      ctx.fillStyle = '#065f46';
+      ctx.font = 'bold 14px Inter, sans-serif';
+      ctx.fillText('TOTAL MASTER FORMULATION WEIGHT PER 1 METRIC TON', colX[1], y + 26);
+      ctx.font = 'bold 15px JetBrains Mono, monospace';
+      ctx.fillText(`${totalKg.toFixed(3)} kg`, colX[3], y + 26);
+
+      const dataUrl = canvas.toDataURL('image/png');
+      setAiAttachedImage(dataUrl, 'image/png', `${prodCode}_Excel_Formula_Sheet.png`);
+      showToast('success', 'Sample Excel Sheet Loaded', `Generated sample Excel formula image for ${prodName}. Click "Extract Formula with Zenmak Vision AI" to test!`);
+    }
+
+    async function callGeminiVisionExtractor(promptText, imageBase64, imageMime) {
+      const apiKey = ""; // Canvas environment injects key when empty
+      const savedCustomKey = getSavedCustomGeminiKey();
+      const effectiveKey = savedCustomKey || apiKey;
+
+      const targetFormula = db.formulations.find(f => f.id === aiTargetFormulaId);
+      const targetContext = targetFormula
+        ? `Target Zenmak Product: ${targetFormula.name} (${targetFormula.code}, Category: ${targetFormula.therapeuticClass}).`
+        : 'Target Zenmak Product: General 1,000 kg (1 Metric Ton) Formulation.';
+
+      const existingInventoryNames = db.materials.map(m => `${m.name} [Code: ${m.id}, Cat: ${m.category}, Rate: ₹${m.unitCost}/kg]`).join('; ');
+
+      const systemPrompt = `You are the Scientific Formulation AI Assistant for Dr. P. Sukumar (Technical Head) at Zenmak Global, Coimbatore (zenmakglobal.com).
+Your job is to accurately extract pharmaceutical / veterinary / nutritional raw material Bills of Materials (BOM per 1 Metric Ton = 1,000 kg) from Excel sheet images, photos, or pasted text.
+Rules:
+1. Extract every raw material row with its materialName, category (choose from: API, Excipient, Binder, Disintegrant, Lubricant, Coating, Solvent, Carrier, Mineral, Vitamin, Enzyme, Acidifier, Herbal Extract, or a custom category if appropriate), qtyPerTonKg (quantity in kg required for 1 Metric Ton / 1,000 kg), unitCostInr (rate in ₹/kg if visible, otherwise estimate a realistic Indian Rupee rate or 150.00), and safeThresholdKg (minimum safe stock in kg if visible, otherwise 100.0).
+2. If a material name closely matches an existing raw material in Zenmak's inventory (${existingInventoryNames || 'currently empty'}), use the exact name from inventory.
+3. If the user asks to scale or normalize to 1,000 kg (1 Metric Ton), scale the quantities proportionally so their sum equals 1,000.000 kg.`;
+
+      const userParts = [
+        {
+          text: `${targetContext}\nDoctor's Instruction: ${promptText || 'Extract all raw material rows and quantities per 1 Metric Ton (1,000 kg) from the attached Excel sheet.'}`
+        }
+      ];
+
+      if (imageBase64) {
+        userParts.push({
+          inlineData: {
+            mimeType: imageMime || 'image/png',
+            data: imageBase64
+          }
+        });
+      }
+
+      const payload = {
+        contents: [
+          {
+            role: 'user',
+            parts: userParts
+          }
+        ],
+        systemInstruction: {
+          parts: [{ text: systemPrompt }]
+        },
+        generationConfig: {
+          responseMimeType: 'application/json',
+          responseSchema: {
+            type: 'OBJECT',
+            properties: {
+              summaryMessage: { type: 'STRING' },
+              detectedProductName: { type: 'STRING' },
+              ingredients: {
+                type: 'ARRAY',
+                items: {
+                  type: 'OBJECT',
+                  properties: {
+                    materialName: { type: 'STRING' },
+                    category: { type: 'STRING' },
+                    qtyPerTonKg: { type: 'NUMBER' },
+                    unitCostInr: { type: 'NUMBER' },
+                    safeThresholdKg: { type: 'NUMBER' }
+                  },
+                  propertyOrdering: ['materialName', 'category', 'qtyPerTonKg', 'unitCostInr', 'safeThresholdKg']
+                }
+              }
+            },
+            propertyOrdering: ['summaryMessage', 'detectedProductName', 'ingredients']
+          }
+        }
+      };
+
+      // Try gemini-3-flash-preview first (standard for Canvas runtime), fallback to gemini-2.5-flash if custom key is used
+      const modelsToTry = savedCustomKey
+        ? ['gemini-2.5-flash', 'gemini-3-flash-preview']
+        : ['gemini-3-flash-preview', 'gemini-2.5-flash'];
+
+      let lastErr = null;
+      for (const modelName of modelsToTry) {
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${effectiveKey}`;
+        const delays = [1000, 2000, 4000];
+
+        for (let attempt = 0; attempt <= delays.length; attempt++) {
+          try {
+            const response = await fetch(apiUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+              const errText = await response.text();
+              throw new Error(`HTTP ${response.status}: ${errText}`);
+            }
+
+            const result = await response.json();
+            const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (!text) throw new Error('Empty AI response');
+            return JSON.parse(text);
+          } catch (err) {
+            lastErr = err;
+            if (attempt < delays.length) {
+              await new Promise(r => setTimeout(r, delays[attempt]));
+            }
+          }
+        }
+      }
+      throw lastErr || new Error('AI extraction request failed.');
+    }
+
+    function renderAiExtractedVerificationTable() {
+      const tbody = document.getElementById('aiExtractedRowsTbody');
+      const applyBtn = document.getElementById('applyAiExtractedBomBtn');
+      const targetFormula = db.formulations.find(f => f.id === aiTargetFormulaId);
+      const targetName = targetFormula ? targetFormula.name : 'Selected Product';
+
+      if (!tbody) return;
+
+      if (!Array.isArray(aiExtractedIngredientsDraft) || aiExtractedIngredientsDraft.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="py-12 px-4 text-center text-xs text-slate-400">
+              No extracted ingredients yet. Attach an Excel formula screenshot on the left (or click <strong>"🧪 Load Sample Excel Formula Image"</strong>) and click <strong>"✨ Extract Formula with Zenmak Vision AI"</strong>.
+            </td>
+          </tr>
+        `;
+        document.getElementById('aiVerifyRowCount').textContent = '0';
+        document.getElementById('aiVerifyTotalKg').textContent = '0.000 kg / 1,000 kg';
+        document.getElementById('aiVerifyTotalCost').textContent = '₹0.00';
+        applyBtn.disabled = true;
+        applyBtn.className = 'px-5 py-3 rounded-xl text-xs sm:text-sm font-heading font-bold bg-slate-200 text-slate-500 cursor-not-allowed transition shadow-sm';
+        applyBtn.textContent = `✅ Apply Extracted Formula to ${targetName}`;
+        return;
+      }
+
+      const allCats = getAllRawMaterialCategories();
+      let totalKg = 0;
+      let totalCost = 0;
+
+      tbody.innerHTML = aiExtractedIngredientsDraft.map((row, idx) => {
+        const qty = Number(row.qtyPerTonKg) || 0;
+        const rate = Number(row.unitCostInr) || 0;
+        const safe = Number(row.safeThresholdKg) || 50;
+        totalKg += qty;
+        totalCost += qty * rate;
+
+        const existingMat = db.materials.find(
+          m => m.name.trim().toLowerCase() === (row.materialName || '').trim().toLowerCase()
+        );
+
+        const matchBadge = existingMat
+          ? `<span class="inline-flex items-center gap-1 px-1.5 py-0.2 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">🟢 Matched: ${existingMat.id}</span>`
+          : `<span class="inline-flex items-center gap-1 px-1.5 py-0.2 rounded text-[10px] font-mono font-bold bg-teal-50 text-teal-800 border border-teal-300">✨ Will Auto-Register in RM Inventory</span>`;
+
+        return `
+          <tr class="hover:bg-slate-50/80">
+            <td class="py-2 px-3 space-y-1">
+              <input
+                type="text"
+                data-ai-row-name="${idx}"
+                value="${(row.materialName || '').replace(/"/g, '&quot;')}"
+                placeholder="Raw material name"
+                class="w-full bg-white border border-slate-300 focus:border-emerald-600 rounded-lg px-2.5 py-1 text-xs font-bold text-slate-900 outline-none"
+              />
+              <div>${matchBadge}</div>
+            </td>
+            <td class="py-2 px-2">
+              <select
+                data-ai-row-cat="${idx}"
+                class="w-full bg-white border border-slate-300 focus:border-emerald-600 rounded-lg px-2 py-1 text-xs font-semibold text-slate-800 outline-none"
+              >
+                ${allCats.map(c => `<option value="${c}" ${c.toLowerCase() === (row.category || '').toLowerCase() ? 'selected' : ''}>${c}</option>`).join('')}
+                ${!allCats.some(c => c.toLowerCase() === (row.category || '').toLowerCase()) && row.category
+                  ? `<option value="${row.category}" selected>${row.category}</option>`
+                  : ''}
+              </select>
+            </td>
+            <td class="py-2 px-2">
+              <input
+                type="number"
+                step="0.001"
+                min="0.001"
+                data-ai-row-qty="${idx}"
+                value="${qty}"
+                class="w-24 bg-white border border-slate-300 focus:border-emerald-600 rounded-lg px-2 py-1 text-xs font-mono font-bold text-right text-slate-900 outline-none ml-auto block"
+              />
+            </td>
+            <td class="py-2 px-2">
+              <input
+                type="number"
+                step="0.01"
+                min="0"
+                data-ai-row-rate="${idx}"
+                value="${rate}"
+                class="w-20 bg-white border border-slate-300 focus:border-emerald-600 rounded-lg px-2 py-1 text-xs font-mono text-right text-slate-900 outline-none ml-auto block"
+              />
+            </td>
+            <td class="py-2 px-2">
+              <input
+                type="number"
+                step="1"
+                min="0"
+                data-ai-row-safe="${idx}"
+                value="${safe}"
+                class="w-20 bg-white border border-slate-300 focus:border-emerald-600 rounded-lg px-2 py-1 text-xs font-mono text-right text-slate-700 outline-none ml-auto block"
+              />
+            </td>
+            <td class="py-2 px-2 text-center">
+              <button
+                type="button"
+                data-ai-row-del="${idx}"
+                class="px-2 py-1 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 font-bold"
+              >
+                ✕
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      document.getElementById('aiVerifyRowCount').textContent = String(aiExtractedIngredientsDraft.length);
+      document.getElementById('aiVerifyTotalKg').textContent = `${fmtNum(totalKg, 3)} kg / 1,000 kg`;
+      document.getElementById('aiVerifyTotalCost').textContent = fmtINR(totalCost);
+
+      applyBtn.disabled = false;
+      applyBtn.className = 'px-5 py-3 rounded-xl text-xs sm:text-sm font-heading font-bold bg-gradient-to-r from-emerald-700 to-teal-700 hover:from-emerald-800 hover:to-teal-800 text-white cursor-pointer transition shadow-md shadow-emerald-700/20';
+      applyBtn.textContent = `✅ Apply Extracted Formula to ${targetName} (${aiExtractedIngredientsDraft.length} items)`;
     }
 
     // ================= CATEGORY DROPDOWNS =================
@@ -3427,6 +4216,319 @@
       });
       document.getElementById('doneBackupModalBtn').addEventListener('click', () => {
         document.getElementById('backupModal').classList.add('hidden');
+      });
+
+      // ================= ZENMAK AI VISION FORMULA EXTRACTOR EVENTS =================
+      document.getElementById('headerAiAssistantBtn').addEventListener('click', () => {
+        openAiFormulaAssistantModal();
+      });
+      document.getElementById('fabAiAssistantBtn').addEventListener('click', () => {
+        openAiFormulaAssistantModal();
+      });
+      document.getElementById('openAiExtractorFromBomBtn').addEventListener('click', () => {
+        openAiFormulaAssistantModal(bomDraft && !bomDraft.isNew ? bomDraft.id : db.editingFormulationId);
+      });
+      document.getElementById('openAiExtractorInlineBtn').addEventListener('click', () => {
+        openAiFormulaAssistantModal(bomDraft && !bomDraft.isNew ? bomDraft.id : db.editingFormulationId);
+      });
+      document.getElementById('closeAiAssistantModalBtn').addEventListener('click', () => {
+        document.getElementById('aiFormulaAssistantModal').classList.add('hidden');
+      });
+
+      document.getElementById('toggleAiKeyConfigBtn').addEventListener('click', () => {
+        document.getElementById('aiApiKeyConfigDrawer').classList.toggle('hidden');
+      });
+
+      document.getElementById('saveCustomGeminiKeyBtn').addEventListener('click', () => {
+        const val = document.getElementById('customGeminiApiKeyInput').value.trim();
+        if (!val) {
+          showToast('error', 'Empty API Key', 'Please paste a valid Google Gemini API key.');
+          return;
+        }
+        try {
+          localStorage.setItem(CUSTOM_GEMINI_KEY_STORAGE, val);
+        } catch (e) {}
+        updateAiKeyStatusUI();
+        document.getElementById('aiApiKeyConfigDrawer').classList.add('hidden');
+        showToast('success', 'Gemini API Key Saved', 'Your custom Gemini API key is saved locally for Vercel Vision AI requests.');
+      });
+
+      document.getElementById('clearCustomGeminiKeyBtn').addEventListener('click', () => {
+        try {
+          localStorage.removeItem(CUSTOM_GEMINI_KEY_STORAGE);
+        } catch (e) {}
+        updateAiKeyStatusUI();
+        showToast('warning', 'Custom API Key Cleared', 'Reverted to built-in runtime key.');
+      });
+
+      document.getElementById('aiTargetProductSelect').addEventListener('change', e => {
+        aiTargetFormulaId = e.target.value;
+        updateAiTargetProductStatusText();
+        renderAiExtractedVerificationTable();
+      });
+
+      document.getElementById('loadDemoExcelImageBtn').addEventListener('click', () => {
+        generateSampleExcelSheetImage();
+      });
+
+      // Image Upload, Drag & Drop, and Remove
+      const dropZone = document.getElementById('aiImageDropZone');
+      const fileInput = document.getElementById('aiExcelImageInput');
+
+      dropZone.addEventListener('click', e => {
+        if (e.target.closest('#aiRemoveImageBtn')) return;
+        fileInput.click();
+      });
+
+      dropZone.addEventListener('dragover', e => {
+        e.preventDefault();
+        dropZone.classList.add('border-emerald-600', 'bg-emerald-50/40');
+      });
+
+      dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('border-emerald-600', 'bg-emerald-50/40');
+      });
+
+      dropZone.addEventListener('drop', e => {
+        e.preventDefault();
+        dropZone.classList.remove('border-emerald-600', 'bg-emerald-50/40');
+        const file = e.dataTransfer?.files?.[0];
+        if (file && file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = ev => setAiAttachedImage(ev.target.result, file.type, file.name);
+          reader.readAsDataURL(file);
+        }
+      });
+
+      fileInput.addEventListener('change', e => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => setAiAttachedImage(ev.target.result, file.type, file.name);
+        reader.readAsDataURL(file);
+      });
+
+      document.getElementById('aiRemoveImageBtn').addEventListener('click', e => {
+        e.stopPropagation();
+        clearAiAttachedImage();
+      });
+
+      // Direct Clipboard Image Paste (Ctrl+V) when AI Modal is Open
+      window.addEventListener('paste', e => {
+        const modal = document.getElementById('aiFormulaAssistantModal');
+        if (!modal || modal.classList.contains('hidden')) return;
+        const items = e.clipboardData?.items;
+        if (!items) return;
+        for (let i = 0; i < items.length; i++) {
+          if (items[i].type.indexOf('image') !== -1) {
+            const file = items[i].getAsFile();
+            if (file) {
+              const reader = new FileReader();
+              reader.onload = ev => {
+                setAiAttachedImage(ev.target.result, file.type, 'Clipboard_Excel_Screenshot.png');
+                showToast('success', 'Excel Screenshot Pasted', 'Attached image from clipboard. Click "Extract Formula with Zenmak Vision AI".');
+              };
+              reader.readAsDataURL(file);
+              e.preventDefault();
+              break;
+            }
+          }
+        }
+      });
+
+      // Prompt Chips
+      document.querySelectorAll('.ai-prompt-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.getElementById('aiDoctorPromptInput').value = chip.getAttribute('data-ai-chip');
+        });
+      });
+
+      // Execute AI Extraction
+      document.getElementById('runAiExtractionBtn').addEventListener('click', async () => {
+        const promptVal = document.getElementById('aiDoctorPromptInput').value.trim();
+        if (!aiAttachedImageBase64 && !promptVal) {
+          showToast('error', 'Attach Excel Image or Enter Text', 'Please upload/paste an Excel screenshot (or click "Load Sample Excel Formula Image") first.');
+          return;
+        }
+
+        const btn = document.getElementById('runAiExtractionBtn');
+        const spinner = document.getElementById('runAiBtnSpinner');
+        const label = document.getElementById('runAiBtnLabel');
+        const badge = document.getElementById('aiConfidenceBadge');
+        const summaryEl = document.getElementById('aiSummaryText');
+
+        btn.disabled = true;
+        spinner.classList.remove('hidden');
+        label.textContent = 'Scanning Excel Sheet with Zenmak Vision AI...';
+        badge.textContent = 'Analyzing...';
+        badge.className = 'px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-100 text-amber-800 animate-pulse';
+
+        try {
+          const extracted = await callGeminiVisionExtractor(promptVal, aiAttachedImageBase64, aiAttachedImageMimeType);
+          const rows = Array.isArray(extracted.ingredients) ? extracted.ingredients : [];
+
+          aiExtractedIngredientsDraft = rows.map(r => ({
+            materialName: (r.materialName || 'Raw Material').trim(),
+            category: (r.category || 'API').trim(),
+            qtyPerTonKg: Number((parseFloat(r.qtyPerTonKg) || 0).toFixed(3)),
+            unitCostInr: Number((parseFloat(r.unitCostInr) || 120).toFixed(2)),
+            safeThresholdKg: Number((parseFloat(r.safeThresholdKg) || 100).toFixed(1))
+          })).filter(r => r.qtyPerTonKg > 0);
+
+          // If AI detected a product name that matches one of the 56 products, highlight it
+          if (extracted.detectedProductName) {
+            const matchedFormula = db.formulations.find(
+              f => extracted.detectedProductName.toLowerCase().includes(f.name.toLowerCase()) ||
+                   f.name.toLowerCase().includes(extracted.detectedProductName.toLowerCase())
+            );
+            if (matchedFormula) {
+              aiTargetFormulaId = matchedFormula.id;
+              populateAiTargetProductDropdown();
+            }
+          }
+
+          summaryEl.textContent = extracted.summaryMessage || `Successfully extracted ${aiExtractedIngredientsDraft.length} raw material rows from the Excel sheet. Please verify the quantities below and click Apply.`;
+          badge.textContent = `✓ Extracted ${aiExtractedIngredientsDraft.length} Rows`;
+          badge.className = 'px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800';
+
+          renderAiExtractedVerificationTable();
+          showToast('success', 'AI Excel Extraction Complete', `Extracted ${aiExtractedIngredientsDraft.length} ingredients. Review and click Apply to save.`);
+        } catch (err) {
+          console.error('AI Extraction Error:', err);
+          badge.textContent = 'API Key / Connection Needed';
+          badge.className = 'px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-rose-100 text-rose-800';
+          summaryEl.innerHTML = `Could not reach Gemini Vision API (${err.message || 'Check connection'}). If you are running on an external Vercel URL, click <strong>"🔑 API Key Settings"</strong> at the top-right of this window and paste your free Google Gemini API key.`;
+          showToast('error', 'AI Extraction Failed', 'If hosted on Vercel, click "🔑 API Key Settings" to save your Gemini API key.');
+        } finally {
+          btn.disabled = false;
+          spinner.classList.add('hidden');
+          label.textContent = '✨ Extract Formula with Zenmak Vision AI';
+        }
+      });
+
+      // Editable Verification Table Events
+      document.getElementById('aiExtractedRowsTbody').addEventListener('input', e => {
+        const nameIdx = e.target.getAttribute('data-ai-row-name');
+        const catIdx = e.target.getAttribute('data-ai-row-cat');
+        const qtyIdx = e.target.getAttribute('data-ai-row-qty');
+        const rateIdx = e.target.getAttribute('data-ai-row-rate');
+        const safeIdx = e.target.getAttribute('data-ai-row-safe');
+
+        if (nameIdx !== null) {
+          aiExtractedIngredientsDraft[Number(nameIdx)].materialName = e.target.value;
+        } else if (catIdx !== null) {
+          aiExtractedIngredientsDraft[Number(catIdx)].category = e.target.value;
+        } else if (qtyIdx !== null) {
+          aiExtractedIngredientsDraft[Number(qtyIdx)].qtyPerTonKg = parseFloat(e.target.value) || 0;
+        } else if (rateIdx !== null) {
+          aiExtractedIngredientsDraft[Number(rateIdx)].unitCostInr = parseFloat(e.target.value) || 0;
+        } else if (safeIdx !== null) {
+          aiExtractedIngredientsDraft[Number(safeIdx)].safeThresholdKg = parseFloat(e.target.value) || 0;
+        }
+
+        // Update totals footer without losing input focus
+        const totalKg = aiExtractedIngredientsDraft.reduce((s, r) => s + (Number(r.qtyPerTonKg) || 0), 0);
+        const totalCost = aiExtractedIngredientsDraft.reduce((s, r) => s + ((Number(r.qtyPerTonKg) || 0) * (Number(r.unitCostInr) || 0)), 0);
+        document.getElementById('aiVerifyTotalKg').textContent = `${fmtNum(totalKg, 3)} kg / 1,000 kg`;
+        document.getElementById('aiVerifyTotalCost').textContent = fmtINR(totalCost);
+      });
+
+      document.getElementById('aiExtractedRowsTbody').addEventListener('click', e => {
+        const delIdx = e.target.getAttribute('data-ai-row-del');
+        if (delIdx !== null) {
+          aiExtractedIngredientsDraft.splice(Number(delIdx), 1);
+          renderAiExtractedVerificationTable();
+        }
+      });
+
+      document.getElementById('aiAddBlankRowBtn').addEventListener('click', () => {
+        aiExtractedIngredientsDraft.push({
+          materialName: 'New Ingredient',
+          category: 'Excipient',
+          qtyPerTonKg: 50.000,
+          unitCostInr: 100.00,
+          safeThresholdKg: 100.0
+        });
+        renderAiExtractedVerificationTable();
+      });
+
+      document.getElementById('aiNormalize1000Btn').addEventListener('click', () => {
+        if (!aiExtractedIngredientsDraft.length) return;
+        const sum = aiExtractedIngredientsDraft.reduce((s, r) => s + (Number(r.qtyPerTonKg) || 0), 0);
+        if (sum <= 0) return;
+        let running = 0;
+        aiExtractedIngredientsDraft.forEach((r, idx) => {
+          if (idx === aiExtractedIngredientsDraft.length - 1) {
+            r.qtyPerTonKg = Number(Math.max(0.001, 1000 - running).toFixed(3));
+          } else {
+            const scaled = Number(((r.qtyPerTonKg / sum) * 1000).toFixed(3));
+            r.qtyPerTonKg = scaled;
+            running += scaled;
+          }
+        });
+        renderAiExtractedVerificationTable();
+        showToast('success', 'Normalized to 1,000.000 kg', 'Scaled all extracted rows proportionally to 1 Metric Ton.');
+      });
+
+      // 1-Click Apply Extracted Formula to Target Product & Auto-Register New Raw Materials
+      document.getElementById('applyAiExtractedBomBtn').addEventListener('click', () => {
+        if (!aiExtractedIngredientsDraft.length) return;
+        const targetFormula = db.formulations.find(f => f.id === aiTargetFormulaId);
+        if (!targetFormula) return;
+
+        let autoCreatedCount = 0;
+        const newBomIngredients = [];
+
+        aiExtractedIngredientsDraft.forEach(row => {
+          const cleanName = (row.materialName || '').trim();
+          const qty = Number((parseFloat(row.qtyPerTonKg) || 0).toFixed(3));
+          if (!cleanName || qty <= 0) return;
+
+          const cleanCat = registerCustomCategoryIfNeeded(row.category || 'API');
+          let mat = db.materials.find(m => m.name.trim().toLowerCase() === cleanName.toLowerCase());
+
+          if (!mat) {
+            const nextCode = `RM-${101 + db.materials.length}`;
+            mat = {
+              id: nextCode,
+              name: cleanName,
+              category: cleanCat,
+              currentStock: 1000.000, // Default opening stock so PM can test batch feasibility immediately
+              reservedStock: 0.000,
+              unitCost: Number((parseFloat(row.unitCostInr) || 100).toFixed(2)),
+              minThreshold: Number((parseFloat(row.safeThresholdKg) || 100).toFixed(3))
+            };
+            db.materials.push(mat);
+            autoCreatedCount++;
+          }
+
+          // Merge if duplicate material in same BOM
+          const existingBomLine = newBomIngredients.find(i => i.materialId === mat.id);
+          if (existingBomLine) {
+            existingBomLine.qtyPerTon = Number((existingBomLine.qtyPerTon + qty).toFixed(3));
+          } else {
+            newBomIngredients.push({
+              materialId: mat.id,
+              qtyPerTon: qty
+            });
+          }
+        });
+
+        targetFormula.ingredients = newBomIngredients;
+        db.selectedFormulationId = targetFormula.id;
+        db.editingFormulationId = targetFormula.id;
+        bomDraft = JSON.parse(JSON.stringify(targetFormula));
+        bomDraft.isNew = false;
+
+        saveDatabase();
+        refreshAllUI();
+        document.getElementById('aiFormulaAssistantModal').classList.add('hidden');
+
+        showToast(
+          'success',
+          `BOM Applied to ${targetFormula.name}`,
+          `Saved ${newBomIngredients.length} ingredients (${autoCreatedCount} new raw material(s) auto-registered in Central Inventory).`
+        );
       });
 
       document.getElementById('exportJsonBtn').addEventListener('click', () => {
