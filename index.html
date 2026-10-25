@@ -3,19 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zenmak Global, Coimbatore — Formulation, Batch Manufacturing & Inventory ERP</title>
+  <title>Zenmak Global, Coimbatore — Scientific Formulation, Batch Manufacturing & Inventory ERP</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace']
+          },
+          colors: {
+            zenmak: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              200: '#a7f3d0',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+              teal: '#0f766e'
+            }
           }
         }
       }
@@ -26,6 +39,9 @@
       font-family: 'Inter', sans-serif;
       background-color: #f8fafc;
       color: #0f172a;
+    }
+    h1, h2, h3, .font-heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button {
@@ -47,59 +63,99 @@
     }
   </style>
 </head>
-<body class="min-h-screen bg-slate-50 text-slate-900 antialiased selection:bg-indigo-600 selection:text-white">
+<body class="min-h-screen bg-slate-50 text-slate-900 antialiased selection:bg-emerald-700 selection:text-white">
 
   <!-- Toast Notification Container -->
   <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 max-w-md w-full pointer-events-none"></div>
 
-  <!-- ================= FULL-SCREEN CORPORATE LOGIN GATE ================= -->
-  <div id="loginGate" class="fixed inset-0 z-50 bg-slate-100 flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-white border border-slate-200 rounded-2xl max-w-4xl w-full shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-12">
-      <!-- Left Corporate Branding Pane -->
-      <div class="md:col-span-5 bg-slate-900 text-white p-8 flex flex-col justify-between relative overflow-hidden">
+  <!-- ================= FULL-SCREEN ZENMAK GLOBAL CORPORATE LOGIN GATE ================= -->
+  <div id="loginGate" class="fixed inset-0 z-50 bg-gradient-to-br from-emerald-50/70 via-slate-50 to-teal-50/60 flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white border border-emerald-200/80 rounded-3xl max-w-5xl w-full shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+      <!-- Left Corporate Branding Pane (Inspired by zenmakglobal.com) -->
+      <div class="lg:col-span-6 bg-gradient-to-br from-emerald-900 via-teal-900 to-slate-900 text-white p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden">
+        <!-- Decorative Bio-Scientific Mesh Accent -->
+        <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-emerald-500/15 blur-2xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-teal-400/10 blur-2xl pointer-events-none"></div>
+
         <div class="relative z-10">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-sm">
+          <!-- Zenmak Global Emblem & Title -->
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-white font-heading font-extrabold text-xl shadow-lg shadow-emerald-950/50 border border-emerald-300/30">
               ZG
             </div>
             <div>
-              <h1 class="font-bold tracking-tight text-base text-white">ZENMAK GLOBAL</h1>
-              <p class="text-[11px] font-mono text-indigo-300 uppercase tracking-wider">Coimbatore, Tamil Nadu</p>
+              <div class="flex items-center gap-2">
+                <h1 class="font-heading font-extrabold tracking-tight text-lg text-white">ZENMAK GLOBAL</h1>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-emerald-500/20 text-emerald-200 border border-emerald-400/30">
+                  Swiss Tech
+                </span>
+              </div>
+              <p class="text-xs text-emerald-200/90 font-medium">Zenmak Nutrigencies &amp; Health Pvt Ltd • Coimbatore</p>
             </div>
           </div>
 
-          <h2 class="text-xl font-bold mt-8 leading-snug text-white">
-            Formulation Master &amp; Batch Manufacturing ERP
-          </h2>
-          <p class="text-xs text-slate-300 mt-2.5 leading-relaxed">
-            Dedicated role-based portal for Master Bill of Materials (per 1 Metric Ton / 1,000 kg), real-time raw material stock tracking, bottleneck feasibility analysis, and automated oversight intimations.
-          </p>
+          <!-- Official Website Taglines -->
+          <div class="mt-8 space-y-3">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-800/70 border border-emerald-600/50 text-emerald-200 text-[11px] font-semibold tracking-wide">
+              <span>Poultry</span>
+              <span>•</span>
+              <span>Aquaculture</span>
+              <span>•</span>
+              <span>Companion Care</span>
+            </div>
+            <h2 class="font-heading text-2xl sm:text-3xl font-extrabold leading-tight text-white">
+              Fulfilling Nutritional Needs With Scientific Solutions
+            </h2>
+            <p class="text-xs sm:text-sm text-emerald-100/85 leading-relaxed">
+              Advancing Animal Well-being with Purpose and Precision • Integrated Master Formulation (BOM per 1 Metric Ton), Batch Manufacturing &amp; Raw Material Inventory ERP.
+            </p>
+          </div>
         </div>
 
-        <div class="relative z-10 space-y-3 pt-8 border-t border-slate-800 text-xs mt-8">
-          <div class="bg-slate-800/90 border border-slate-700 rounded-xl p-3.5">
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">Technical Head Portal</span>
-            <p class="font-semibold text-white mt-1.5">Dr. P. Sukumar • Technical Head</p>
-            <p class="text-slate-400 text-[11px] mt-0.5">Full access to Formula Master (BOM), Production Logs, Critical Stock Alerts &amp; Raw Material Price Change Intimations.</p>
+        <!-- Portal Access Cards -->
+        <div class="relative z-10 space-y-3 pt-8 border-t border-emerald-800/80 text-xs mt-8">
+          <div class="bg-slate-900/55 backdrop-blur-xs border border-emerald-700/50 rounded-2xl p-3.5">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-200 border border-emerald-400/30">
+                1. Doctor Formula Master &amp; Oversight
+              </span>
+              <span class="text-[11px] font-mono text-emerald-300">56 Official Products</span>
+            </div>
+            <p class="font-bold text-white mt-1.5">Dr. P. Sukumar • Technical Head</p>
+            <p class="text-emerald-100/75 text-[11px] mt-0.5">
+              Configure Master Formulations (1,000 kg BOM), audit daily production batches, and receive automatic intimations on critical stock &amp; ₹/kg price revisions.
+            </p>
           </div>
-          <div class="bg-slate-800/90 border border-slate-700 rounded-xl p-3.5">
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">Operations Portal</span>
-            <p class="font-semibold text-white mt-1.5">Production Manager</p>
-            <p class="text-slate-400 text-[11px] mt-0.5">Batch feasibility planning, post-batch stock deduction, and central raw material inventory &amp; ₹/kg rate updates.</p>
+
+          <div class="bg-slate-900/55 backdrop-blur-xs border border-emerald-700/50 rounded-2xl p-3.5">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-teal-500/20 text-teal-200 border border-teal-400/30">
+                2. Batch Production &amp; Inventory Portal
+              </span>
+              <span class="text-[11px] font-mono text-teal-300">Metric Ton Basis</span>
+            </div>
+            <p class="font-bold text-white mt-1.5">Production Manager</p>
+            <p class="text-emerald-100/75 text-[11px] mt-0.5">
+              Run bottleneck feasibility calculations, commit daily production runs, and manage raw material stock (kg) &amp; unit rates (₹/kg).
+            </p>
           </div>
         </div>
       </div>
 
       <!-- Right Login Credentials Form -->
-      <div class="md:col-span-7 p-8 flex flex-col justify-between bg-white">
+      <div class="lg:col-span-6 p-8 sm:p-10 flex flex-col justify-between bg-white">
         <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-semibold">
-            <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
-            Authorized Plant Personnel Sign-In
+          <div class="flex items-center justify-between gap-2">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold">
+              <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+              Coimbatore Formulation Plant ERP
+            </span>
+            <span class="text-[11px] font-mono font-semibold text-slate-400">zenmakglobal.com</span>
           </div>
-          <h3 class="text-2xl font-bold text-slate-900 mt-3">Sign in to Zenmak Global</h3>
-          <p class="text-xs text-slate-500 mt-1">
-            Enter your assigned Username and Password to access your workspace. All plant records remain persistently saved across sessions.
+
+          <h3 class="font-heading text-2xl font-extrabold text-slate-900 mt-4">Authorized Personnel Sign-In</h3>
+          <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+            Sign in with your assigned plant credentials. All 56 official Zenmak Global products, BOM formulas, raw material stock, and batch records are persistently saved.
           </p>
 
           <form id="loginForm" class="mt-6 space-y-4">
@@ -117,7 +173,7 @@
                 type="text"
                 autocomplete="username"
                 placeholder="Enter your username"
-                class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-4 py-3 text-sm text-slate-900 outline-none transition"
+                class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl px-4 py-3 text-sm text-slate-900 outline-none transition"
                 required
               />
             </div>
@@ -127,7 +183,7 @@
                 <label for="loginPassword" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
                   Password
                 </label>
-                <button type="button" id="togglePasswordBtn" class="text-xs font-semibold text-indigo-600 hover:text-indigo-800">
+                <button type="button" id="togglePasswordBtn" class="text-xs font-bold text-emerald-700 hover:text-emerald-900">
                   Show Password
                 </button>
               </div>
@@ -136,26 +192,26 @@
                 type="password"
                 autocomplete="current-password"
                 placeholder="Enter your password"
-                class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-4 py-3 text-sm text-slate-900 outline-none transition"
+                class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl px-4 py-3 text-sm text-slate-900 outline-none transition"
                 required
               />
             </div>
 
             <button
               type="submit"
-              class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm transition shadow-md shadow-indigo-600/15 mt-2"
+              class="w-full py-3.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-heading font-bold text-sm transition shadow-lg shadow-emerald-700/20 mt-2"
             >
-              Sign In to Workspace
+              Sign In to Zenmak Global ERP
             </button>
           </form>
         </div>
 
         <div class="mt-8 pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500">
-          <span class="flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            Auto-Persistence Enabled (Browser Storage)
+          <span class="flex items-center gap-1.5 font-medium text-slate-600">
+            <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+            Persistent Local Database Active
           </span>
-          <span class="font-mono">Zenmak Global, Coimbatore • INR (₹)</span>
+          <span class="font-mono">Coimbatore, India • INR (₹)</span>
         </div>
       </div>
     </div>
@@ -164,32 +220,47 @@
   <!-- ================= MAIN APPLICATION SHELL ================= -->
   <div id="appShell" class="hidden min-h-screen flex flex-col">
 
+    <!-- TOP SCIENTIFIC BRAND BAR -->
+    <div class="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 text-emerald-100 text-[11px] py-1.5 px-4 sm:px-6 border-b border-emerald-800">
+      <div class="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2 font-medium">
+          <span class="px-2 py-0.2 rounded bg-emerald-500/20 text-emerald-200 font-semibold border border-emerald-400/30">Swiss Technology</span>
+          <span>Fulfilling Nutritional Needs With Scientific Solutions • Advancing Animal Well-being with Purpose and Precision</span>
+        </div>
+        <div class="hidden md:flex items-center gap-3 font-mono text-emerald-200/90">
+          <span>Poultry • Aquaculture • Companion Care</span>
+          <span>|</span>
+          <span>56 Official Products Catalog</span>
+        </div>
+      </div>
+    </div>
+
     <!-- TOP NAVIGATION & KPI HEADER -->
     <header class="border-b border-slate-200 bg-white sticky top-0 z-30 shadow-xs">
       <div class="max-w-[1600px] mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-4">
         <!-- Brand Identity -->
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold text-base shadow-xs">
+        <div class="flex items-center gap-3.5">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 flex items-center justify-center text-white font-heading font-extrabold text-lg shadow-sm">
             ZG
           </div>
           <div>
             <div class="flex flex-wrap items-center gap-2">
-              <h1 class="text-base sm:text-lg font-bold tracking-tight text-slate-900">
+              <h1 class="font-heading text-base sm:text-lg font-extrabold tracking-tight text-slate-900">
                 Zenmak Global, Coimbatore
               </h1>
-              <span id="headerRoleBadge" class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+              <span id="headerRoleBadge" class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
                 Dr. P. Sukumar • Technical Head
               </span>
             </div>
             <p class="text-xs text-slate-500">
-              Formulation &amp; Inventory Management Portal • Coimbatore Plant (1,000 kg / Metric Ton Basis)
+              Zenmak Nutrigencies &amp; Health Pvt Ltd • Master Formulation (1,000 kg / Metric Ton) &amp; Inventory ERP
             </p>
           </div>
         </div>
 
         <!-- Right Header Controls: Notifications, Backup/Restore, User Info & Logout -->
         <div class="flex flex-wrap items-center gap-2.5">
-          <!-- Doctor Intimation Bell (Visible to Dr. P. Sukumar; also clickable for PM to see status) -->
+          <!-- Doctor Intimation Bell -->
           <button
             id="headerNotifBellBtn"
             type="button"
@@ -199,7 +270,7 @@
             <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
             </svg>
-            <span class="hidden sm:inline">Intimations</span>
+            <span class="hidden sm:inline">Dr. Sukumar Intimations</span>
             <span id="headerUnreadNotifBadge" class="px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold bg-rose-600 text-white">0</span>
           </button>
 
@@ -241,13 +312,16 @@
       <div class="max-w-[1600px] mx-auto px-4 sm:px-6 pt-1 pb-3 space-y-3">
         <!-- 5 KPI Cards -->
         <div class="grid grid-cols-2 lg:grid-cols-5 gap-3">
-          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center justify-between">
+          <div class="bg-emerald-50/50 border border-emerald-200/80 rounded-xl p-3 flex items-center justify-between">
             <div>
-              <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Master Formulations</p>
-              <p id="kpiFormulaCount" class="text-xl font-bold text-slate-900 font-mono mt-0.5">0</p>
-              <p class="text-[11px] text-slate-500">1,000 kg BOMs saved</p>
+              <p class="text-[11px] font-semibold text-emerald-900 uppercase tracking-wider">Zenmak Products Catalog</p>
+              <div class="flex items-baseline gap-1.5 mt-0.5">
+                <p id="kpiFormulaCount" class="text-xl font-bold text-slate-900 font-mono">56</p>
+                <span id="kpiConfiguredBomSub" class="text-[11px] font-semibold text-emerald-700">0 BOMs configured</span>
+              </div>
+              <p class="text-[11px] text-slate-500">19 official product categories</p>
             </div>
-            <div class="w-9 h-9 rounded-xl bg-indigo-100/80 border border-indigo-200 flex items-center justify-center text-indigo-700 font-bold text-xs">
+            <div class="w-9 h-9 rounded-xl bg-emerald-100 border border-emerald-200 flex items-center justify-center text-emerald-800 font-bold text-xs">
               BOM
             </div>
           </div>
@@ -256,9 +330,9 @@
             <div>
               <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Raw Materials Tracked</p>
               <p id="kpiMaterialCount" class="text-xl font-bold text-slate-900 font-mono mt-0.5">0</p>
-              <p id="kpiCategoriesCountSub" class="text-[11px] text-slate-500">7 categories active</p>
+              <p id="kpiCategoriesCountSub" class="text-[11px] text-slate-500">13+ categories supported</p>
             </div>
-            <div class="w-9 h-9 rounded-xl bg-cyan-100/80 border border-cyan-200 flex items-center justify-center text-cyan-800 font-bold text-xs">
+            <div class="w-9 h-9 rounded-xl bg-teal-100/80 border border-teal-200 flex items-center justify-center text-teal-800 font-bold text-xs">
               RM
             </div>
           </div>
@@ -281,7 +355,7 @@
                 <p id="kpiCriticalCount" class="text-xl font-bold font-mono text-emerald-600">0</p>
                 <span class="text-[11px] text-slate-500">below safe threshold</span>
               </div>
-              <p class="text-[11px] text-rose-600 font-medium">Auto-intimates Technical Head</p>
+              <p class="text-[11px] text-rose-600 font-medium">Auto-intimates Dr. P. Sukumar</p>
             </div>
             <div id="kpiCriticalBadgeBox" class="w-9 h-9 rounded-xl flex items-center justify-center border bg-emerald-100 border-emerald-200 text-emerald-700 font-bold text-xs">
               OK
@@ -309,8 +383,8 @@
               data-tab="FORMULA_MASTER"
               class="module-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2"
             >
-              <span>1. Formula Master (BOM Studio)</span>
-              <span class="px-1.5 py-0.2 rounded text-[10px] bg-indigo-100 text-indigo-800 font-mono">Dr. P. Sukumar</span>
+              <span>1. Doctor Formula Master (56 Zenmak Products)</span>
+              <span class="px-1.5 py-0.2 rounded text-[10px] bg-emerald-100 text-emerald-900 font-mono">Dr. P. Sukumar</span>
             </button>
 
             <button
@@ -319,7 +393,7 @@
               data-tab="DOCTOR_OVERSIGHT"
               class="module-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2"
             >
-              <span>2. Technical Head Oversight &amp; Intimations</span>
+              <span>2. Doctor Oversight &amp; Intimations Center</span>
               <span id="navOversightCountBadge" class="px-1.5 py-0.2 rounded-full text-[10px] bg-rose-600 text-white font-mono">0</span>
             </button>
 
@@ -329,11 +403,11 @@
               data-tab="PRODUCTION_AND_INVENTORY"
               class="module-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2"
             >
-              <span>3. Batch Production Planner &amp; Master Inventory</span>
+              <span>3. Batch Production Planner &amp; Inventory</span>
             </button>
           </div>
 
-          <div id="activeRoleAccessNote" class="text-xs text-slate-600 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200 font-medium"></div>
+          <div id="activeRoleAccessNote" class="text-xs text-emerald-900 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200 font-semibold"></div>
         </div>
       </div>
     </header>
@@ -342,21 +416,21 @@
     <main class="max-w-[1600px] w-full mx-auto px-4 sm:px-6 py-6 flex-1 space-y-6">
 
       <!-- =================================================================== -->
-      <!-- MODULE 1: FORMULA MASTER (BOM STUDIO - DR. P. SUKUMAR EXCLUSIVE)    -->
+      <!-- MODULE 1: DOCTOR FORMULA MASTER (56 ZENMAK GLOBAL PRODUCTS STUDIO)  -->
       <!-- =================================================================== -->
       <section id="sectionFormulaMaster" class="hidden space-y-6">
-        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex flex-wrap items-center justify-between gap-4">
+        <div class="bg-white border border-emerald-200/90 rounded-2xl p-5 shadow-xs flex flex-wrap items-center justify-between gap-4">
           <div>
-            <div class="flex items-center gap-2">
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase bg-indigo-50 text-indigo-700 border border-indigo-200">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase bg-emerald-50 text-emerald-800 border border-emerald-200">
                 Dr. P. Sukumar • Technical Head Studio
               </span>
-              <h2 class="text-lg font-bold text-slate-900">
-                Formula Master — Bill of Materials (Per 1 Metric Ton / 1,000 kg)
+              <h2 class="font-heading text-lg font-extrabold text-slate-900">
+                Zenmak Global Master Catalog — Bill of Materials (Per 1 Metric Ton / 1,000 kg)
               </h2>
             </div>
             <p class="text-xs text-slate-500 mt-1">
-              Enter and manage Zenmak Global product formulations. Every formula saved here is immediately available to the Production Manager for batch execution.
+              All 56 official Zenmak Global products across 19 categories are pre-loaded below. Select any product to configure or update its raw material formulation per 1,000 kg.
             </p>
           </div>
 
@@ -364,47 +438,81 @@
             <button
               id="formulaPageAddRawMatBtn"
               type="button"
-              class="px-3.5 py-2.5 rounded-xl text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 transition"
+              class="px-3.5 py-2.5 rounded-xl text-xs font-bold bg-teal-50 hover:bg-teal-100 text-teal-900 border border-teal-200 transition"
             >
               + Register New Raw Material
             </button>
             <button
               id="createNewFormulaBtn"
               type="button"
-              class="px-4 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition"
+              class="px-4 py-2.5 rounded-xl text-xs font-bold bg-emerald-700 hover:bg-emerald-800 text-white shadow-xs transition"
             >
-              + New Product Formulation
+              + Add Custom Product to Catalog
             </button>
           </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          <!-- Left: Saved Formulations List -->
-          <div class="lg:col-span-4 bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
-            <div class="p-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
-              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700">Saved Master Formulas</h3>
-              <span id="savedFormulaListBadge" class="text-xs font-mono font-semibold text-indigo-600">0 Formulas</span>
-            </div>
-            <div id="formulaMasterListContainer" class="divide-y divide-slate-200 max-h-[640px] overflow-y-auto"></div>
-          </div>
-
-          <!-- Right: Formula BOM Builder Form -->
-          <div class="lg:col-span-8 bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
-            <div class="p-5 border-b border-slate-200 bg-slate-50 flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <span id="bomFormModeTag" class="text-[11px] font-mono font-bold uppercase text-indigo-600">CREATE / EDIT MASTER BOM</span>
-                <h3 id="bomFormHeaderTitle" class="text-base font-bold text-slate-900 mt-0.5">New Formulation Entry</h3>
+          <!-- Left (5 cols): Searchable, Category-Filterable Catalog of All 56 Zenmak Products -->
+          <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden flex flex-col">
+            <div class="p-4 border-b border-slate-200 bg-slate-50 space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-800">
+                  Official Zenmak Product Catalog
+                </h3>
+                <span id="savedFormulaListBadge" class="text-xs font-mono font-bold text-emerald-700">56 Products</span>
               </div>
 
-              <div class="flex items-center gap-3 bg-white px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-mono">
+              <!-- Search & Category Filter for the 56 Products -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <input
+                  id="catalogSearchInput"
+                  type="text"
+                  placeholder="Search product (e.g. MakZyme, Ditox)..."
+                  class="w-full bg-white border border-slate-300 focus:border-emerald-600 rounded-xl px-3 py-2 text-xs text-slate-900 outline-none"
+                />
+                <select
+                  id="catalogCategoryFilter"
+                  class="w-full bg-white border border-slate-300 focus:border-emerald-600 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none"
+                >
+                  <option value="ALL">All 19 Categories</option>
+                </select>
+              </div>
+
+              <!-- Status Filter Pills: All | BOM Configured | Pending BOM -->
+              <div class="flex items-center gap-1.5 pt-0.5">
+                <button type="button" data-bom-status-filter="ALL" class="bom-status-pill px-2.5 py-1 rounded-lg text-[11px] font-bold bg-emerald-700 text-white">
+                  All (<span id="pillCountAll">56</span>)
+                </button>
+                <button type="button" data-bom-status-filter="CONFIGURED" class="bom-status-pill px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white border border-slate-300 text-slate-700 hover:bg-slate-100">
+                  ✓ BOM Configured (<span id="pillCountConfigured">0</span>)
+                </button>
+                <button type="button" data-bom-status-filter="PENDING" class="bom-status-pill px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white border border-slate-300 text-slate-700 hover:bg-slate-100">
+                  Pending BOM (<span id="pillCountPending">56</span>)
+                </button>
+              </div>
+            </div>
+
+            <div id="formulaMasterListContainer" class="divide-y divide-slate-200 max-h-[650px] overflow-y-auto"></div>
+          </div>
+
+          <!-- Right (7 cols): Formula BOM Builder Form -->
+          <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+            <div class="p-5 border-b border-slate-200 bg-emerald-50/40 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <span id="bomFormModeTag" class="text-[11px] font-mono font-bold uppercase text-emerald-700">CONFIGURE PRODUCT BOM</span>
+                <h3 id="bomFormHeaderTitle" class="font-heading text-base sm:text-lg font-extrabold text-slate-900 mt-0.5">Select or Enter Product</h3>
+              </div>
+
+              <div class="flex items-center gap-3 bg-white px-3.5 py-2 rounded-xl border border-emerald-200 text-xs font-mono shadow-2xs">
                 <div>
-                  <span class="text-slate-500">Total BOM Weight:</span>
-                  <strong id="bomFormTotalKg" class="text-indigo-700 ml-1">0.000 kg / 1,000 kg</strong>
+                  <span class="text-slate-500">Total BOM Mass:</span>
+                  <strong id="bomFormTotalKg" class="text-emerald-700 ml-1">0.000 kg / 1,000 kg</strong>
                 </div>
                 <span class="text-slate-300">|</span>
                 <div>
                   <span class="text-slate-500">Est. Cost / Ton:</span>
-                  <strong id="bomFormCostPerTon" class="text-emerald-700 ml-1">₹0.00</strong>
+                  <strong id="bomFormCostPerTon" class="text-slate-900 ml-1">₹0.00</strong>
                 </div>
               </div>
             </div>
@@ -412,7 +520,7 @@
             <!-- Weight Progress Bar toward 1,000 kg -->
             <div class="px-5 pt-3 bg-white">
               <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
-                <div id="bomWeightProgressBar" class="h-full bg-indigo-600 transition-all duration-300" style="width: 0%"></div>
+                <div id="bomWeightProgressBar" class="h-full bg-emerald-600 transition-all duration-300" style="width: 0%"></div>
               </div>
             </div>
 
@@ -423,8 +531,8 @@
                   <input
                     id="bomCodeInput"
                     type="text"
-                    placeholder="e.g. ZG-101"
-                    class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-mono font-bold text-slate-900 outline-none"
+                    placeholder="e.g. ZG-ENZ-01"
+                    class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-mono font-bold text-slate-900 outline-none"
                     required
                   />
                 </div>
@@ -433,40 +541,43 @@
                   <input
                     id="bomNameInput"
                     type="text"
-                    placeholder="Enter finished product / formulation name"
-                    class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-semibold text-slate-900 outline-none"
+                    placeholder="Enter finished product name"
+                    class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-bold text-slate-900 outline-none"
                     required
                   />
                 </div>
                 <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1">Version / Ref</label>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Version / Spec</label>
                   <input
                     id="bomVersionInput"
                     type="text"
                     value="v1.0"
                     placeholder="e.g. v1.0"
-                    class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-mono text-slate-900 outline-none"
+                    class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-mono text-slate-900 outline-none"
                   />
                 </div>
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1">Product Category / Form Type</label>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Official Zenmak Product Category *</label>
                   <input
                     id="bomClassInput"
                     type="text"
-                    placeholder="e.g. Granulation Blend / Tablet / Premix / Liquid"
-                    class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs text-slate-900 outline-none"
+                    list="zenmakProductCategoriesList"
+                    placeholder="e.g. Enzymes / Acidifiers / Toxin Binder"
+                    class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-semibold text-slate-900 outline-none"
+                    required
                   />
+                  <datalist id="zenmakProductCategoriesList"></datalist>
                 </div>
                 <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1">Remarks / Standard Yield Note</label>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Formulation / Pack Specification Note</label>
                   <input
                     id="bomYieldInput"
                     type="text"
-                    placeholder="e.g. Standard 1,000 kg batch specification"
-                    class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs text-slate-900 outline-none"
+                    placeholder="e.g. Standard 1,000 kg Metric Ton Master Batch"
+                    class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl px-3 py-2 text-xs text-slate-900 outline-none"
                   />
                 </div>
               </div>
@@ -476,21 +587,21 @@
                 <div class="px-4 py-3 bg-slate-100 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
                   <div>
                     <span class="text-xs font-bold uppercase tracking-wider text-slate-800">
-                      Bill of Materials Ingredients (Required kg per 1 Metric Ton)
+                      Bill of Materials Ingredients (Required kg per 1 Metric Ton = 1,000 kg)
                     </span>
                   </div>
                   <div class="flex items-center gap-2">
                     <button
                       type="button"
                       id="bomInlineQuickAddMatBtn"
-                      class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition"
+                      class="px-2.5 py-1 rounded-lg bg-teal-700 hover:bg-teal-800 text-white text-xs font-semibold transition"
                     >
-                      + New Raw Material
+                      + Register Raw Material
                     </button>
                     <button
                       type="button"
                       id="bomAddIngredientLineBtn"
-                      class="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition"
+                      class="px-3 py-1 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold transition"
                     >
                       + Add Ingredient Row
                     </button>
@@ -501,7 +612,7 @@
               </div>
 
               <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-200">
-                <div class="flex items-center gap-2">
+                <div class="flex flex-wrap items-center gap-2">
                   <button
                     type="button"
                     id="bomScaleTo1000Btn"
@@ -511,18 +622,25 @@
                   </button>
                   <button
                     type="button"
+                    id="bomClearIngredientsBtn"
+                    class="px-3 py-2 rounded-xl text-xs font-semibold bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 transition"
+                  >
+                    Clear Ingredients
+                  </button>
+                  <button
+                    type="button"
                     id="bomDeleteFormulaBtn"
                     class="hidden px-3 py-2 rounded-xl text-xs font-semibold bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 transition"
                   >
-                    Delete Formula
+                    Delete Product
                   </button>
                 </div>
 
                 <button
                   type="submit"
-                  class="px-5 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition"
+                  class="px-5 py-2.5 rounded-xl text-xs font-bold bg-emerald-700 hover:bg-emerald-800 text-white shadow-sm transition"
                 >
-                  Save Master Formula (BOM)
+                  Save Product BOM Formula
                 </button>
               </div>
             </form>
@@ -540,12 +658,12 @@
               <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase bg-amber-100 text-amber-800 border border-amber-200">
                 Technical Head Oversight
               </span>
-              <h2 class="text-lg font-bold text-slate-900">
-                Dr. P. Sukumar — Production Audit, Critical Stock &amp; Price Intimations
+              <h2 class="font-heading text-lg font-extrabold text-slate-900">
+                Dr. P. Sukumar — Daily Production Audit, Critical Stock &amp; Price Intimations
               </h2>
             </div>
             <p class="text-xs text-slate-500 mt-1">
-              Real-time monitoring of all batches executed by the Production Manager, raw materials below minimum safe thresholds, and ₹/kg unit cost revisions.
+              Complete oversight of all production batches executed by the Production Manager, raw materials below minimum safe thresholds, and ₹/kg unit cost revisions.
             </p>
           </div>
 
@@ -555,11 +673,12 @@
               type="button"
               class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition"
             >
-              ✓ Mark All Alerts as Read
+              ✓ Mark All Intimations Read
             </button>
           </div>
         </div>
 
+        <!-- 3 Oversight Columns -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
           <!-- Column 1: Production Done Today & Batch Audit -->
           <div class="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
@@ -572,7 +691,7 @@
               </div>
               <span id="oversightProdCount" class="px-2 py-0.5 rounded-full text-[11px] font-mono font-bold bg-emerald-100 text-emerald-800">0</span>
             </div>
-            <div id="oversightProductionList" class="p-4 space-y-3 max-h-[600px] overflow-y-auto"></div>
+            <div id="oversightProductionList" class="p-4 space-y-3 max-h-[540px] overflow-y-auto"></div>
           </div>
 
           <!-- Column 2: Raw Material Price Change Intimations -->
@@ -586,7 +705,7 @@
               </div>
               <span id="oversightPriceCount" class="px-2 py-0.5 rounded-full text-[11px] font-mono font-bold bg-amber-100 text-amber-800">0</span>
             </div>
-            <div id="oversightPriceList" class="p-4 space-y-3 max-h-[600px] overflow-y-auto"></div>
+            <div id="oversightPriceList" class="p-4 space-y-3 max-h-[540px] overflow-y-auto"></div>
           </div>
 
           <!-- Column 3: Critical Stock Alerts (< Safe Threshold) -->
@@ -600,7 +719,35 @@
               </div>
               <span id="oversightCritCount" class="px-2 py-0.5 rounded-full text-[11px] font-mono font-bold bg-rose-100 text-rose-800">0</span>
             </div>
-            <div id="oversightCriticalList" class="p-4 space-y-3 max-h-[600px] overflow-y-auto"></div>
+            <div id="oversightCriticalList" class="p-4 space-y-3 max-h-[540px] overflow-y-auto"></div>
+          </div>
+        </div>
+
+        <!-- Complete Master Batch Manufacturing Record (BMR) Ledger Table -->
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+          <div class="p-4 border-b border-slate-200 bg-slate-50 flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-800">
+                Master Batch Manufacturing Record (BMR) Ledger — Zenmak Global, Coimbatore
+              </h3>
+              <p class="text-[11px] text-slate-500">Complete chronological audit trail of all batches committed and raw materials deducted</p>
+            </div>
+            <span id="bmrTotalCountBadge" class="text-xs font-mono font-bold text-emerald-700">0 Total Batches</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="border-b border-slate-200 bg-slate-50/80 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                  <th class="py-3 px-4">Batch No &amp; Timestamp</th>
+                  <th class="py-3 px-4">Zenmak Finished Product</th>
+                  <th class="py-3 px-4 text-right">Batch Size (Tons)</th>
+                  <th class="py-3 px-4 text-right">Total Cost (₹)</th>
+                  <th class="py-3 px-4">Executed By &amp; Remarks</th>
+                  <th class="py-3 px-4">Raw Materials Deducted</th>
+                </tr>
+              </thead>
+              <tbody id="oversightBmrTableBody" class="divide-y divide-slate-200"></tbody>
+            </table>
           </div>
         </div>
       </section>
@@ -612,67 +759,51 @@
 
         <!-- LEFT PANEL (7 COLS): BATCH PRODUCTION PLANNER & FEASIBILITY CALCULATOR -->
         <div class="xl:col-span-7 bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
-          <div class="p-5 border-b border-slate-200 bg-slate-50/70 flex flex-wrap items-center justify-between gap-4">
+          <div class="p-5 border-b border-slate-200 bg-emerald-50/40 flex flex-wrap items-center justify-between gap-4">
             <div>
               <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
-                <h2 class="text-base font-bold text-slate-900 uppercase tracking-wide">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+                <h2 class="font-heading text-base font-extrabold text-slate-900 uppercase tracking-wide">
                   Batch Production Planner &amp; Feasibility Calculator
                 </h2>
               </div>
               <p class="text-xs text-slate-500 mt-0.5">
-                Select a Master Formula, enter target batch size in Metric Tons, review bottleneck capacity, and deduct batch inventory.
+                Select any of the 56 Zenmak Global products, enter target batch size in Metric Tons, review bottleneck capacity, and deduct batch stock.
               </p>
             </div>
-            <span class="px-3 py-1 rounded-xl text-xs font-mono font-semibold bg-white border border-slate-200 text-slate-700">
+            <span class="px-3 py-1 rounded-xl text-xs font-mono font-bold bg-white border border-emerald-200 text-emerald-800">
               1 Metric Ton = 1,000.000 kg
             </span>
           </div>
 
-          <!-- Empty State when no Master Formulas exist yet -->
-          <div id="plannerEmptyState" class="hidden p-10 text-center space-y-4">
-            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center mx-auto font-bold text-lg">
-              BOM
-            </div>
-            <div class="max-w-md mx-auto">
-              <h3 class="text-base font-bold text-slate-900">No Master Formulations Entered Yet</h3>
-              <p id="plannerEmptySubtext" class="text-xs text-slate-500 mt-1 leading-relaxed">
-                To plan and execute a batch run, first register your Raw Materials in the right-hand Inventory table and create a Master Formula (BOM per 1 Metric Ton).
-              </p>
-            </div>
-            <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
-              <button
-                type="button"
-                id="emptyStateAddRawMatBtn"
-                class="px-4 py-2.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition"
-              >
-                + Add Raw Material to Inventory
-              </button>
-              <button
-                type="button"
-                id="emptyStateCreateFormulaBtn"
-                class="px-4 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition"
-              >
-                + Go to Formula Master (Dr. P. Sukumar)
-              </button>
-            </div>
-          </div>
-
-          <!-- Active Planner Body (Shown when at least 1 Formula exists) -->
           <div id="plannerActiveBody" class="p-5 space-y-5">
+            <!-- Category Filter + Product Dropdown + Target Batch Size -->
             <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
-              <div class="md:col-span-7">
-                <div class="flex items-center justify-between mb-1.5">
+              <div class="md:col-span-7 space-y-2">
+                <div class="flex items-center justify-between">
                   <label for="plannerFormulaSelect" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
-                    1. Select Finished Product Formulation
+                    1. Select Zenmak Global Finished Product (56)
                   </label>
                   <span id="plannerEditFormulaLinkWrap" class="text-[11px]"></span>
                 </div>
-                <select
-                  id="plannerFormulaSelect"
-                  class="w-full bg-slate-50 border border-slate-300 hover:border-slate-400 focus:border-indigo-600 focus:bg-white rounded-xl px-3.5 py-2.5 text-sm text-slate-900 font-semibold outline-none transition"
-                ></select>
-                <div id="plannerSelectedFormulaMeta" class="flex flex-wrap items-center gap-x-3 gap-y-1 mt-2 text-xs text-slate-500"></div>
+
+                <!-- Quick Category Filter for Planner Dropdown -->
+                <div class="grid grid-cols-1 sm:grid-cols-5 gap-2">
+                  <select
+                    id="plannerCategoryFilterSelect"
+                    class="sm:col-span-2 bg-slate-50 border border-slate-300 focus:border-emerald-600 rounded-xl px-2.5 py-2 text-xs font-semibold text-slate-700 outline-none"
+                    title="Filter products by official Zenmak category"
+                  >
+                    <option value="ALL">All 19 Categories</option>
+                  </select>
+
+                  <select
+                    id="plannerFormulaSelect"
+                    class="sm:col-span-3 w-full bg-slate-50 border border-slate-300 hover:border-slate-400 focus:border-emerald-600 focus:bg-white rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 font-bold outline-none transition"
+                  ></select>
+                </div>
+
+                <div id="plannerSelectedFormulaMeta" class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500"></div>
               </div>
 
               <div class="md:col-span-5">
@@ -680,7 +811,7 @@
                   <label for="plannerTargetTonsInput" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
                     2. Target Production (Tons)
                   </label>
-                  <span id="plannerTargetKgLabel" class="text-[11px] font-mono font-semibold text-indigo-600">= 1,000.0 kg</span>
+                  <span id="plannerTargetKgLabel" class="text-[11px] font-mono font-bold text-emerald-700">= 1,000.0 kg</span>
                 </div>
                 <div class="relative flex items-center">
                   <input
@@ -690,7 +821,7 @@
                     min="0.001"
                     max="500"
                     value="1.000"
-                    class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl pl-3.5 pr-16 py-2.5 text-sm font-mono font-bold text-slate-900 outline-none transition"
+                    class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl pl-3.5 pr-16 py-2.5 text-sm font-mono font-bold text-slate-900 outline-none transition"
                   />
                   <span class="absolute right-3.5 text-xs font-mono font-bold uppercase text-slate-400 pointer-events-none">TONS</span>
                 </div>
@@ -711,106 +842,140 @@
               </div>
             </div>
 
-            <!-- Bottleneck & Cost Summary Banner -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
-              <div id="plannerFeasibilityBanner" class="md:col-span-2 rounded-xl p-4 border flex flex-col justify-between bg-emerald-50/70 border-emerald-200">
-                <div class="flex items-start justify-between gap-3">
+            <!-- State when selected product has no BOM configured yet -->
+            <div id="plannerPendingBomNotice" class="hidden rounded-2xl border border-amber-200 bg-amber-50/70 p-6 text-center space-y-3">
+              <div class="w-11 h-11 rounded-2xl bg-amber-100 border border-amber-300 text-amber-900 flex items-center justify-center mx-auto font-mono font-bold text-sm">
+                BOM
+              </div>
+              <div class="max-w-lg mx-auto">
+                <h3 id="plannerPendingBomTitle" class="font-heading text-base font-bold text-slate-900">
+                  Master Formula (BOM) Not Configured Yet
+                </h3>
+                <p id="plannerPendingBomDesc" class="text-xs text-slate-600 mt-1 leading-relaxed">
+                  This official Zenmak Global product is pre-loaded in the catalog, and its raw material Bill of Materials (per 1,000 kg) is awaiting entry by Dr. P. Sukumar (Technical Head).
+                </p>
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 pt-1">
+                <button
+                  type="button"
+                  id="plannerPendingAddRawMatBtn"
+                  class="px-4 py-2 rounded-xl text-xs font-bold bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 transition"
+                >
+                  + Add Raw Material to Inventory
+                </button>
+                <button
+                  type="button"
+                  id="plannerPendingGoConfigureBtn"
+                  class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-700 hover:bg-emerald-800 text-white transition shadow-xs"
+                >
+                  Configure Product BOM in Formula Master →
+                </button>
+              </div>
+            </div>
+
+            <!-- Active BOM Calculation Section (Shown when selected product has >= 1 BOM ingredient) -->
+            <div id="plannerConfiguredBomSection" class="space-y-5">
+              <!-- Bottleneck & Cost Summary Banner -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+                <div id="plannerFeasibilityBanner" class="md:col-span-2 rounded-xl p-4 border flex flex-col justify-between bg-emerald-50/70 border-emerald-200">
+                  <div class="flex items-start justify-between gap-3">
+                    <div>
+                      <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                        Maximum Run Capacity (Bottleneck Analysis)
+                      </span>
+                      <p class="text-sm sm:text-base font-bold text-slate-900 mt-1">
+                        With current stock, maximum possible production is
+                        <span id="plannerMaxTonsHeadline" class="font-mono text-emerald-700 underline decoration-emerald-500/50 underline-offset-4">0.000 Tons</span>.
+                      </p>
+                    </div>
+                    <span id="plannerOverallStatusBadge" class="px-2.5 py-1 rounded-full text-xs font-bold border shrink-0">
+                      Sufficient
+                    </span>
+                  </div>
+
+                  <div class="mt-3 pt-3 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-2 text-xs">
+                    <div class="flex items-center gap-2">
+                      <span class="px-2 py-0.5 rounded bg-amber-100 border border-amber-300 text-amber-900 font-bold text-[11px]">
+                        Limiting Reagent
+                      </span>
+                      <span id="plannerBottleneckIngredient" class="font-bold text-slate-900">-</span>
+                    </div>
+                    <span id="plannerBottleneckFormulaText" class="font-mono text-slate-600 text-[11px]"></span>
+                  </div>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
                   <div>
                     <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                      Maximum Run Capacity (Bottleneck Analysis)
+                      Estimated Batch Material Cost
                     </span>
-                    <p class="text-sm sm:text-base font-bold text-slate-900 mt-1">
-                      With current stock, maximum possible production is
-                      <span id="plannerMaxTonsHeadline" class="font-mono text-emerald-700 underline decoration-emerald-500/50 underline-offset-4">0.000 Tons</span>.
-                    </p>
+                    <p id="plannerTotalBatchCost" class="text-2xl font-bold text-slate-900 font-mono mt-1">₹0.00</p>
+                    <p id="plannerTotalBatchMass" class="text-xs text-slate-500 font-mono mt-0.5">Required Mass: 0.000 kg</p>
                   </div>
-                  <span id="plannerOverallStatusBadge" class="px-2.5 py-1 rounded-full text-xs font-bold border shrink-0">
-                    Sufficient
-                  </span>
+                  <div class="mt-3 pt-3 border-t border-slate-200 flex items-center justify-between text-xs">
+                    <span class="text-slate-500">Cost / Ton:</span>
+                    <span id="plannerUnitTonCost" class="font-mono font-bold text-emerald-700">₹0.00 / T</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Ingredient Feasibility Table -->
+              <div class="border border-slate-200 rounded-xl overflow-hidden bg-white">
+                <div class="px-4 py-3 bg-slate-50 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+                  <h3 class="text-xs font-bold uppercase tracking-wider text-slate-800">
+                    Ingredient Requirements &amp; Projected Post-Production Balance
+                  </h3>
+                  <div class="flex items-center gap-3 text-[11px] font-medium text-slate-600">
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Sufficient</span>
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Low Buffer</span>
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-600"></span> Shortage</span>
+                  </div>
                 </div>
 
-                <div class="mt-3 pt-3 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-2 text-xs">
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left border-collapse">
+                    <thead>
+                      <tr class="border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-500 bg-slate-50/60">
+                        <th class="py-3 px-3.5">Ingredient</th>
+                        <th class="py-3 px-3 text-right">BOM / Ton</th>
+                        <th class="py-3 px-3 text-right">Required for Batch</th>
+                        <th class="py-3 px-3 text-right">Available Stock</th>
+                        <th class="py-3 px-3 text-right">Balance After Run</th>
+                        <th class="py-3 px-3.5 text-right">Status Badge</th>
+                      </tr>
+                    </thead>
+                    <tbody id="plannerIngredientsTbody" class="divide-y divide-slate-200 text-xs"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Commit Production Run Bar -->
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+                <div class="flex-1 space-y-1.5">
                   <div class="flex items-center gap-2">
-                    <span class="px-2 py-0.5 rounded bg-amber-100 border border-amber-300 text-amber-900 font-bold text-[11px]">
-                      Limiting Reagent
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-800">
+                      Confirm Production &amp; Deduct Inventory
                     </span>
-                    <span id="plannerBottleneckIngredient" class="font-bold text-slate-900">-</span>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                      Intimates Dr. P. Sukumar
+                    </span>
                   </div>
-                  <span id="plannerBottleneckFormulaText" class="font-mono text-slate-600 text-[11px]"></span>
+                  <input
+                    id="plannerBatchNotesInput"
+                    type="text"
+                    placeholder="Enter batch / shift remarks (e.g. Shift A production completed, QA sample drawn)"
+                    class="w-full bg-white border border-slate-300 focus:border-emerald-600 rounded-lg px-3 py-2 text-xs text-slate-900 outline-none"
+                  />
                 </div>
-              </div>
 
-              <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
-                <div>
-                  <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                    Estimated Batch Material Cost
-                  </span>
-                  <p id="plannerTotalBatchCost" class="text-2xl font-bold text-slate-900 font-mono mt-1">₹0.00</p>
-                  <p id="plannerTotalBatchMass" class="text-xs text-slate-500 font-mono mt-0.5">Required Mass: 0.000 kg</p>
-                </div>
-                <div class="mt-3 pt-3 border-t border-slate-200 flex items-center justify-between text-xs">
-                  <span class="text-slate-500">Cost / Ton:</span>
-                  <span id="plannerUnitTonCost" class="font-mono font-bold text-indigo-700">₹0.00 / T</span>
-                </div>
+                <button
+                  id="commitProductionRunBtn"
+                  type="button"
+                  class="px-5 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition shadow-md bg-emerald-700 hover:bg-emerald-800 text-white shrink-0"
+                >
+                  Confirm &amp; Deduct Batch
+                </button>
               </div>
-            </div>
-
-            <!-- Ingredient Feasibility Table -->
-            <div class="border border-slate-200 rounded-xl overflow-hidden bg-white">
-              <div class="px-4 py-3 bg-slate-50 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
-                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-800">
-                  Ingredient Requirements &amp; Projected Post-Production Balance
-                </h3>
-                <div class="flex items-center gap-3 text-[11px] font-medium text-slate-600">
-                  <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Sufficient</span>
-                  <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Low Buffer</span>
-                  <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-600"></span> Shortage</span>
-                </div>
-              </div>
-
-              <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                  <thead>
-                    <tr class="border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-500 bg-slate-50/60">
-                      <th class="py-3 px-3.5">Ingredient</th>
-                      <th class="py-3 px-3 text-right">BOM / Ton</th>
-                      <th class="py-3 px-3 text-right">Required for Batch</th>
-                      <th class="py-3 px-3 text-right">Available Stock</th>
-                      <th class="py-3 px-3 text-right">Balance After Run</th>
-                      <th class="py-3 px-3.5 text-right">Status Badge</th>
-                    </tr>
-                  </thead>
-                  <tbody id="plannerIngredientsTbody" class="divide-y divide-slate-200 text-xs"></tbody>
-                </table>
-              </div>
-            </div>
-
-            <!-- Commit Production Run Bar -->
-            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-              <div class="flex-1 space-y-1.5">
-                <div class="flex items-center gap-2">
-                  <span class="text-xs font-bold uppercase tracking-wider text-slate-800">
-                    Confirm Production &amp; Deduct Inventory
-                  </span>
-                  <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
-                    Intimates Dr. P. Sukumar
-                  </span>
-                </div>
-                <input
-                  id="plannerBatchNotesInput"
-                  type="text"
-                  placeholder="Enter batch / shift remarks (e.g. Batch #01 completed by Shift A, sent to packing)"
-                  class="w-full bg-white border border-slate-300 focus:border-indigo-600 rounded-lg px-3 py-2 text-xs text-slate-900 outline-none"
-                />
-              </div>
-
-              <button
-                id="commitProductionRunBtn"
-                type="button"
-                class="px-5 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition shadow-md bg-indigo-600 hover:bg-indigo-700 text-white shrink-0"
-              >
-                Confirm &amp; Deduct Batch
-              </button>
             </div>
           </div>
         </div>
@@ -838,7 +1003,7 @@
             <button
               id="openNewMaterialModalBtn"
               type="button"
-              class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition shadow-2xs"
+              class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-700 hover:bg-emerald-800 text-white transition shadow-2xs"
             >
               + Add Raw Material
             </button>
@@ -852,7 +1017,7 @@
                   id="invSearchInput"
                   type="text"
                   placeholder="Search raw material name, code, or category..."
-                  class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3.5 py-2 text-xs text-slate-900 outline-none"
+                  class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl px-3.5 py-2 text-xs text-slate-900 outline-none"
                 />
               </div>
               <select
@@ -912,7 +1077,7 @@
     <div class="bg-white border border-slate-200 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
       <div class="flex items-center justify-between border-b border-slate-200 pb-3">
         <div>
-          <h3 class="text-base font-bold text-slate-900">Register New Raw Material</h3>
+          <h3 class="font-heading text-base font-extrabold text-slate-900">Register New Raw Material</h3>
           <p class="text-xs text-slate-500">Add a raw material to Zenmak Global's central inventory ledger.</p>
         </div>
         <button type="button" id="closeAddMatModalBtn" class="text-slate-400 hover:text-slate-700 font-bold p-1">✕</button>
@@ -926,7 +1091,7 @@
               id="addMatCode"
               type="text"
               placeholder="e.g. RM-101"
-              class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-mono font-bold text-slate-900 outline-none"
+              class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-mono font-bold text-slate-900 outline-none"
               required
             />
           </div>
@@ -934,23 +1099,23 @@
             <label class="block text-xs font-bold text-slate-700 mb-1">Category *</label>
             <select
               id="addMatCategorySelect"
-              class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-semibold text-slate-900 outline-none"
+              class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-semibold text-slate-900 outline-none"
             ></select>
           </div>
         </div>
 
         <!-- Conditional Manual Category Input when "Other (Enter Manually...)" is chosen -->
-        <div id="addMatCustomCatWrap" class="hidden bg-indigo-50/70 border border-indigo-200 rounded-xl p-3">
-          <label for="addMatCustomCatInput" class="block text-xs font-bold text-indigo-900 mb-1">
+        <div id="addMatCustomCatWrap" class="hidden bg-emerald-50/70 border border-emerald-200 rounded-xl p-3">
+          <label for="addMatCustomCatInput" class="block text-xs font-bold text-emerald-950 mb-1">
             Enter Custom Category Name Manually *
           </label>
           <input
             id="addMatCustomCatInput"
             type="text"
-            placeholder="e.g. Nutraceutical / Herbal Extract / Packaging / Catalyst"
-            class="w-full bg-white border border-indigo-300 focus:border-indigo-600 rounded-lg px-3 py-2 text-xs font-semibold text-slate-900 outline-none"
+            placeholder="e.g. Chelated Mineral / Probiotic Strain / Essential Oil"
+            class="w-full bg-white border border-emerald-300 focus:border-emerald-600 rounded-lg px-3 py-2 text-xs font-semibold text-slate-900 outline-none"
           />
-          <p class="text-[11px] text-indigo-700 mt-1">This category will also be saved to the dropdown list for future materials.</p>
+          <p class="text-[11px] text-emerald-800 mt-1">This category will also be saved to the dropdown list for future materials.</p>
         </div>
 
         <div>
@@ -959,7 +1124,7 @@
             id="addMatName"
             type="text"
             placeholder="Enter full raw material name"
-            class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-semibold text-slate-900 outline-none"
+            class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl px-3 py-2 text-xs font-semibold text-slate-900 outline-none"
             required
           />
         </div>
@@ -973,7 +1138,7 @@
               step="0.001"
               min="0"
               value="0.000"
-              class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-2.5 py-2 text-xs font-mono font-bold text-slate-900 outline-none"
+              class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl px-2.5 py-2 text-xs font-mono font-bold text-slate-900 outline-none"
               required
             />
           </div>
@@ -985,7 +1150,7 @@
               step="0.001"
               min="0"
               value="0.000"
-              class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-2.5 py-2 text-xs font-mono text-slate-900 outline-none"
+              class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl px-2.5 py-2 text-xs font-mono text-slate-900 outline-none"
             />
           </div>
           <div>
@@ -996,7 +1161,7 @@
               step="0.01"
               min="0"
               placeholder="0.00"
-              class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-2.5 py-2 text-xs font-mono font-bold text-slate-900 outline-none"
+              class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl px-2.5 py-2 text-xs font-mono font-bold text-slate-900 outline-none"
               required
             />
           </div>
@@ -1008,7 +1173,7 @@
               step="0.001"
               min="0"
               value="50.000"
-              class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-2.5 py-2 text-xs font-mono text-slate-900 outline-none"
+              class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl px-2.5 py-2 text-xs font-mono text-slate-900 outline-none"
               required
             />
           </div>
@@ -1018,7 +1183,7 @@
           <button type="button" id="cancelAddMatModalBtn" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700">
             Cancel
           </button>
-          <button type="submit" class="px-5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs">
+          <button type="submit" class="px-5 py-2 rounded-xl text-xs font-bold bg-emerald-700 hover:bg-emerald-800 text-white shadow-xs">
             Save Raw Material
           </button>
         </div>
@@ -1031,8 +1196,8 @@
     <div class="bg-white border border-slate-200 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
       <div class="flex items-start justify-between border-b border-slate-200 pb-3">
         <div>
-          <span id="updModalCodeTag" class="text-xs font-mono font-bold text-indigo-600">RM-001</span>
-          <h3 id="updModalMatName" class="text-base font-bold text-slate-900 mt-0.5">Update Stock &amp; Price</h3>
+          <span id="updModalCodeTag" class="text-xs font-mono font-bold text-emerald-700">RM-001</span>
+          <h3 id="updModalMatName" class="font-heading text-base font-extrabold text-slate-900 mt-0.5">Update Stock &amp; Price</h3>
           <p class="text-xs text-slate-500 mt-0.5">
             If the Unit Price (₹/kg) is modified, an automatic Price Revision Intimation is logged for Dr. P. Sukumar.
           </p>
@@ -1072,7 +1237,7 @@
               step="0.001"
               min="0"
               value="0.000"
-              class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-sm font-mono font-bold text-slate-900 outline-none"
+              class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl px-3 py-2 text-sm font-mono font-bold text-slate-900 outline-none"
               required
             />
             <p id="updCurrentStockHint" class="text-[11px] font-mono text-slate-500 mt-1">Current Stock: 0.000 kg</p>
@@ -1126,13 +1291,13 @@
           </div>
         </div>
 
-        <div id="updCustomCatWrap" class="hidden bg-indigo-50/70 border border-indigo-200 rounded-xl p-3">
-          <label class="block text-xs font-bold text-indigo-900 mb-1">Enter Custom Category Name *</label>
+        <div id="updCustomCatWrap" class="hidden bg-emerald-50/70 border border-emerald-200 rounded-xl p-3">
+          <label class="block text-xs font-bold text-emerald-950 mb-1">Enter Custom Category Name *</label>
           <input
             id="updCustomCatInput"
             type="text"
             placeholder="Enter custom category"
-            class="w-full bg-white border border-indigo-300 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-900 outline-none"
+            class="w-full bg-white border border-emerald-300 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-900 outline-none"
           />
         </div>
 
@@ -1144,7 +1309,7 @@
             id="updRemarksInput"
             type="text"
             placeholder="e.g. Received new consignment; updated ₹/kg rate as per latest invoice"
-            class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl px-3 py-2 text-xs text-slate-900 outline-none"
+            class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl px-3 py-2 text-xs text-slate-900 outline-none"
           />
         </div>
 
@@ -1160,7 +1325,7 @@
             <button type="button" id="cancelUpdModalBtn" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700">
               Cancel
             </button>
-            <button type="submit" class="px-5 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs">
+            <button type="submit" class="px-5 py-2 rounded-xl text-xs font-bold bg-emerald-700 hover:bg-emerald-800 text-white shadow-xs">
               Save Inventory Update
             </button>
           </div>
@@ -1174,7 +1339,7 @@
     <div class="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
       <div class="flex items-center justify-between border-b border-slate-200 pb-3">
         <div>
-          <h3 class="text-base font-bold text-slate-900">Plant Database Backup &amp; Restore</h3>
+          <h3 class="font-heading text-base font-extrabold text-slate-900">Plant Database Backup &amp; Restore</h3>
           <p class="text-xs text-slate-500">Zenmak Global, Coimbatore • Persistent Local Storage</p>
         </div>
         <button type="button" id="closeBackupModalBtn" class="text-slate-400 hover:text-slate-700 font-bold p-1">✕</button>
@@ -1183,11 +1348,11 @@
       <div class="space-y-4 text-xs text-slate-600">
         <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
           <p class="font-bold text-slate-900">1. Export Plant Data Backup (.json)</p>
-          <p>Download all Raw Materials, Master Formulations, Batch History, and Notifications to a file on your computer.</p>
+          <p>Download all Raw Materials, 56 Product BOM Formulations, Batch History, and Notifications to a file on your computer.</p>
           <button
             type="button"
             id="exportJsonBtn"
-            class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold transition"
+            class="w-full py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold transition"
           >
             Download Backup File (.json)
           </button>
@@ -1215,17 +1380,25 @@
 
   <!-- ================= APPLICATION JAVASCRIPT ================= -->
   <script>
-    const DATA_STORAGE_KEY = 'zenmak_global_cbe_erp_data_v1';
+    const DATA_STORAGE_KEY = 'zenmak_global_erp_v3_catalog';
+    const LEGACY_STORAGE_KEY = 'zenmak_global_cbe_erp_data_v1';
     const SESSION_STORAGE_KEY = 'zenmak_global_cbe_active_session_v1';
 
-    const DEFAULT_CATEGORIES = [
+    // Standard Raw Material Categories + Manual "Other" option
+    const DEFAULT_RAW_MATERIAL_CATEGORIES = [
       'API',
       'Excipient',
       'Binder',
       'Disintegrant',
       'Lubricant',
       'Coating',
-      'Solvent'
+      'Solvent',
+      'Carrier',
+      'Mineral',
+      'Vitamin',
+      'Enzyme',
+      'Acidifier',
+      'Herbal Extract'
     ];
 
     const CATEGORY_BADGE_STYLES = {
@@ -1235,51 +1408,177 @@
       Disintegrant: 'bg-purple-50 text-purple-800 border-purple-200',
       Lubricant: 'bg-amber-50 text-amber-800 border-amber-200',
       Coating: 'bg-teal-50 text-teal-800 border-teal-200',
-      Solvent: 'bg-emerald-50 text-emerald-800 border-emerald-200'
+      Solvent: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+      Carrier: 'bg-stone-100 text-stone-700 border-stone-300',
+      Mineral: 'bg-sky-50 text-sky-800 border-sky-200',
+      Vitamin: 'bg-orange-50 text-orange-800 border-orange-200',
+      Enzyme: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+      Acidifier: 'bg-rose-50 text-rose-800 border-rose-200',
+      'Herbal Extract': 'bg-lime-50 text-lime-800 border-lime-200'
     };
 
-    // Clean initial state with zero mock inventory or formulas so user can enter real data
-    function createEmptyDatabase() {
+    // Complete Official 56 Finished Products Catalog across 19 Categories from https://zenmakglobal.com/
+    const OFFICIAL_ZENMAK_CATALOG = [
+      // 1. Enzymes (2)
+      { code: 'ZG-ENZ-01', name: 'MakZyme-C', category: 'Enzymes' },
+      { code: 'ZG-ENZ-02', name: 'MakZyme-XPL Premium', category: 'Enzymes' },
+      // 2. Acidifiers (3)
+      { code: 'ZG-ACD-01', name: 'SAL-O-MAK', category: 'Acidifiers' },
+      { code: 'ZG-ACD-02', name: 'SAL-O-MAK Plus', category: 'Acidifiers' },
+      { code: 'ZG-ACD-03', name: 'SAL-O-ZEN', category: 'Acidifiers' },
+      // 3. Emulsifiers (3)
+      { code: 'ZG-EMU-01', name: 'Lipolyse-C', category: 'Emulsifiers' },
+      { code: 'ZG-EMU-02', name: 'Lipolyse-L', category: 'Emulsifiers' },
+      { code: 'ZG-EMU-03', name: 'Lipolyse-C-DS', category: 'Emulsifiers' },
+      // 4. Toxin Binder (3)
+      { code: 'ZG-TOX-01', name: 'Ditox-Regular', category: 'Toxin Binder' },
+      { code: 'ZG-TOX-02', name: 'Ditox-3 Plus', category: 'Toxin Binder' },
+      { code: 'ZG-TOX-03', name: 'Ditox-3 Premium', category: 'Toxin Binder' },
+      // 5. Probiotics (2)
+      { code: 'ZG-PRO-01', name: 'ProZenBio-BSB', category: 'Probiotics' },
+      { code: 'ZG-PRO-02', name: 'ProZenBio-WS Plus', category: 'Probiotics' },
+      // 6. Trace Minerals (3)
+      { code: 'ZG-MIN-01', name: 'Mak Min-Org', category: 'Trace Minerals' },
+      { code: 'ZG-MIN-02', name: 'Mak Min Premium', category: 'Trace Minerals' },
+      { code: 'ZG-MIN-03', name: 'MAK MIN – ORG LAYER PACK', category: 'Trace Minerals' },
+      // 7. Vitamins (3)
+      { code: 'ZG-VIT-01', name: 'ZenVit-E plus', category: 'Vitamins' },
+      { code: 'ZG-VIT-02', name: 'ZenMix-AD3EC', category: 'Vitamins' },
+      { code: 'ZG-VIT-03', name: 'ZenMixVit – Layer pack', category: 'Vitamins' },
+      // 8. Anti-Stress Agent (3)
+      { code: 'ZG-ASA-01', name: 'Electrol Plus', category: 'Anti-Stress Agent' },
+      { code: 'ZG-ASA-02', name: 'PROBETA-NS', category: 'Anti-Stress Agent' },
+      { code: 'ZG-ASA-03', name: 'PROBETA-WS', category: 'Anti-Stress Agent' },
+      // 9. Growth Promoter (2)
+      { code: 'ZG-GRP-01', name: 'GRO Mak Liquid', category: 'Growth Promoter' },
+      { code: 'ZG-GRP-02', name: 'GroMak Gold Liquid', category: 'Growth Promoter' },
+      // 10. Liver Tonic (1)
+      { code: 'ZG-LIV-01', name: 'LivoMak (Liquid/Powder)', category: 'Liver Tonic' },
+      // 11. Herbal (4)
+      { code: 'ZG-HRB-01', name: 'Allivisat', category: 'Herbal' },
+      { code: 'ZG-HRB-02', name: 'NATUMERIC Plus', category: 'Herbal' },
+      { code: 'ZG-HRB-03', name: 'OviTone-100', category: 'Herbal' },
+      { code: 'ZG-HRB-04', name: 'Respogreen-100', category: 'Herbal' },
+      // 12. Antibiotic Growth Promoter (2)
+      { code: 'ZG-AGP-01', name: 'AviloMak-10', category: 'Antibiotic Growth Promoter' },
+      { code: 'ZG-AGP-02', name: 'Zee MD Plus', category: 'Antibiotic Growth Promoter' },
+      // 13. Performance Enhancer (3)
+      { code: 'ZG-PRF-01', name: 'XSHELL-DS', category: 'Performance Enhancer' },
+      { code: 'ZG-PRF-02', name: 'ZenAct-Pro', category: 'Performance Enhancer' },
+      { code: 'ZG-PRF-03', name: 'Perfom-X', category: 'Performance Enhancer' },
+      // 14. Anti-Mycoplasma Antibiotic (2)
+      { code: 'ZG-AMA-01', name: 'TIAMUMAK- 10% & 80%', category: 'Anti-Mycoplasma Antibiotic' },
+      { code: 'ZG-AMA-02', name: 'TYLOMAK-H', category: 'Anti-Mycoplasma Antibiotic' },
+      // 15. Systemic Antibiotic (6)
+      { code: 'ZG-SYS-01', name: 'CIPRO ZEN-10%', category: 'Systemic Antibiotic' },
+      { code: 'ZG-SYS-02', name: 'DOXICON-N', category: 'Systemic Antibiotic' },
+      { code: 'ZG-SYS-03', name: 'Tetra Mak – OTC (Water Soluble)', category: 'Systemic Antibiotic' },
+      { code: 'ZG-SYS-04', name: 'Tetra Mak-OTC (Feed Supplement)', category: 'Systemic Antibiotic' },
+      { code: 'ZG-SYS-05', name: 'Primosol-S', category: 'Systemic Antibiotic' },
+      { code: 'ZG-SYS-06', name: 'Zenchlor-TC', category: 'Systemic Antibiotic' },
+      // 16. Antibiotic Solution (1)
+      { code: 'ZG-ABS-01', name: 'Respiflox-BH', category: 'Antibiotic Solution' },
+      // 17. Immunomodulators (2)
+      { code: 'ZG-IMM-01', name: 'Natuphyto - WP', category: 'Immunomodulators' },
+      { code: 'ZG-IMM-02', name: 'Elvital - T', category: 'Immunomodulators' },
+      // 18. Injectables (6)
+      { code: 'ZG-INJ-01', name: 'AMIKAZEN', category: 'Injectables' },
+      { code: 'ZG-INJ-02', name: 'CEFTON-TAZO', category: 'Injectables' },
+      { code: 'ZG-INJ-03', name: 'GENTAZEN', category: 'Injectables' },
+      { code: 'ZG-INJ-04', name: 'TYLOZEN', category: 'Injectables' },
+      { code: 'ZG-INJ-05', name: 'ZENOXY-LA', category: 'Injectables' },
+      { code: 'ZG-INJ-06', name: 'ZENVITA', category: 'Injectables' },
+      // 19. Bio Security Products (5)
+      { code: 'ZG-BIO-01', name: 'BIO TRIPLE CARE', category: 'Bio Security Products' },
+      { code: 'ZG-BIO-02', name: 'BIO TRIPLE CARE – 20', category: 'Bio Security Products' },
+      { code: 'ZG-BIO-03', name: 'SANIQUAT-20', category: 'Bio Security Products' },
+      { code: 'ZG-BIO-04', name: 'HYGIN-TACT-20', category: 'Bio Security Products' },
+      { code: 'ZG-BIO-05', name: 'TRIOX-3', category: 'Bio Security Products' }
+    ];
+
+    function buildSeededFormulations(existingFormulations = []) {
+      const merged = [...existingFormulations];
+      OFFICIAL_ZENMAK_CATALOG.forEach((item, index) => {
+        const exists = merged.some(
+          f =>
+            (f.name && f.name.trim().toLowerCase() === item.name.toLowerCase()) ||
+            (f.code && f.code.trim().toLowerCase() === item.code.toLowerCase())
+        );
+        if (!exists) {
+          merged.push({
+            id: `FORM-ZG-${String(index + 1).padStart(2, '0')}`,
+            code: item.code,
+            name: item.name,
+            version: 'v1.0',
+            therapeuticClass: item.category,
+            standardYield: 'Standard 1,000 kg (1 Metric Ton) Batch',
+            ingredients: [] // Empty BOM ready for Dr. P. Sukumar to configure
+          });
+        }
+      });
+      return merged;
+    }
+
+    function createInitialDatabase() {
+      const seededFormulations = buildSeededFormulations([]);
       return {
-        materials: [],
-        formulations: [],
+        materials: [], // Strictly ZERO pre-loaded raw materials
+        formulations: seededFormulations,
         batchLogs: [],
         notifications: [],
         customCategories: [],
-        selectedFormulationId: null,
-        editingFormulationId: null
+        selectedFormulationId: seededFormulations[0]?.id || null,
+        editingFormulationId: seededFormulations[0]?.id || null
       };
     }
 
     let db = loadDatabase();
-    let session = loadSession(); // { role: 'DOCTOR' | 'PM', username: 'Sukumar' | 'pm', displayName: '...', designation: '...' }
+    let session = loadSession();
     let activeTab = 'PRODUCTION_AND_INVENTORY';
     let targetTons = 1.000;
     let invSearchQuery = '';
     let invCategoryFilter = 'ALL';
     let invCriticalOnly = false;
-    let updStockMode = 'ADD'; // 'ADD' | 'SET'
+    let updStockMode = 'ADD';
     let bomDraft = null;
+
+    // Catalog filters in Formula Master & Planner
+    let catalogSearchQuery = '';
+    let catalogCategorySelected = 'ALL';
+    let catalogBomStatusFilter = 'ALL'; // 'ALL' | 'CONFIGURED' | 'PENDING'
+    let plannerCategorySelected = 'ALL';
 
     function loadDatabase() {
       try {
-        const raw = localStorage.getItem(DATA_STORAGE_KEY);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          return {
+        const rawV3 = localStorage.getItem(DATA_STORAGE_KEY);
+        const rawLegacy = localStorage.getItem(LEGACY_STORAGE_KEY);
+        const rawToParse = rawV3 || rawLegacy;
+
+        if (rawToParse) {
+          const parsed = JSON.parse(rawToParse);
+          const mergedFormulations = buildSeededFormulations(
+            Array.isArray(parsed.formulations) ? parsed.formulations : []
+          );
+          const loadedDb = {
             materials: Array.isArray(parsed.materials) ? parsed.materials : [],
-            formulations: Array.isArray(parsed.formulations) ? parsed.formulations : [],
+            formulations: mergedFormulations,
             batchLogs: Array.isArray(parsed.batchLogs) ? parsed.batchLogs : [],
             notifications: Array.isArray(parsed.notifications) ? parsed.notifications : [],
             customCategories: Array.isArray(parsed.customCategories) ? parsed.customCategories : [],
-            selectedFormulationId: parsed.selectedFormulationId || null,
-            editingFormulationId: parsed.editingFormulationId || null
+            selectedFormulationId: parsed.selectedFormulationId || (mergedFormulations[0]?.id || null),
+            editingFormulationId: parsed.editingFormulationId || (mergedFormulations[0]?.id || null)
           };
+          localStorage.setItem(DATA_STORAGE_KEY, JSON.stringify(loadedDb));
+          return loadedDb;
         }
       } catch (err) {
         console.error('Failed to read database from localStorage:', err);
       }
-      return createEmptyDatabase();
+      const fresh = createInitialDatabase();
+      try {
+        localStorage.setItem(DATA_STORAGE_KEY, JSON.stringify(fresh));
+      } catch (e) {}
+      return fresh;
     }
 
     function saveDatabase() {
@@ -1313,8 +1612,8 @@
       }
     }
 
-    function getAllCategories() {
-      const combined = [...DEFAULT_CATEGORIES];
+    function getAllRawMaterialCategories() {
+      const combined = [...DEFAULT_RAW_MATERIAL_CATEGORIES];
       db.customCategories.forEach(c => {
         if (c && !combined.some(existing => existing.toLowerCase() === c.toLowerCase())) {
           combined.push(c);
@@ -1323,10 +1622,21 @@
       return combined;
     }
 
+    function getAllProductCategories() {
+      const set = new Set();
+      OFFICIAL_ZENMAK_CATALOG.forEach(p => set.add(p.category));
+      db.formulations.forEach(f => {
+        if (f.therapeuticClass && f.therapeuticClass.trim()) {
+          set.add(f.therapeuticClass.trim());
+        }
+      });
+      return Array.from(set);
+    }
+
     function registerCustomCategoryIfNeeded(catName) {
       const trimmed = (catName || '').trim();
       if (!trimmed) return 'Other';
-      const all = getAllCategories();
+      const all = getAllRawMaterialCategories();
       const existing = all.find(c => c.toLowerCase() === trimmed.toLowerCase());
       if (existing) return existing;
       db.customCategories.push(trimmed);
@@ -1335,7 +1645,7 @@
     }
 
     function getCategoryBadgeClass(cat) {
-      return CATEGORY_BADGE_STYLES[cat] || 'bg-violet-50 text-violet-800 border-violet-200';
+      return CATEGORY_BADGE_STYLES[cat] || 'bg-emerald-50 text-emerald-800 border-emerald-200';
     }
 
     function fmtNum(val, dec = 3) {
@@ -1393,6 +1703,10 @@
       return Math.max(0, Number((Number(mat.currentStock || 0) - Number(mat.reservedStock || 0)).toFixed(3)));
     }
 
+    function isBomConfigured(formula) {
+      return Boolean(formula && Array.isArray(formula.ingredients) && formula.ingredients.length > 0);
+    }
+
     // ================= AUTHENTICATION GATE =================
     function handleLoginSubmit(e) {
       e.preventDefault();
@@ -1410,10 +1724,10 @@
           displayName: 'Dr. P. Sukumar',
           designation: 'Technical Head • Zenmak Global'
         });
-        activeTab = db.formulations.length === 0 ? 'FORMULA_MASTER' : 'PRODUCTION_AND_INVENTORY';
+        activeTab = 'FORMULA_MASTER';
         document.getElementById('loginPassword').value = '';
         renderAuthShell();
-        showToast('success', 'Welcome, Dr. P. Sukumar', 'Logged in as Technical Head with full access to Formula Master, Oversight & Inventory.');
+        showToast('success', 'Welcome, Dr. P. Sukumar', 'Signed in as Technical Head. All 56 official Zenmak Global products are ready in Formula Master.');
         return;
       }
 
@@ -1428,7 +1742,7 @@
         activeTab = 'PRODUCTION_AND_INVENTORY';
         document.getElementById('loginPassword').value = '';
         renderAuthShell();
-        showToast('success', 'Welcome, Production Manager', 'Logged in to Batch Production Planner & Raw Material Inventory.');
+        showToast('success', 'Welcome, Production Manager', 'Signed in to Batch Production Planner & Central Raw Material Inventory.');
         return;
       }
 
@@ -1439,7 +1753,7 @@
       saveSession(null);
       bomDraft = null;
       renderAuthShell();
-      showToast('success', 'Logged Out Safely', 'All Zenmak Global formulations, stock levels, and batch logs remain saved.');
+      showToast('success', 'Signed Out Safely', 'All Zenmak Global products, BOM formulas, raw materials, and batch logs remain saved.');
     }
 
     function renderAuthShell() {
@@ -1461,14 +1775,13 @@
 
       const roleBadge = document.getElementById('headerRoleBadge');
       if (isDoctor) {
-        roleBadge.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200';
+        roleBadge.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200';
         roleBadge.textContent = 'Dr. P. Sukumar • Technical Head';
       } else {
-        roleBadge.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200';
+        roleBadge.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-teal-50 text-teal-800 border border-teal-200';
         roleBadge.textContent = 'Production Manager';
       }
 
-      // Enforce tab permissions for PM
       if (!isDoctor && activeTab === 'FORMULA_MASTER') {
         activeTab = 'PRODUCTION_AND_INVENTORY';
       }
@@ -1477,8 +1790,8 @@
     }
 
     // ================= CATEGORY DROPDOWNS =================
-    function populateCategorySelect(selectEl, selectedVal = 'API') {
-      const cats = getAllCategories();
+    function populateRawMaterialCategorySelect(selectEl, selectedVal = 'API') {
+      const cats = getAllRawMaterialCategories();
       let html = cats.map(c => `<option value="${c}" ${c === selectedVal ? 'selected' : ''}>${c}</option>`).join('');
       html += `<option value="__OTHER__">Other (Enter Manually...)</option>`;
       selectEl.innerHTML = html;
@@ -1486,10 +1799,32 @@
 
     function populateFilterCategorySelect() {
       const selectEl = document.getElementById('invCategoryFilterSelect');
-      const cats = getAllCategories();
+      const cats = getAllRawMaterialCategories();
       let html = `<option value="ALL" ${invCategoryFilter === 'ALL' ? 'selected' : ''}>All Categories (${cats.length})</option>`;
       html += cats.map(c => `<option value="${c}" ${invCategoryFilter === c ? 'selected' : ''}>${c}</option>`).join('');
       selectEl.innerHTML = html;
+    }
+
+    function populateProductCategoryDropdowns() {
+      const prodCats = getAllProductCategories();
+      const catFilterEl = document.getElementById('catalogCategoryFilter');
+      if (catFilterEl) {
+        let html = `<option value="ALL" ${catalogCategorySelected === 'ALL' ? 'selected' : ''}>All ${prodCats.length} Categories</option>`;
+        html += prodCats.map(c => `<option value="${c}" ${catalogCategorySelected === c ? 'selected' : ''}>${c}</option>`).join('');
+        catFilterEl.innerHTML = html;
+      }
+
+      const plannerCatEl = document.getElementById('plannerCategoryFilterSelect');
+      if (plannerCatEl) {
+        let html = `<option value="ALL" ${plannerCategorySelected === 'ALL' ? 'selected' : ''}>All ${prodCats.length} Categories</option>`;
+        html += prodCats.map(c => `<option value="${c}" ${plannerCategorySelected === c ? 'selected' : ''}>${c}</option>`).join('');
+        plannerCatEl.innerHTML = html;
+      }
+
+      const dataListEl = document.getElementById('zenmakProductCategoriesList');
+      if (dataListEl) {
+        dataListEl.innerHTML = prodCats.map(c => `<option value="${c}"></option>`).join('');
+      }
     }
 
     // ================= TOP KPI & NAVIGATION RENDERING =================
@@ -1503,6 +1838,7 @@
         totalValuation += Number(m.currentStock || 0) * Number(m.unitCost || 0);
       });
 
+      const configuredBomCount = db.formulations.filter(isBomConfigured).length;
       const todayStr = getTodayDateString();
       const todayBatches = db.batchLogs.filter(b => b.dateKey === todayStr);
       const todayTons = todayBatches.reduce((s, b) => s + Number(b.targetTons || 0), 0);
@@ -1511,8 +1847,9 @@
       const unreadCount = db.notifications.filter(n => n.unread).length;
 
       document.getElementById('kpiFormulaCount').textContent = db.formulations.length;
+      document.getElementById('kpiConfiguredBomSub').textContent = `${configuredBomCount} BOM(s) ready`;
       document.getElementById('kpiMaterialCount').textContent = db.materials.length;
-      document.getElementById('kpiCategoriesCountSub').textContent = `${getAllCategories().length} categories available`;
+      document.getElementById('kpiCategoriesCountSub').textContent = `${getAllRawMaterialCategories().length} RM categories`;
       document.getElementById('kpiTodayTons').textContent = `${fmtNum(todayTons, 3)} T`;
       document.getElementById('kpiTodayBatches').textContent = `${todayBatches.length} batch(es) run today`;
       document.getElementById('kpiInventoryValuation').textContent = fmtINR(totalValuation);
@@ -1541,7 +1878,6 @@
         critBoxEl.textContent = 'OK';
       }
 
-      // Navigation Tabs
       const btnFormula = document.getElementById('navBtnFormula');
       const btnOversight = document.getElementById('navBtnOversight');
       const btnOperations = document.getElementById('navBtnOperations');
@@ -1558,7 +1894,7 @@
         { el: btnOperations, tab: 'PRODUCTION_AND_INVENTORY' }
       ].forEach(item => {
         if (activeTab === item.tab) {
-          item.el.className = 'module-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-indigo-600 text-white shadow-xs';
+          item.el.className = 'module-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-emerald-700 text-white shadow-xs';
         } else {
           item.el.className = 'module-tab-btn px-4 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700';
         }
@@ -1569,9 +1905,9 @@
 
       const roleNote = document.getElementById('activeRoleAccessNote');
       if (isDoctor) {
-        roleNote.textContent = 'Logged in as Dr. P. Sukumar (Technical Head) • Full BOM, Oversight & Inventory Control';
+        roleNote.textContent = 'Dr. P. Sukumar (Technical Head) • Full BOM Studio, Oversight & Inventory Access';
       } else {
-        roleNote.textContent = 'Logged in as Production Manager • Batch Execution & Raw Material Inventory';
+        roleNote.textContent = 'Production Manager • Batch Execution & Raw Material Inventory';
       }
 
       document.getElementById('sectionFormulaMaster').classList.toggle('hidden', activeTab !== 'FORMULA_MASTER');
@@ -1579,16 +1915,16 @@
       document.getElementById('sectionProductionAndInventory').classList.toggle('hidden', activeTab !== 'PRODUCTION_AND_INVENTORY');
     }
 
-    // ================= MODULE 1: FORMULA MASTER (BOM STUDIO) =================
+    // ================= MODULE 1: DOCTOR FORMULA MASTER (56 ZENMAK PRODUCTS) =================
     function createBlankBomDraft() {
       const nextIndex = db.formulations.length + 1;
       return {
-        id: 'FORM-' + Date.now(),
-        code: `ZG-${String(100 + nextIndex)}`,
+        id: 'FORM-CUSTOM-' + Date.now(),
+        code: `ZG-NEW-${String(nextIndex)}`,
         name: '',
         version: 'v1.0',
-        therapeuticClass: '',
-        standardYield: '1,000 kg Standard Batch',
+        therapeuticClass: 'Enzymes',
+        standardYield: 'Standard 1,000 kg (1 Metric Ton) Batch',
         isNew: true,
         ingredients: db.materials.length > 0
           ? [{ materialId: db.materials[0].id, qtyPerTon: 1000.000 }]
@@ -1626,33 +1962,75 @@
 
     function renderFormulaMasterModule() {
       ensureBomDraft();
+      populateProductCategoryDropdowns();
 
-      document.getElementById('savedFormulaListBadge').textContent = `${db.formulations.length} Formula(s)`;
+      const totalCount = db.formulations.length;
+      const configuredCount = db.formulations.filter(isBomConfigured).length;
+      const pendingCount = totalCount - configuredCount;
+
+      document.getElementById('pillCountAll').textContent = totalCount;
+      document.getElementById('pillCountConfigured').textContent = configuredCount;
+      document.getElementById('pillCountPending').textContent = pendingCount;
+
+      document.querySelectorAll('.bom-status-pill').forEach(btn => {
+        const val = btn.getAttribute('data-bom-status-filter');
+        if (val === catalogBomStatusFilter) {
+          btn.className = 'bom-status-pill px-2.5 py-1 rounded-lg text-[11px] font-bold bg-emerald-700 text-white shadow-2xs';
+        } else {
+          btn.className = 'bom-status-pill px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white border border-slate-300 text-slate-700 hover:bg-slate-100';
+        }
+      });
+
+      const filteredCatalog = db.formulations.filter(f => {
+        const q = catalogSearchQuery.toLowerCase();
+        const matchQ =
+          f.name.toLowerCase().includes(q) ||
+          f.code.toLowerCase().includes(q) ||
+          (f.therapeuticClass || '').toLowerCase().includes(q);
+        if (!matchQ) return false;
+        if (catalogCategorySelected !== 'ALL' && f.therapeuticClass !== catalogCategorySelected) return false;
+        if (catalogBomStatusFilter === 'CONFIGURED' && !isBomConfigured(f)) return false;
+        if (catalogBomStatusFilter === 'PENDING' && isBomConfigured(f)) return false;
+        return true;
+      });
+
+      document.getElementById('savedFormulaListBadge').textContent = `${filteredCatalog.length} / ${totalCount} Products`;
       const listContainer = document.getElementById('formulaMasterListContainer');
 
-      if (db.formulations.length === 0) {
+      if (filteredCatalog.length === 0) {
         listContainer.innerHTML = `
           <div class="p-8 text-center space-y-2">
-            <p class="text-xs font-bold text-slate-700">No Master Formulas Saved Yet</p>
-            <p class="text-[11px] text-slate-500">Use the form on the right to create your first 1,000 kg Master Formula.</p>
+            <p class="text-xs font-bold text-slate-700">No Products Match Filter</p>
+            <p class="text-[11px] text-slate-500">Try clearing the search box or switching the category filter.</p>
           </div>
         `;
       } else {
-        listContainer.innerHTML = db.formulations.map(f => {
+        listContainer.innerHTML = filteredCatalog.map(f => {
           const isSelected = !bomDraft.isNew && bomDraft.id === f.id;
+          const configured = isBomConfigured(f);
           const totalKg = f.ingredients.reduce((s, i) => s + Number(i.qtyPerTon || 0), 0);
           const costPerTon = calculateFormulaCostPerTon(f);
+
           return `
-            <div data-select-formula="${f.id}" class="p-4 cursor-pointer transition ${isSelected ? 'bg-indigo-50/80 border-l-4 border-l-indigo-600' : 'hover:bg-slate-50'}">
-              <div class="flex items-center justify-between">
-                <span class="font-mono text-xs font-bold text-indigo-600">${f.code}</span>
-                <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 text-slate-600 border border-slate-200">${f.version || 'v1.0'}</span>
+            <div data-select-formula="${f.id}" class="p-3.5 cursor-pointer transition ${isSelected ? 'bg-emerald-50/90 border-l-4 border-l-emerald-700' : 'hover:bg-slate-50'}">
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="font-mono text-[11px] font-bold text-emerald-800">${f.code}</span>
+                  <span class="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-100 text-slate-700 border border-slate-200">${f.therapeuticClass || 'General'}</span>
+                </div>
+                ${
+                  configured
+                    ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">✓ BOM Configured</span>`
+                    : `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200">Pending BOM</span>`
+                }
               </div>
-              <p class="font-bold text-slate-900 text-sm mt-1">${f.name}</p>
-              <p class="text-xs text-slate-500 mt-0.5">${f.therapeuticClass || 'Standard Formulation'}</p>
-              <div class="flex items-center justify-between mt-2.5 pt-2 border-t border-slate-200/70 text-[11px] font-mono text-slate-600">
-                <span>${f.ingredients.length} ingredient(s) • ${fmtNum(totalKg, 1)} kg</span>
-                <span class="font-bold text-emerald-700">${fmtINR(costPerTon)}/T</span>
+              <div class="flex items-center justify-between gap-2 mt-1.5">
+                <p class="font-heading font-bold text-slate-900 text-sm">${f.name}</p>
+                <span class="text-[11px] font-bold text-emerald-700 hover:underline shrink-0">Configure / Edit →</span>
+              </div>
+              <div class="flex items-center justify-between mt-2 pt-1.5 border-t border-slate-200/70 text-[11px] font-mono text-slate-500">
+                <span>${configured ? `${f.ingredients.length} item(s) • ${fmtNum(totalKg, 1)} kg/T` : '0 ingredients assigned'}</span>
+                <span class="${configured ? 'font-bold text-slate-800' : 'text-slate-400'}">${configured ? `${fmtINR(costPerTon)}/T` : '₹0.00/T'}</span>
               </div>
             </div>
           `;
@@ -1660,10 +2038,10 @@
       }
 
       document.getElementById('bomFormModeTag').textContent = bomDraft.isNew
-        ? 'NEW FORMULATION ENTRY (1 METRIC TON BASE)'
-        : `EDITING SAVED FORMULA • ${bomDraft.code}`;
+        ? 'NEW CUSTOM PRODUCT ENTRY (1 METRIC TON BASE)'
+        : `ZENMAK OFFICIAL PRODUCT • ${bomDraft.code} (${bomDraft.therapeuticClass || 'Catalog'})`;
       document.getElementById('bomFormHeaderTitle').textContent = bomDraft.name
-        ? bomDraft.name
+        ? `${bomDraft.name} — Master BOM (Per 1,000 kg)`
         : 'Enter Finished Product & BOM Details';
 
       document.getElementById('bomCodeInput').value = bomDraft.code || '';
@@ -1687,17 +2065,26 @@
 
       if (db.materials.length === 0) {
         container.innerHTML = `
-          <div class="p-6 text-center bg-white rounded-xl border border-dashed border-slate-300 space-y-2.5">
-            <p class="text-xs font-bold text-slate-800">No Raw Materials Registered in Inventory Yet</p>
-            <p class="text-[11px] text-slate-500">Click <strong>"+ New Raw Material"</strong> above to add your first raw material so you can include it in this formula.</p>
+          <div class="p-6 text-center bg-white rounded-xl border border-dashed border-emerald-300 space-y-2.5">
+            <p class="text-xs font-bold text-slate-800">Step 1: Register Raw Materials in Inventory First</p>
+            <p class="text-[11px] text-slate-500 max-w-md mx-auto">
+              Raw Material Inventory starts clean with 0 pre-loaded materials. Click <strong>"+ Register Raw Material"</strong> above to add your raw materials, then assign their quantities (kg/Ton) to <strong>${bomDraft.name || 'this product'}</strong>.
+            </p>
           </div>
         `;
         updateBomDraftSummary();
         return;
       }
 
-      if (bomDraft.ingredients.length === 0) {
-        bomDraft.ingredients.push({ materialId: db.materials[0].id, qtyPerTon: 100.000 });
+      if (!Array.isArray(bomDraft.ingredients) || bomDraft.ingredients.length === 0) {
+        container.innerHTML = `
+          <div class="p-6 text-center bg-white rounded-xl border border-dashed border-slate-300 space-y-2.5">
+            <p class="text-xs font-bold text-slate-800">No Raw Materials Assigned to ${bomDraft.name || 'This Product'} Yet</p>
+            <p class="text-[11px] text-slate-500">Click <strong>"+ Add Ingredient Row"</strong> above to attach raw materials and specify required kg per 1 Metric Ton (1,000 kg).</p>
+          </div>
+        `;
+        updateBomDraftSummary();
+        return;
       }
 
       container.innerHTML = bomDraft.ingredients.map((ing, idx) => {
@@ -1725,7 +2112,7 @@
                 step="0.001"
                 min="0.001"
                 value="${ing.qtyPerTon}"
-                class="w-full bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-lg px-2.5 py-1.5 text-xs font-mono font-bold text-right text-slate-900 outline-none"
+                class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-600 focus:bg-white rounded-lg px-2.5 py-1.5 text-xs font-mono font-bold text-right text-slate-900 outline-none"
                 required
               />
               <span class="text-xs font-mono text-slate-500 shrink-0">kg/T</span>
@@ -1752,7 +2139,7 @@
 
     function updateBomDraftSummary() {
       if (!bomDraft) return;
-      const totalKg = bomDraft.ingredients.reduce((s, i) => s + (parseFloat(i.qtyPerTon) || 0), 0);
+      const totalKg = (bomDraft.ingredients || []).reduce((s, i) => s + (parseFloat(i.qtyPerTon) || 0), 0);
       const totalCost = calculateFormulaCostPerTon(bomDraft);
 
       document.getElementById('bomFormTotalKg').textContent = `${fmtNum(totalKg, 3)} kg / 1,000 kg`;
@@ -1763,21 +2150,19 @@
       bar.style.width = `${pct}%`;
       bar.className = Math.abs(totalKg - 1000) < 0.01
         ? 'h-full bg-emerald-600 transition-all duration-300'
-        : 'h-full bg-indigo-600 transition-all duration-300';
+        : 'h-full bg-teal-600 transition-all duration-300';
     }
 
     // ================= MODULE 2: DR. P. SUKUMAR OVERSIGHT & INTIMATIONS =================
     function renderOversightModule() {
-      const prodNotifs = db.notifications.filter(n => n.category === 'PRODUCTION');
       const priceNotifs = db.notifications.filter(n => n.category === 'PRICE_CHANGE');
       const critNotifs = db.notifications.filter(n => n.category === 'CRITICAL_STOCK');
-
-      // Live critical materials right now
       const liveCritMaterials = db.materials.filter(m => getAvailableStock(m) < m.minThreshold);
 
       document.getElementById('oversightProdCount').textContent = db.batchLogs.length;
       document.getElementById('oversightPriceCount').textContent = priceNotifs.length;
       document.getElementById('oversightCritCount').textContent = liveCritMaterials.length + critNotifs.length;
+      document.getElementById('bmrTotalCountBadge').textContent = `${db.batchLogs.length} Total Batch(es)`;
 
       // 1. Production Runs Executed
       const prodContainer = document.getElementById('oversightProductionList');
@@ -1850,7 +2235,7 @@
         }).join('');
       }
 
-      // 3. Critical Stock Alerts (Live Deficits + Logged Alerts)
+      // 3. Critical Stock Alerts
       const critContainer = document.getElementById('oversightCriticalList');
       let critHtml = '';
 
@@ -1894,6 +2279,35 @@
         `;
       } else {
         critContainer.innerHTML = critHtml;
+      }
+
+      // Master BMR Table
+      const bmrTbody = document.getElementById('oversightBmrTableBody');
+      if (db.batchLogs.length === 0) {
+        bmrTbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="py-8 text-center text-xs text-slate-400">No batch manufacturing records committed yet.</td>
+          </tr>
+        `;
+      } else {
+        bmrTbody.innerHTML = db.batchLogs.map(log => `
+          <tr class="hover:bg-slate-50">
+            <td class="py-3 px-4 font-mono">
+              <span class="font-bold text-emerald-700">${log.batchNo}</span>
+              <div class="text-[11px] text-slate-400">${log.timestamp}</div>
+            </td>
+            <td class="py-3 px-4 font-bold text-slate-900">${log.productName}</td>
+            <td class="py-3 px-4 text-right font-mono font-bold text-emerald-700">${fmtNum(log.targetTons, 3)} T</td>
+            <td class="py-3 px-4 text-right font-mono font-bold text-slate-900">${fmtINR(log.totalCost)}</td>
+            <td class="py-3 px-4">
+              <span class="font-semibold text-slate-700">${log.operator}</span>
+              ${log.remarks ? `<div class="text-[11px] text-slate-500">"${log.remarks}"</div>` : ''}
+            </td>
+            <td class="py-3 px-4 font-mono text-[11px] text-slate-600">
+              ${log.items.map(i => `${i.name} (-${fmtNum(i.deductedKg, 2)} kg)`).join(', ')}
+            </td>
+          </tr>
+        `).join('');
       }
     }
 
@@ -1988,50 +2402,55 @@
     }
 
     function renderBatchPlannerPanel() {
-      const emptyState = document.getElementById('plannerEmptyState');
-      const activeBody = document.getElementById('plannerActiveBody');
+      populateProductCategoryDropdowns();
       const isDoctor = session && session.role === 'DOCTOR';
 
-      if (db.formulations.length === 0) {
-        emptyState.classList.remove('hidden');
-        activeBody.classList.add('hidden');
-        const createBtn = document.getElementById('emptyStateCreateFormulaBtn');
-        if (isDoctor) {
-          createBtn.classList.remove('hidden');
-        } else {
-          createBtn.classList.add('hidden');
-          document.getElementById('plannerEmptySubtext').textContent =
-            'No Master Formulations have been published by Dr. P. Sukumar yet. You can add Raw Materials and stock in the Inventory table on the right.';
-        }
-        return;
+      const filteredFormulations = db.formulations.filter(f =>
+        plannerCategorySelected === 'ALL' ? true : f.therapeuticClass === plannerCategorySelected
+      );
+
+      const listToUse = filteredFormulations.length > 0 ? filteredFormulations : db.formulations;
+
+      if (!db.selectedFormulationId || !listToUse.some(f => f.id === db.selectedFormulationId)) {
+        // Prefer a configured product if available in this filter, otherwise first
+        const firstConfigured = listToUse.find(isBomConfigured);
+        db.selectedFormulationId = (firstConfigured || listToUse[0])?.id || null;
       }
 
-      emptyState.classList.add('hidden');
-      activeBody.classList.remove('hidden');
-
-      if (!db.selectedFormulationId || !db.formulations.some(f => f.id === db.selectedFormulationId)) {
-        db.selectedFormulationId = db.formulations[0].id;
-      }
-
+      // Group options by category for clean selection across 56 products
       const selectEl = document.getElementById('plannerFormulaSelect');
-      selectEl.innerHTML = db.formulations.map(f =>
-        `<option value="${f.id}" ${f.id === db.selectedFormulationId ? 'selected' : ''}>[${f.code}] ${f.name} (${f.version || 'v1.0'})</option>`
-      ).join('');
+      const grouped = {};
+      listToUse.forEach(f => {
+        const cat = f.therapeuticClass || 'General';
+        if (!grouped[cat]) grouped[cat] = [];
+        grouped[cat].push(f);
+      });
+
+      selectEl.innerHTML = Object.keys(grouped).map(cat => {
+        const opts = grouped[cat].map(f => {
+          const readyTag = isBomConfigured(f) ? '✓ BOM Ready' : 'Pending BOM';
+          return `<option value="${f.id}" ${f.id === db.selectedFormulationId ? 'selected' : ''}>${f.name} [${f.code}] — ${readyTag}</option>`;
+        }).join('');
+        return `<optgroup label="${cat}">${opts}</optgroup>`;
+      }).join('');
 
       const selectedFormula = db.formulations.find(f => f.id === db.selectedFormulationId) || db.formulations[0];
+      if (!selectedFormula) return;
+
+      const configured = isBomConfigured(selectedFormula);
       const totalBomKg = selectedFormula.ingredients.reduce((s, i) => s + Number(i.qtyPerTon || 0), 0);
 
       document.getElementById('plannerSelectedFormulaMeta').innerHTML = `
-        <span>Type: <strong class="text-slate-800">${selectedFormula.therapeuticClass || 'Standard'}</strong></span>
+        <span>Category: <strong class="text-emerald-800">${selectedFormula.therapeuticClass || 'Standard'}</strong></span>
         <span>•</span>
-        <span>BOM Weight: <strong class="text-slate-800 font-mono">${fmtNum(totalBomKg, 3)} kg/Ton</strong></span>
+        <span>Code: <strong class="text-slate-800 font-mono">${selectedFormula.code}</strong></span>
         <span>•</span>
-        <span>Ingredients: <strong class="text-slate-800">${selectedFormula.ingredients.length}</strong></span>
+        <span>BOM Status: <strong class="${configured ? 'text-emerald-700' : 'text-amber-700'} font-mono">${configured ? `${selectedFormula.ingredients.length} ingredients (${fmtNum(totalBomKg, 1)} kg/T)` : 'Pending BOM Entry'}</strong></span>
       `;
 
       const editWrap = document.getElementById('plannerEditFormulaLinkWrap');
       if (isDoctor) {
-        editWrap.innerHTML = `<button type="button" id="plannerJumpEditBomBtn" class="text-indigo-600 hover:text-indigo-800 font-bold underline">Edit in Formula Master →</button>`;
+        editWrap.innerHTML = `<button type="button" id="plannerJumpEditBomBtn" class="text-emerald-700 hover:text-emerald-900 font-bold underline">Configure / Edit BOM →</button>`;
         document.getElementById('plannerJumpEditBomBtn').onclick = () => {
           db.editingFormulationId = selectedFormula.id;
           bomDraft = null;
@@ -2039,10 +2458,37 @@
           refreshAllUI();
         };
       } else {
-        editWrap.innerHTML = `<span class="text-slate-400 font-medium">Approved by Dr. P. Sukumar</span>`;
+        editWrap.innerHTML = `<span class="text-slate-400 font-medium">Master Spec: Dr. P. Sukumar</span>`;
       }
 
       document.getElementById('plannerTargetKgLabel').textContent = `= ${fmtNum(targetTons * 1000, 1)} kg`;
+
+      const pendingBox = document.getElementById('plannerPendingBomNotice');
+      const configuredBox = document.getElementById('plannerConfiguredBomSection');
+
+      if (!configured) {
+        pendingBox.classList.remove('hidden');
+        configuredBox.classList.add('hidden');
+        document.getElementById('plannerPendingBomTitle').textContent =
+          `${selectedFormula.name} (${selectedFormula.therapeuticClass}) — Master BOM Pending`;
+        const goBtn = document.getElementById('plannerPendingGoConfigureBtn');
+        if (isDoctor) {
+          goBtn.classList.remove('hidden');
+          goBtn.onclick = () => {
+            db.editingFormulationId = selectedFormula.id;
+            bomDraft = null;
+            activeTab = 'FORMULA_MASTER';
+            refreshAllUI();
+          };
+        } else {
+          goBtn.classList.add('hidden');
+        }
+        document.getElementById('plannerMaxBtnVal').textContent = '0.000T';
+        return;
+      }
+
+      pendingBox.classList.add('hidden');
+      configuredBox.classList.remove('hidden');
 
       const analysis = computeBatchFeasibility(selectedFormula, targetTons);
 
@@ -2101,7 +2547,7 @@
               <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-300">
                 <span class="w-2 h-2 rounded-full bg-rose-600 animate-ping"></span>Shortage
               </span>
-              <button type="button" data-quick-restock="${r.materialId}" data-Quick-deficit="${Math.ceil(r.missingKg + r.safeThreshold)}" class="text-[11px] font-mono font-bold text-indigo-600 hover:text-indigo-800 underline">
+              <button type="button" data-quick-restock="${r.materialId}" data-quick-deficit="${Math.ceil(r.missingKg + r.safeThreshold)}" class="text-[11px] font-mono font-bold text-emerald-700 hover:text-emerald-900 underline">
                 + Restock (${fmtNum(r.missingKg, 2)} kg short)
               </button>
             </div>
@@ -2151,7 +2597,7 @@
         commitBtn.textContent = analysis.hasShortage ? 'Shortage — Cannot Commit Batch' : 'Enter Valid Tonnage';
       } else {
         commitBtn.disabled = false;
-        commitBtn.className = 'px-5 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition shadow-md bg-indigo-600 hover:bg-indigo-700 text-white shrink-0';
+        commitBtn.className = 'px-5 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition shadow-md bg-emerald-700 hover:bg-emerald-800 text-white shrink-0';
         commitBtn.textContent = 'Confirm & Deduct Batch';
       }
     }
@@ -2210,7 +2656,7 @@
                 ${isCritical ? `<span class="px-1.5 py-0.2 text-[9px] font-bold uppercase rounded bg-rose-100 text-rose-800 border border-rose-300">Critical</span>` : ''}
               </div>
               <p class="font-bold text-slate-900 mt-0.5">${mat.name}</p>
-              <p class="text-[11px] font-mono font-semibold text-indigo-700">Rate: ${fmtINR(mat.unitCost)} / kg</p>
+              <p class="text-[11px] font-mono font-semibold text-emerald-700">Rate: ${fmtINR(mat.unitCost)} / kg</p>
             </td>
             <td class="py-3 px-2.5 text-right font-mono">
               <span class="font-bold ${isCritical ? 'text-rose-600' : 'text-emerald-700'}">${fmtNum(mat.currentStock, 3)} kg</span>
@@ -2223,7 +2669,7 @@
               <button
                 type="button"
                 data-open-update="${mat.id}"
-                class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-indigo-600 text-slate-800 hover:text-white border border-slate-300 hover:border-indigo-600 transition"
+                class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-emerald-700 text-slate-800 hover:text-white border border-slate-300 hover:border-emerald-700 transition"
               >
                 Update Stock / ₹
               </button>
@@ -2249,7 +2695,7 @@
           <div class="flex items-start justify-between gap-2">
             <div>
               <div class="flex items-center gap-2">
-                <span class="font-mono text-xs font-bold text-indigo-700">${log.batchNo}</span>
+                <span class="font-mono text-xs font-bold text-emerald-700">${log.batchNo}</span>
                 <span class="text-[11px] font-mono text-slate-500">${log.timestamp}</span>
               </div>
               <p class="text-xs font-bold text-slate-900 mt-0.5">${log.productName}</p>
@@ -2294,7 +2740,7 @@
       document.getElementById('addMatThreshold').value = '50.000';
 
       const catSelect = document.getElementById('addMatCategorySelect');
-      populateCategorySelect(catSelect, 'API');
+      populateRawMaterialCategorySelect(catSelect, 'API');
       document.getElementById('addMatCustomCatWrap').classList.add('hidden');
       document.getElementById('addMatCustomCatInput').value = '';
 
@@ -2316,7 +2762,7 @@
       document.getElementById('updRemarksInput').value = '';
 
       const catSelect = document.getElementById('updCategorySelect');
-      populateCategorySelect(catSelect, mat.category);
+      populateRawMaterialCategorySelect(catSelect, mat.category);
       document.getElementById('updCustomCatWrap').classList.add('hidden');
       document.getElementById('updCustomCatInput').value = '';
 
@@ -2373,7 +2819,6 @@
         }
       });
 
-      // Logout Button
       document.getElementById('logoutBtn').addEventListener('click', handleLogout);
 
       // Module Navigation Tabs
@@ -2389,19 +2834,16 @@
         });
       });
 
-      // Header Notification Bell -> Open Oversight Tab
       document.getElementById('headerNotifBellBtn').addEventListener('click', () => {
         activeTab = 'DOCTOR_OVERSIGHT';
         refreshAllUI();
       });
 
-      // KPI Critical Stock Card Click
       document.getElementById('kpiCriticalCard').addEventListener('click', () => {
         activeTab = 'DOCTOR_OVERSIGHT';
         refreshAllUI();
       });
 
-      // Mark All Notifications Read
       document.getElementById('markAllNotificationsReadBtn').addEventListener('click', () => {
         db.notifications.forEach(n => { n.unread = false; });
         saveDatabase();
@@ -2409,7 +2851,24 @@
         showToast('success', 'All Intimations Marked as Read', 'Unread badge cleared.');
       });
 
-      // ================= FORMULA MASTER (DR. P. SUKUMAR) EVENTS =================
+      // ================= FORMULA MASTER (56 ZENMAK PRODUCTS) EVENTS =================
+      document.getElementById('catalogSearchInput').addEventListener('input', e => {
+        catalogSearchQuery = e.target.value;
+        renderFormulaMasterModule();
+      });
+
+      document.getElementById('catalogCategoryFilter').addEventListener('change', e => {
+        catalogCategorySelected = e.target.value;
+        renderFormulaMasterModule();
+      });
+
+      document.querySelectorAll('.bom-status-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          catalogBomStatusFilter = btn.getAttribute('data-bom-status-filter');
+          renderFormulaMasterModule();
+        });
+      });
+
       document.getElementById('createNewFormulaBtn').addEventListener('click', () => {
         bomDraft = createBlankBomDraft();
         db.editingFormulationId = null;
@@ -2435,7 +2894,8 @@
           openAddRawMaterialModal();
           return;
         }
-        bomDraft.ingredients.push({ materialId: db.materials[0].id, qtyPerTon: 10.000 });
+        if (!Array.isArray(bomDraft.ingredients)) bomDraft.ingredients = [];
+        bomDraft.ingredients.push({ materialId: db.materials[0].id, qtyPerTon: 100.000 });
         renderBomIngredientRows();
       });
 
@@ -2458,17 +2918,22 @@
       document.getElementById('bomIngredientRowsContainer').addEventListener('click', e => {
         const delIdx = e.target.getAttribute('data-bom-del-idx');
         if (delIdx !== null) {
-          if (bomDraft.ingredients.length <= 1) {
-            showToast('error', 'Cannot Remove Last Ingredient', 'A formulation requires at least one ingredient row.');
-            return;
-          }
           bomDraft.ingredients.splice(Number(delIdx), 1);
           renderBomIngredientRows();
         }
       });
 
+      document.getElementById('bomClearIngredientsBtn').addEventListener('click', () => {
+        if (!bomDraft) return;
+        bomDraft.ingredients = [];
+        renderBomIngredientRows();
+      });
+
       document.getElementById('bomScaleTo1000Btn').addEventListener('click', () => {
-        if (!bomDraft || bomDraft.ingredients.length === 0) return;
+        if (!bomDraft || !Array.isArray(bomDraft.ingredients) || bomDraft.ingredients.length === 0) {
+          showToast('error', 'No Ingredients to Balance', 'Add at least one raw material row first.');
+          return;
+        }
         const sum = bomDraft.ingredients.reduce((s, i) => s + (parseFloat(i.qtyPerTon) || 0), 0);
         if (sum <= 0) return;
         let running = 0;
@@ -2494,23 +2959,25 @@
         bomDraft = null;
         saveDatabase();
         refreshAllUI();
-        showToast('warning', 'Formula Deleted', `Removed "${removedName}" from Master Formulations.`);
+        showToast('warning', 'Product Removed', `Removed "${removedName}" from catalog.`);
       });
 
       document.getElementById('bomMasterForm').addEventListener('submit', e => {
         e.preventDefault();
-        if (db.materials.length === 0 || !bomDraft || bomDraft.ingredients.length === 0) {
-          showToast('error', 'Add Raw Materials First', 'Please register at least one raw material and add it to the formula.');
-          return;
-        }
+        if (!bomDraft) return;
 
         const code = document.getElementById('bomCodeInput').value.trim();
         const name = document.getElementById('bomNameInput').value.trim();
         const version = document.getElementById('bomVersionInput').value.trim() || 'v1.0';
-        const therapeuticClass = document.getElementById('bomClassInput').value.trim() || 'Standard Formulation';
-        const standardYield = document.getElementById('bomYieldInput').value.trim() || '1,000 kg Standard Batch';
+        const therapeuticClass = document.getElementById('bomClassInput').value.trim() || 'General';
+        const standardYield = document.getElementById('bomYieldInput').value.trim() || 'Standard 1,000 kg Batch';
 
         if (!code || !name) return;
+
+        const validIngredients = (bomDraft.ingredients || []).map(i => ({
+          materialId: i.materialId,
+          qtyPerTon: Number((parseFloat(i.qtyPerTon) || 0).toFixed(3))
+        })).filter(i => i.materialId && i.qtyPerTon > 0);
 
         const cleanFormula = {
           id: bomDraft.id,
@@ -2519,16 +2986,8 @@
           version,
           therapeuticClass,
           standardYield,
-          ingredients: bomDraft.ingredients.map(i => ({
-            materialId: i.materialId,
-            qtyPerTon: Number((parseFloat(i.qtyPerTon) || 0).toFixed(3))
-          })).filter(i => i.qtyPerTon > 0)
+          ingredients: validIngredients
         };
-
-        if (cleanFormula.ingredients.length === 0) {
-          showToast('error', 'Invalid Ingredient Quantities', 'Each ingredient must have a quantity greater than 0 kg/Ton.');
-          return;
-        }
 
         const existingIdx = db.formulations.findIndex(f => f.id === cleanFormula.id);
         if (existingIdx !== -1) {
@@ -2544,14 +3003,28 @@
 
         saveDatabase();
         refreshAllUI();
-        showToast('success', 'Master Formula Saved', `[${cleanFormula.code}] ${cleanFormula.name} is saved and ready for batch production.`);
+
+        if (validIngredients.length > 0) {
+          showToast('success', 'Master BOM Formula Saved', `[${cleanFormula.code}] ${cleanFormula.name} (${validIngredients.length} ingredients) is now ready for batch production.`);
+        } else {
+          showToast('warning', 'Product Saved (Pending BOM Ingredients)', `[${cleanFormula.code}] ${cleanFormula.name} details updated.`);
+        }
       });
 
       // ================= BATCH PLANNER EVENTS =================
-      document.getElementById('emptyStateAddRawMatBtn').addEventListener('click', openAddRawMaterialModal);
-      document.getElementById('emptyStateCreateFormulaBtn').addEventListener('click', () => {
-        activeTab = 'FORMULA_MASTER';
-        refreshAllUI();
+      document.getElementById('plannerPendingAddRawMatBtn').addEventListener('click', openAddRawMaterialModal);
+
+      document.getElementById('plannerCategoryFilterSelect').addEventListener('change', e => {
+        plannerCategorySelected = e.target.value;
+        const matching = db.formulations.filter(f =>
+          plannerCategorySelected === 'ALL' ? true : f.therapeuticClass === plannerCategorySelected
+        );
+        if (matching.length > 0) {
+          const firstReady = matching.find(isBomConfigured);
+          db.selectedFormulationId = (firstReady || matching[0]).id;
+        }
+        saveDatabase();
+        renderBatchPlannerPanel();
       });
 
       document.getElementById('plannerFormulaSelect').addEventListener('change', e => {
@@ -2577,7 +3050,7 @@
 
       document.getElementById('plannerFillMaxTonsBtn').addEventListener('click', () => {
         const formula = db.formulations.find(f => f.id === db.selectedFormulationId);
-        if (!formula) return;
+        if (!formula || !isBomConfigured(formula)) return;
         const analysis = computeBatchFeasibility(formula, targetTons);
         targetTons = analysis.maxPossibleTons;
         document.getElementById('plannerTargetTonsInput').value = targetTons.toFixed(3);
@@ -2589,7 +3062,7 @@
         if (btn) {
           openUpdateStockModal(
             btn.getAttribute('data-quick-restock'),
-            parseFloat(btn.getAttribute('data-Quick-deficit')) || 100
+            parseFloat(btn.getAttribute('data-quick-deficit')) || 100
           );
         }
       });
@@ -2597,7 +3070,7 @@
       // COMMIT PRODUCTION BATCH RUN
       document.getElementById('commitProductionRunBtn').addEventListener('click', () => {
         const formula = db.formulations.find(f => f.id === db.selectedFormulationId);
-        if (!formula || targetTons <= 0) return;
+        if (!formula || !isBomConfigured(formula) || targetTons <= 0) return;
 
         const analysis = computeBatchFeasibility(formula, targetTons);
         if (analysis.hasShortage) {
@@ -2613,7 +3086,6 @@
 
         const triggeredCriticalAlerts = [];
 
-        // Deduct from Master Inventory
         db.materials.forEach(mat => {
           const row = analysis.rows.find(r => r.materialId === mat.id);
           if (row) {
@@ -2630,7 +3102,6 @@
           }
         });
 
-        // 1. Save Batch Log
         db.batchLogs.unshift({
           batchNo,
           timestamp: ts,
@@ -2638,7 +3109,7 @@
           operator: operatorName,
           remarks,
           productId: formula.id,
-          productName: `[${formula.code}] ${formula.name}`,
+          productName: `${formula.name} [${formula.code}]`,
           targetTons: Number(targetTons.toFixed(3)),
           totalCost: analysis.totalCost,
           items: analysis.rows.map(r => ({
@@ -2648,21 +3119,19 @@
           }))
         });
 
-        // 2. Intimate Dr. P. Sukumar of Production Run
         db.notifications.unshift({
           id: 'NOTIF-PROD-' + Date.now(),
           category: 'PRODUCTION',
           unread: true,
           timestamp: ts,
           batchNo,
-          productName: `[${formula.code}] ${formula.name}`,
+          productName: `${formula.name} [${formula.code}]`,
           tons: Number(targetTons.toFixed(3)),
           totalCost: analysis.totalCost,
           remarks,
           actor: operatorName
         });
 
-        // 3. Intimate Dr. P. Sukumar of any Critical Stock Threshold Breaches
         triggeredCriticalAlerts.forEach((ca, idx) => {
           db.notifications.unshift({
             id: `NOTIF-CRIT-${Date.now()}-${idx}`,
@@ -2685,7 +3154,7 @@
         showToast(
           'success',
           `Batch ${batchNo} Committed & Inventory Updated`,
-          `Deducted ${fmtNum(analysis.totalMassKg, 3)} kg (${fmtINR(analysis.totalCost)}) for ${fmtNum(targetTons, 3)} Tons. Dr. P. Sukumar has been intimated.`
+          `Deducted ${fmtNum(analysis.totalMassKg, 3)} kg (${fmtINR(analysis.totalCost)}) for ${fmtNum(targetTons, 3)} Tons of ${formula.name}. Dr. P. Sukumar has been intimated.`
         );
       });
 
@@ -2698,7 +3167,6 @@
         document.getElementById('addMaterialModal').classList.add('hidden');
       });
 
-      // Show/Hide Manual Category Input in Add Material Modal
       document.getElementById('addMatCategorySelect').addEventListener('change', e => {
         const wrap = document.getElementById('addMatCustomCatWrap');
         const input = document.getElementById('addMatCustomCatInput');
@@ -2712,7 +3180,6 @@
         }
       });
 
-      // Submit New Raw Material
       document.getElementById('addMaterialForm').addEventListener('submit', e => {
         e.preventDefault();
         const code = document.getElementById('addMatCode').value.trim().toUpperCase();
@@ -2752,12 +3219,10 @@
 
         db.materials.unshift(newMat);
 
-        // If user is currently in Formula Master and has an empty BOM draft, auto-add this material
-        if (bomDraft && bomDraft.ingredients.length === 0) {
+        if (activeTab === 'FORMULA_MASTER' && bomDraft && Array.isArray(bomDraft.ingredients) && bomDraft.ingredients.length === 0) {
           bomDraft.ingredients.push({ materialId: newMat.id, qtyPerTon: 100.000 });
         }
 
-        // Check if opening stock is already below threshold
         const avail = getAvailableStock(newMat);
         if (avail < newMat.minThreshold) {
           db.notifications.unshift({
@@ -2777,10 +3242,9 @@
         document.getElementById('addMaterialModal').classList.add('hidden');
         saveDatabase();
         refreshAllUI();
-        showToast('success', 'Raw Material Added', `${newMat.name} (${newMat.id}) saved under category "${newMat.category}" at ${fmtINR(newMat.unitCost)}/kg.`);
+        showToast('success', 'Raw Material Registered', `${newMat.name} (${newMat.id}) added under "${newMat.category}" at ${fmtINR(newMat.unitCost)}/kg.`);
       });
 
-      // Inventory Filters & Subtabs
       document.getElementById('invSearchInput').addEventListener('input', e => {
         invSearchQuery = e.target.value;
         renderInventoryPanel();
@@ -2817,7 +3281,6 @@
         }
       });
 
-      // Update Stock & Price Modal Controls
       document.getElementById('closeUpdModalBtn').addEventListener('click', () => {
         document.getElementById('updateStockModal').classList.add('hidden');
       });
@@ -2854,7 +3317,7 @@
         const id = document.getElementById('updMatIdInput').value;
         const usedInFormula = db.formulations.some(f => f.ingredients.some(i => i.materialId === id));
         if (usedInFormula) {
-          showToast('error', 'Material In Use', 'This raw material is part of an active Master Formula and cannot be deleted.');
+          showToast('error', 'Material In Use', 'This raw material is part of an active Product BOM and cannot be deleted.');
           return;
         }
         db.materials = db.materials.filter(m => m.id !== id);
@@ -2864,7 +3327,6 @@
         showToast('warning', 'Raw Material Deleted', `Removed material ${id} from inventory.`);
       });
 
-      // Submit Stock & Price Update -> Intimate Dr. P. Sukumar if Price Changed or Stock Critical
       document.getElementById('updateStockForm').addEventListener('submit', e => {
         e.preventDefault();
         const id = document.getElementById('updMatIdInput').value;
@@ -2904,7 +3366,6 @@
         mat.minThreshold = thresholdVal;
         mat.category = finalCategory;
 
-        // 1. If Price Changed -> Intimate Dr. P. Sukumar
         if (priceChanged) {
           const pctChange = oldPrice > 0 ? ((newPrice - oldPrice) / oldPrice) * 100 : 100;
           db.notifications.unshift({
@@ -2922,7 +3383,6 @@
           });
         }
 
-        // 2. If Available Stock < Safe Threshold -> Intimate Dr. P. Sukumar
         const availNow = getAvailableStock(mat);
         if (availNow < mat.minThreshold) {
           db.notifications.unshift({
@@ -2991,14 +3451,17 @@
           try {
             const parsed = JSON.parse(evt.target.result);
             if (!parsed || typeof parsed !== 'object') throw new Error('Invalid JSON');
+            const mergedFormulations = buildSeededFormulations(
+              Array.isArray(parsed.formulations) ? parsed.formulations : []
+            );
             db = {
               materials: Array.isArray(parsed.materials) ? parsed.materials : [],
-              formulations: Array.isArray(parsed.formulations) ? parsed.formulations : [],
+              formulations: mergedFormulations,
               batchLogs: Array.isArray(parsed.batchLogs) ? parsed.batchLogs : [],
               notifications: Array.isArray(parsed.notifications) ? parsed.notifications : [],
               customCategories: Array.isArray(parsed.customCategories) ? parsed.customCategories : [],
-              selectedFormulationId: parsed.selectedFormulationId || null,
-              editingFormulationId: parsed.editingFormulationId || null
+              selectedFormulationId: parsed.selectedFormulationId || (mergedFormulations[0]?.id || null),
+              editingFormulationId: parsed.editingFormulationId || (mergedFormulations[0]?.id || null)
             };
             bomDraft = null;
             saveDatabase();
